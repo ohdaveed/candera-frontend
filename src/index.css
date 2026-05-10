@@ -2,9 +2,9 @@
 
 @theme {
   --color-brand-vellum: #F5F2ED;
-  --color-brand-lavender: #9A91A4;
+  --color-brand-lavender: #6E6478;
   --color-brand-obsidian: #1A1A1B;
-  --color-brand-sage: #8C9286;
+  --color-brand-sage: #6B6B63;
 
   --color-background: var(--color-brand-vellum);
   --color-foreground: var(--color-brand-obsidian);
@@ -36,43 +36,62 @@
   }
 }
 
-*, *::before, *::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+@layer base {
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    font-family: Inter, sans-serif;
+    background-color: #F5F2ED;
+    color: #1A1A1B;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    margin: 0;
+  }
+
+  #root {
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  ::selection {
+    background-color: #D8D3CA;
+    color: #1A1A1B;
+  }
+
+  :focus-visible {
+    outline: 2px solid #1A1A1B;
+    outline-offset: 3px;
+    border-radius: 1px;
+  }
+
+  a:focus-visible,
+  button:focus-visible {
+    outline: 2px solid #1A1A1B;
+    outline-offset: 3px;
+  }
 }
 
-html {
-  font-family: Inter, sans-serif;
-  background-color: #F5F2ED;
-  color: #1A1A1B;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+button,
+input,
+select,
+textarea,
+[role="button"] {
+  min-height: 48px;
 }
 
-body {
-  margin: 0;
+button,
+[role="button"] {
+  min-width: 48px;
 }
 
-#root {
-  min-height: 100svh;
-  display: flex;
-  flex-direction: column;
-}
-
-::selection {
-  background-color: #D8D3CA;
-  color: #1A1A1B;
-}
-
-:focus-visible {
-  outline: 2px solid #1A1A1B;
-  outline-offset: 3px;
-  border-radius: 1px;
-}
-
-a:focus-visible,
-button:focus-visible {
-  outline: 2px solid #1A1A1B;
-  outline-offset: 3px;
+a[href]:not(:has(img)) {
+  min-height: 48px;
+  display: inline-flex;
+  align-items: center;
 }

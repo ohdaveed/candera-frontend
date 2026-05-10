@@ -15,7 +15,7 @@ export default function Nav({ openQuiz }) {
   }, [])
 
   const transparent = isHome && !scrolled
-  const linkBase = `transition-colors text-[11px] uppercase tracking-[0.2em] font-semibold`
+  const linkBase = `transition-colors text-[11px] uppercase tracking-[0.2em] font-semibold py-3`
   const linkColor = transparent ? 'text-stone-300 hover:text-white' : 'text-stone-500 hover:text-stone-900'
 
   return (
@@ -25,9 +25,9 @@ export default function Nav({ openQuiz }) {
           transparent ? 'bg-transparent py-8' : 'bg-white/95 backdrop-blur-md py-4 shadow-sm border-b border-stone-100'
         }`}
       >
-        <div className="max-w-7xl mx-auto px-6 md:px-12 flex justify-between items-center">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center">
           {/* Left nav */}
-          <nav className="hidden md:flex gap-8">
+          <nav className="hidden md:flex gap-8 justify-self-start min-w-0">
             <NavLink
               to="/collection"
               className={({ isActive }) =>
@@ -65,7 +65,7 @@ export default function Nav({ openQuiz }) {
           {/* Logo */}
           <Link
             to="/"
-            className={`text-2xl font-serif font-bold tracking-tighter transition-opacity hover:opacity-70 absolute left-1/2 -translate-x-1/2 md:static md:translate-x-0 ${
+            className={`text-2xl font-serif font-bold tracking-tighter transition-opacity hover:opacity-70 text-center justify-self-center ${
               transparent ? 'text-white' : 'text-stone-900'
             }`}
           >
@@ -73,7 +73,7 @@ export default function Nav({ openQuiz }) {
           </Link>
 
           {/* Right actions */}
-          <div className="flex items-center gap-5">
+          <div className="flex items-center gap-5 justify-self-end min-w-0">
             <div
               className={`transition-all duration-500 hidden md:block ${
                 !transparent ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2 pointer-events-none'
@@ -88,7 +88,7 @@ export default function Nav({ openQuiz }) {
             </div>
             <button
               aria-label="Bag"
-              className={`relative ${transparent ? 'text-stone-300 hover:text-white' : 'text-stone-500 hover:text-stone-900'} transition-colors`}
+              className={`relative p-3.5 ${transparent ? 'text-stone-300 hover:text-white' : 'text-stone-500 hover:text-stone-900'} transition-colors`}
             >
               <ShoppingBag size={20} strokeWidth={1.5} />
               <span className="absolute -top-1 -right-1 w-2 h-2 bg-amber-600 rounded-full" aria-hidden="true" />

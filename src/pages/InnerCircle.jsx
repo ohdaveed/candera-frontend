@@ -88,7 +88,7 @@ export default function InnerCircle() {
             <button
               type="submit"
               disabled={status === 'loading'}
-              className="mt-2 px-8 py-3 bg-candera-obsidian text-candera-vellum text-xs tracking-widest uppercase hover:bg-candera-obsidian/80 transition-colors disabled:opacity-50"
+              className="mt-2 px-8 py-4 bg-candera-obsidian text-candera-vellum text-xs tracking-widest uppercase hover:bg-candera-obsidian/80 transition-colors disabled:opacity-50"
             >
               {status === 'loading' ? 'Requesting...' : 'Request Entry'}
             </button>

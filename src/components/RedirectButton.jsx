@@ -32,7 +32,7 @@ export default function RedirectButton({ url, className = '', children }) {
       onClick={handleClick}
       disabled={isDisabled}
       className={cn(
-        'group flex items-center justify-center gap-2 transition-all active:scale-95 disabled:cursor-default disabled:opacity-70',
+        'group flex items-center justify-center gap-2 transition-all active:scale-95 disabled:cursor-default disabled:opacity-70 min-h-[48px] px-6 py-3',
         !isDisabled && 'cursor-pointer',
         className,
       )}

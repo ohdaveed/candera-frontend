@@ -83,7 +83,7 @@ export default function Home({ openQuiz }) {
             </button>
             <button
               onClick={openQuiz}
-              className="text-white text-[11px] uppercase tracking-[0.2em] font-semibold border-b border-stone-400 pb-0.5 hover:border-white transition-colors"
+              className="text-white text-[11px] uppercase tracking-[0.2em] font-semibold border-b border-stone-400 py-3 hover:border-white transition-colors"
             >
               Take the Scent Quiz
             </button>
@@ -168,7 +168,7 @@ export default function Home({ openQuiz }) {
 
                   <RedirectButton
                     url={candle.etsy_link}
-                    className="w-full py-4 border border-stone-200 uppercase tracking-widest text-[10px] font-bold hover:bg-stone-900 hover:text-white hover:border-stone-900 transition-all shadow-sm"
+                    className="w-full py-4 bg-stone-900 text-white uppercase tracking-widest text-[10px] font-bold hover:bg-amber-900 transition-all shadow-sm"
                   />
                 </div>
               </div>
