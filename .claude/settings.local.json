@@ -1,0 +1,33 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__sqz__sqz_list_dir",
+      "mcp__sqz__sqz_read_file",
+      "mcp__sqz__expand",
+      "WebFetch(domain:www.etsy.com)",
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(gh repo *)",
+      "Bash(git config *)",
+      "Bash(gh api *)",
+      "Bash(git push *)",
+      "Bash(npx plugins *)",
+      "Bash(npm run *)",
+      "mcp__context7__resolve-library-id",
+      "mcp__context7__query-docs",
+      "mcp__80dd4a3b-dc5b-48f1-8a14-4d10105554a7__COMPOSIO_SEARCH_TOOLS",
+      "mcp__80dd4a3b-dc5b-48f1-8a14-4d10105554a7__COMPOSIO_MANAGE_CONNECTIONS",
+      "mcp__80dd4a3b-dc5b-48f1-8a14-4d10105554a7__COMPOSIO_WAIT_FOR_CONNECTIONS",
+      "Bash(npx vercel *)",
+      "mcp__chrome-devtools__new_page",
+      "mcp__chrome-devtools__evaluate_script",
+      "mcp__chrome-devtools__navigate_page",
+      "Skill(connect-chrome)",
+      "Skill(connect-chrome:*)"
+    ]
+  },
+  "enableAllProjectMcpServers": true,
+  "enabledMcpjsonServers": [
+    "postgresql"
+  ]
+}
