@@ -1,13 +1,12 @@
 import { useParams, Link } from 'react-router-dom'
-import products from '../data/products.json'
 import { getImage } from '../data/productImages'
+import { useProductSync } from '../hooks/useProductSync'
 import RedirectButton from '../components/RedirectButton'
-
-const productMap = Object.fromEntries(products.map((p) => [p.slug, p]))
 
 export default function Product() {
   const { slug } = useParams()
-  const product = productMap[slug]
+  const { getProductBySlug } = useProductSync()
+  const product = getProductBySlug(slug)
 
   if (!product) {
     return (

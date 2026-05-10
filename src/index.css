@@ -1,14 +1,39 @@
 @import "tailwindcss";
 
 @theme {
-  --color-candera-vellum: #FDFBF7;
-  --color-candera-obsidian: #1C1917;
-  --color-candera-sage: #78716C;
-  --color-candera-sage-text: #57534E;
-  --color-candera-stone: #E7E5E4;
+  --color-brand-vellum: #F5F2ED;
+  --color-brand-lavender: #9A91A4;
+  --color-brand-obsidian: #1A1A1B;
+  --color-brand-sage: #8C9286;
+
+  --color-background: var(--color-brand-vellum);
+  --color-foreground: var(--color-brand-obsidian);
+  --color-primary: var(--color-brand-lavender);
+  --color-accent: var(--color-brand-sage);
+
+  --color-candera-vellum: var(--color-brand-vellum);
+  --color-candera-lavender: var(--color-brand-lavender);
+  --color-candera-obsidian: var(--color-brand-obsidian);
+  --color-candera-sage: var(--color-brand-sage);
+  --color-candera-sage-text: #5F625C;
+  --color-candera-stone: #D8D3CA;
 
   --font-serif: "Playfair Display", serif;
   --font-sans: Inter, sans-serif;
+
+  --animate-slow-fade: slow-fade 0.8s ease-out forwards;
+}
+
+@keyframes slow-fade {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 *, *::before, *::after {
@@ -19,8 +44,8 @@
 
 html {
   font-family: Inter, sans-serif;
-  background-color: #FDFBF7;
-  color: #1C1917;
+  background-color: #F5F2ED;
+  color: #1A1A1B;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -36,18 +61,18 @@ body {
 }
 
 ::selection {
-  background-color: #FEF3C7;
-  color: #92400E;
+  background-color: #D8D3CA;
+  color: #1A1A1B;
 }
 
 :focus-visible {
-  outline: 2px solid #1C1917;
+  outline: 2px solid #1A1A1B;
   outline-offset: 3px;
   border-radius: 1px;
 }
 
 a:focus-visible,
 button:focus-visible {
-  outline: 2px solid #1C1917;
+  outline: 2px solid #1A1A1B;
   outline-offset: 3px;
 }

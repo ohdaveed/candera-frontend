@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
-import products from '../data/products.json'
 import { getImage } from '../data/productImages'
+import { useProductSync } from '../hooks/useProductSync'
 
 const questions = [
   {
@@ -45,9 +45,8 @@ const results = {
   'evening-dramatic-dark': 'crimson-noir',
 }
 
-const productMap = Object.fromEntries(products.map((p) => [p.slug, p]))
-
 export default function Quiz() {
+  const { getProductBySlug } = useProductSync()
   const [step, setStep] = useState(0)
   const [answers, setAnswers] = useState({})
   const [emailStep, setEmailStep] = useState(false)
@@ -84,7 +83,7 @@ export default function Quiz() {
     ? `${answers.time}-${answers.space}-${answers.draw}`
     : null
   const resultSlug = resultKey ? (results[resultKey] ?? 'seashell-garden-glow') : null
-  const result = resultSlug ? productMap[resultSlug] : null
+  const result = resultSlug ? getProductBySlug(resultSlug) : null
 
   return (
     <main className="pt-24 min-h-screen flex flex-col items-center justify-center px-6 py-16">

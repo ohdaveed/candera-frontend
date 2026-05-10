@@ -19,6 +19,7 @@
       "mood": "Coastal",
       "batch": "001"
     },
+    "etsy_id": null,
     "image": "seashell-garden.jpg",
     "etsy_link": "https://www.etsy.com/shop/CanderaCandles",
     "tag": "Bestseller",
@@ -45,6 +46,7 @@
       "mood": "Serene",
       "batch": "002"
     },
+    "etsy_id": null,
     "image": "meadowlight-botanical.jpg",
     "etsy_link": "https://www.etsy.com/shop/CanderaCandles",
     "tag": "New Release",
@@ -71,6 +73,7 @@
       "mood": "Introspective",
       "batch": "003"
     },
+    "etsy_id": null,
     "image": "crimson-noir.jpg",
     "etsy_link": "https://www.etsy.com/shop/CanderaCandles",
     "tag": "Limited Batch",
@@ -97,6 +100,7 @@
       "mood": "Romantic",
       "batch": "004"
     },
+    "etsy_id": null,
     "image": "ever-after-glow.jpg",
     "etsy_link": "https://www.etsy.com/shop/CanderaCandles",
     "tag": "Bestseller",
@@ -123,6 +127,7 @@
       "mood": "Contemplative",
       "batch": "005"
     },
+    "etsy_id": "4496981320",
     "image": "anyas-eyes.jpg",
     "etsy_link": "https://www.etsy.com/listing/4496981320/anyas-eyes-collection-botanical-candle",
     "tag": "Limited Batch",
@@ -149,6 +154,7 @@
       "mood": "Bold",
       "batch": "006"
     },
+    "etsy_id": "4468801228",
     "image": "scarlet-bloom.jpg",
     "etsy_link": "https://www.etsy.com/listing/4468801228/scarlet-bloom-botanical-rose-candle",
     "tag": "New Release",

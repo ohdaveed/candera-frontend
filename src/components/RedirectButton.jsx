@@ -1,28 +1,50 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { ExternalLink } from 'lucide-react'
+import { cn } from '../lib/utils'
 
 export default function RedirectButton({ url, className = '', children }) {
   const [isRedirecting, setIsRedirecting] = useState(false)
+  const redirectTimer = useRef(null)
+  const isDisabled = isRedirecting || !url
+
+  useEffect(() => {
+    return () => {
+      if (redirectTimer.current) {
+        window.clearTimeout(redirectTimer.current)
+      }
+    }
+  }, [])
 
   function handleClick() {
-    if (isRedirecting) return
+    if (isDisabled) return
+
     setIsRedirecting(true)
-    setTimeout(() => {
+    redirectTimer.current = window.setTimeout(() => {
       window.open(url, '_blank', 'noopener,noreferrer')
       setIsRedirecting(false)
+      redirectTimer.current = null
     }, 1200)
   }
 
   return (
     <button
+      type="button"
       onClick={handleClick}
-      disabled={isRedirecting}
-      className={`flex items-center justify-center gap-2 transition-all active:scale-95 disabled:opacity-70 group cursor-pointer disabled:cursor-default ${className}`}
-      aria-label={isRedirecting ? 'Opening Etsy…' : 'View on Etsy'}
+      disabled={isDisabled}
+      className={cn(
+        'group flex items-center justify-center gap-2 transition-all active:scale-95 disabled:cursor-default disabled:opacity-70',
+        !isDisabled && 'cursor-pointer',
+        className,
+      )}
+      aria-label={isRedirecting ? 'Opening Etsy' : 'View on Etsy'}
     >
       {isRedirecting ? (
         <span className="text-amber-800 italic animate-pulse text-[10px] uppercase tracking-widest">
-          Preparing your vessel…
+          Preparing your vessel...
+        </span>
+      ) : !url ? (
+        <span className="text-[10px] uppercase tracking-widest">
+          Etsy listing unavailable
         </span>
       ) : (
         <>

@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom'
-import { ArrowRight, Clock, Star, Mail, BadgeCheck, ExternalLink } from 'lucide-react'
+import { ArrowRight, Clock, Star, Mail, BadgeCheck } from 'lucide-react'
 import { motion } from 'framer-motion'
-import products from '../data/products.json'
 import { getImage } from '../data/productImages'
+import { useProductSync } from '../hooks/useProductSync'
 import RedirectButton from '../components/RedirectButton'
 const heroImg = 'https://images.unsplash.com/photo-1603006905003-be475563bc59?auto=format&fit=crop&q=80&w=2400'
 
@@ -28,6 +28,8 @@ const TESTIMONIALS = [
 ]
 
 export default function Home({ openQuiz }) {
+  const { products } = useProductSync()
+
   return (
     <main>
       {/* ── Hero ── */}

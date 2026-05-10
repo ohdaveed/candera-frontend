@@ -1,9 +1,11 @@
 import { Link } from 'react-router-dom'
-import products from '../data/products.json'
 import { getImage } from '../data/productImages'
+import { useProductSync } from '../hooks/useProductSync'
 import SensoryMap from '../components/SensoryMap'
 
 export default function Collection() {
+  const { products } = useProductSync()
+
   return (
     <main className="pt-24 px-6 md:px-16 py-16">
       <div className="text-center mb-20">
