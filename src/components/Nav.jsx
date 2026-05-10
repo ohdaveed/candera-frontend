@@ -1,25 +1,117 @@
-import { NavLink } from 'react-router-dom'
+import { useState, useEffect } from 'react'
+import { NavLink, Link, useLocation } from 'react-router-dom'
+import { Menu, X, ShoppingBag, Sparkles } from 'lucide-react'
 
-export default function Nav() {
+export default function Nav({ openQuiz }) {
+  const [scrolled, setScrolled] = useState(false)
+  const [mobileOpen, setMobileOpen] = useState(false)
+  const { pathname } = useLocation()
+  const isHome = pathname === '/'
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 150)
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
+  const transparent = isHome && !scrolled
+  const linkBase = `transition-colors text-[11px] uppercase tracking-[0.2em] font-semibold`
+  const linkColor = transparent ? 'text-stone-300 hover:text-white' : 'text-stone-500 hover:text-stone-900'
+
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-8 py-5 bg-candera-vellum/90 backdrop-blur-sm border-b border-candera-stone/40">
-      <NavLink to="/" className="font-serif text-xl tracking-widest text-candera-obsidian uppercase">
-        Candera
-      </NavLink>
-      <nav className="flex items-center gap-8 text-xs tracking-widest uppercase text-candera-obsidian/70">
-        <NavLink to="/collection" className={({ isActive }) => isActive ? 'text-candera-obsidian' : 'hover:text-candera-obsidian transition-colors'}>
-          Collection
-        </NavLink>
-        <NavLink to="/ritual" className={({ isActive }) => isActive ? 'text-candera-obsidian' : 'hover:text-candera-obsidian transition-colors'}>
-          Ritual
-        </NavLink>
-        <NavLink to="/about" className={({ isActive }) => isActive ? 'text-candera-obsidian' : 'hover:text-candera-obsidian transition-colors'}>
-          About
-        </NavLink>
-        <NavLink to="/quiz" className="px-4 py-2 border border-candera-obsidian text-candera-obsidian tracking-widest uppercase hover:bg-candera-obsidian hover:text-candera-vellum transition-colors">
-          Find Your Ritual
-        </NavLink>
-      </nav>
-    </header>
+    <>
+      <header
+        className={`fixed top-0 w-full z-[150] transition-all duration-700 ${
+          transparent ? 'bg-transparent py-8' : 'bg-white/95 backdrop-blur-md py-4 shadow-sm border-b border-stone-100'
+        }`}
+      >
+        <div className="max-w-7xl mx-auto px-6 md:px-12 flex justify-between items-center">
+          {/* Left nav */}
+          <nav className="hidden md:flex gap-8">
+            <NavLink
+              to="/collection"
+              className={({ isActive }) =>
+                `${linkBase} ${linkColor} ${isActive && !transparent ? '!text-stone-900 border-b border-stone-900 pb-1' : ''}`
+              }
+            >
+              Collection
+            </NavLink>
+            <NavLink
+              to="/about"
+              className={({ isActive }) =>
+                `${linkBase} ${linkColor} ${isActive && !transparent ? '!text-stone-900 border-b border-stone-900 pb-1' : ''}`
+              }
+            >
+              The Craft
+            </NavLink>
+            <button
+              onClick={openQuiz}
+              className={`${linkBase} ${linkColor} hover:!text-amber-700 flex items-center gap-1.5`}
+            >
+              <Sparkles size={11} />
+              Scent Quiz
+            </button>
+          </nav>
+
+          {/* Mobile menu trigger */}
+          <button
+            className={`md:hidden ${transparent ? 'text-white' : 'text-stone-900'}`}
+            onClick={() => setMobileOpen(true)}
+            aria-label="Open menu"
+          >
+            <Menu size={20} />
+          </button>
+
+          {/* Logo */}
+          <Link
+            to="/"
+            className={`text-2xl font-serif font-bold tracking-tighter transition-opacity hover:opacity-70 absolute left-1/2 -translate-x-1/2 md:static md:translate-x-0 ${
+              transparent ? 'text-white' : 'text-stone-900'
+            }`}
+          >
+            CANDERA
+          </Link>
+
+          {/* Right actions */}
+          <div className="flex items-center gap-5">
+            <div
+              className={`transition-all duration-500 hidden md:block ${
+                !transparent ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2 pointer-events-none'
+              }`}
+            >
+              <Link
+                to="/collection"
+                className="bg-stone-900 text-white text-[10px] px-6 py-3 uppercase tracking-widest hover:bg-amber-900 transition-colors font-bold"
+              >
+                Shop The Batch
+              </Link>
+            </div>
+            <button
+              aria-label="Bag"
+              className={`relative ${transparent ? 'text-stone-300 hover:text-white' : 'text-stone-500 hover:text-stone-900'} transition-colors`}
+            >
+              <ShoppingBag size={20} strokeWidth={1.5} />
+              <span className="absolute -top-1 -right-1 w-2 h-2 bg-amber-600 rounded-full" aria-hidden="true" />
+            </button>
+          </div>
+        </div>
+      </header>
+
+      {/* Mobile fullscreen menu */}
+      {mobileOpen && (
+        <div className="fixed inset-0 z-[200] bg-white p-8">
+          <div className="flex justify-between items-center mb-16">
+            <span className="font-serif text-2xl font-bold tracking-tighter">CANDERA</span>
+            <button onClick={() => setMobileOpen(false)} aria-label="Close menu"><X size={24} /></button>
+          </div>
+          <nav className="flex flex-col gap-10 text-3xl font-serif italic text-stone-800">
+            <Link to="/collection" onClick={() => setMobileOpen(false)}>The Batch</Link>
+            <Link to="/about" onClick={() => setMobileOpen(false)}>The Craft</Link>
+            <button className="text-left" onClick={() => { openQuiz(); setMobileOpen(false) }}>Scent Quiz</button>
+            <Link to="/inner-circle" onClick={() => setMobileOpen(false)}>Inner Circle</Link>
+          </nav>
+        </div>
+      )}
+    </>
   )
 }

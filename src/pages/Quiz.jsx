@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
+import products from '../data/products.json'
+import { getImage } from '../data/productImages'
 
 const questions = [
   {
@@ -43,26 +45,18 @@ const results = {
   'evening-dramatic-dark': 'crimson-noir',
 }
 
-const candleNames = {
-  'seashell-garden-glow': 'Seashell Garden Glow',
-  'meadowlight-botanical': 'Meadowlight Botanical',
-  'crimson-noir': 'Crimson Noir',
-  'ever-after-glow': 'Ever After Glow',
-}
-
-const candleNotes = {
-  'seashell-garden-glow': 'Sea breeze · Driftwood · Salt air',
-  'meadowlight-botanical': 'Lily of the valley · Wildflower · Fresh green',
-  'crimson-noir': 'Merlot · Dark berry · Vetiver',
-  'ever-after-glow': 'Blue hydrangea · White lilac · Soft green',
-}
+const productMap = Object.fromEntries(products.map((p) => [p.slug, p]))
 
 export default function Quiz() {
   const [step, setStep] = useState(0)
   const [answers, setAnswers] = useState({})
+  const [emailStep, setEmailStep] = useState(false)
+  const [email, setEmail] = useState('')
+  const [emailError, setEmailError] = useState('')
   const [done, setDone] = useState(false)
 
   const question = questions[step]
+  const totalSteps = questions.length
 
   function handleAnswer(value) {
     const next = { ...answers, [question.id]: value }
@@ -70,17 +64,43 @@ export default function Quiz() {
     if (step < questions.length - 1) {
       setStep(step + 1)
     } else {
-      setDone(true)
+      setEmailStep(true)
     }
   }
 
-  const resultKey = done ? `${answers.time}-${answers.space}-${answers.draw}` : null
-  const resultSlug = resultKey ? (results[resultKey] || 'seashell-garden-glow') : null
+  function handleEmailSubmit(e) {
+    e.preventDefault()
+    const trimmed = email.trim()
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmed)) {
+      setEmailError('Please enter a valid email address.')
+      return
+    }
+    setEmailError('')
+    // In production: POST to /api/subscribe with { email, match: resultSlug }
+    setDone(true)
+  }
+
+  const resultKey = (emailStep || done)
+    ? `${answers.time}-${answers.space}-${answers.draw}`
+    : null
+  const resultSlug = resultKey ? (results[resultKey] ?? 'seashell-garden-glow') : null
+  const result = resultSlug ? productMap[resultSlug] : null
 
   return (
     <main className="pt-24 min-h-screen flex flex-col items-center justify-center px-6 py-16">
+      {/* Progress bar */}
+      {!emailStep && !done && (
+        <div className="fixed top-16 left-0 right-0 h-px bg-candera-stone" aria-hidden="true">
+          <div
+            className="h-full bg-candera-lavender transition-all duration-500"
+            style={{ width: `${(step / totalSteps) * 100}%` }}
+          />
+        </div>
+      )}
+
       <AnimatePresence mode="wait">
-        {!done ? (
+        {/* Questions */}
+        {!emailStep && !done && (
           <motion.div
             key={step}
             initial={{ opacity: 0, y: 16 }}
@@ -90,11 +110,14 @@ export default function Quiz() {
             className="max-w-lg w-full text-center"
           >
             <p className="text-xs tracking-[0.3em] uppercase text-candera-sage mb-3">
-              {step + 1} of {questions.length}
+              {step + 1} of {totalSteps}
             </p>
             <div className="flex gap-1 justify-center mb-12">
               {questions.map((_, i) => (
-                <div key={i} className={`h-px w-12 ${i <= step ? 'bg-candera-obsidian' : 'bg-candera-stone'} transition-colors`} />
+                <div
+                  key={i}
+                  className={`h-px w-12 ${i <= step ? 'bg-candera-obsidian' : 'bg-candera-stone'} transition-colors`}
+                />
               ))}
             </div>
 
@@ -113,7 +136,61 @@ export default function Quiz() {
               ))}
             </div>
           </motion.div>
-        ) : (
+        )}
+
+        {/* Email gate */}
+        {emailStep && !done && (
+          <motion.div
+            key="email"
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -16 }}
+            transition={{ duration: 0.4 }}
+            className="max-w-md w-full text-center"
+          >
+            <p className="text-xs tracking-[0.3em] uppercase text-candera-sage mb-6">One last step</p>
+            <h2 className="font-serif text-3xl text-candera-obsidian mb-3">Reveal your perfect match</h2>
+            <p className="text-sm text-candera-sage-text mb-10 leading-relaxed">
+              Enter your email and we'll send you early access to your matched vessel before the next batch opens.
+            </p>
+
+            <form onSubmit={handleEmailSubmit} className="flex flex-col gap-4 text-left">
+              <div className="flex flex-col gap-1">
+                <label htmlFor="quiz-email" className="text-xs tracking-widest uppercase text-candera-sage">
+                  Email
+                </label>
+                <input
+                  id="quiz-email"
+                  type="email"
+                  value={email}
+                  onChange={(e) => { setEmail(e.target.value); setEmailError('') }}
+                  required
+                  placeholder="your@email.com"
+                  className="bg-transparent border border-candera-stone px-4 py-3 text-sm text-candera-obsidian placeholder:text-candera-stone focus:outline-none focus:border-candera-obsidian transition-colors"
+                />
+                {emailError && (
+                  <p className="text-xs text-red-500 mt-1">{emailError}</p>
+                )}
+              </div>
+              <button
+                type="submit"
+                className="mt-2 px-8 py-3 bg-candera-obsidian text-candera-vellum text-xs tracking-widest uppercase hover:bg-candera-obsidian/80 transition-colors"
+              >
+                Reveal My Match
+              </button>
+            </form>
+
+            <button
+              onClick={() => { setStep(0); setAnswers({}); setEmailStep(false) }}
+              className="mt-6 text-xs text-candera-sage tracking-widest uppercase underline hover:text-candera-obsidian transition-colors"
+            >
+              Start over
+            </button>
+          </motion.div>
+        )}
+
+        {/* Result */}
+        {done && result && (
           <motion.div
             key="result"
             initial={{ opacity: 0, y: 16 }}
@@ -122,19 +199,25 @@ export default function Quiz() {
             className="max-w-lg w-full text-center"
           >
             <p className="text-xs tracking-[0.3em] uppercase text-candera-sage mb-6">Your Ritual Match</p>
-            <div className="aspect-square max-w-xs mx-auto bg-candera-stone/30 mb-8" />
-            <h2 className="font-serif text-3xl text-candera-obsidian mb-2">{candleNames[resultSlug]}</h2>
-            <p className="text-xs text-candera-sage mb-8">{candleNotes[resultSlug]}</p>
+            <div className="aspect-square max-w-xs mx-auto overflow-hidden mb-8">
+              <img
+                src={getImage(result.slug)}
+                alt={result.name}
+                className="w-full h-full object-cover"
+              />
+            </div>
+            <h2 className="font-serif text-3xl text-candera-obsidian mb-2">{result.name}</h2>
+            <p className="text-xs text-candera-sage mb-8">{result.notes.slice(0, 3).join(' · ')}</p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
-                to={`/collection/${resultSlug}`}
+                to={`/collection/${result.slug}`}
                 className="px-8 py-3 bg-candera-obsidian text-candera-vellum text-xs tracking-widest uppercase hover:bg-candera-obsidian/80 transition-colors"
               >
                 View This Vessel
               </Link>
               <Link
-                to={`/inner-circle?match=${resultSlug}`}
+                to={`/inner-circle?match=${result.slug}`}
                 className="px-8 py-3 border border-candera-obsidian text-candera-obsidian text-xs tracking-widest uppercase hover:bg-candera-obsidian hover:text-candera-vellum transition-colors"
               >
                 Request Early Access
@@ -142,7 +225,7 @@ export default function Quiz() {
             </div>
 
             <button
-              onClick={() => { setStep(0); setAnswers({}); setDone(false) }}
+              onClick={() => { setStep(0); setAnswers({}); setEmailStep(false); setEmail(''); setDone(false) }}
               className="mt-8 text-xs text-candera-sage tracking-widest uppercase underline hover:text-candera-obsidian transition-colors"
             >
               Retake the Ritual

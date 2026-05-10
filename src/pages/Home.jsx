@@ -1,117 +1,245 @@
 import { Link } from 'react-router-dom'
+import { ArrowRight, Clock, Star, Mail, BadgeCheck, ExternalLink } from 'lucide-react'
 import { motion } from 'framer-motion'
-import seashell from '../assets/seashell-garden.jpg'
-import meadowlight from '../assets/meadowlight-botanical.jpg'
-import crimson from '../assets/crimson-noir.jpg'
+import products from '../data/products.json'
+import { getImage } from '../data/productImages'
+import RedirectButton from '../components/RedirectButton'
+const heroImg = 'https://images.unsplash.com/photo-1603006905003-be475563bc59?auto=format&fit=crop&q=80&w=2400'
 
-const featured = [
-  { slug: 'seashell-garden-glow', name: 'Seashell Garden Glow', vessel: '001', note: 'Sea breeze · Driftwood · Salt air', img: seashell, alt: 'Seashell Garden Glow — a handmade botanical candle with coastal florals and driftwood accents' },
-  { slug: 'meadowlight-botanical', name: 'Meadowlight Botanical', vessel: '002', note: 'Lily of the valley · Wildflower · Fresh green', img: meadowlight, alt: 'Meadowlight Botanical — a spring candle adorned with pressed wildflowers and lily of the valley' },
-  { slug: 'crimson-noir', name: 'Crimson Noir', vessel: '003', note: 'Merlot · Dark berry · Vetiver', img: crimson, alt: 'Crimson Noir — a moody botanical candle with deep berry and dark floral botanicals' },
+const TESTIMONIALS = [
+  {
+    quote: 'The scent profile is unlike anything mass-produced. It fills the room without overwhelming the senses.',
+    author: 'Elena R.',
+    loc: 'Los Angeles',
+    status: 'Verified Ritualist',
+  },
+  {
+    quote: 'I reuse the stoneware vessels for my succulents. They are truly objects of art, even after the burn.',
+    author: 'James T.',
+    loc: 'Austin',
+    status: 'Repeat Collector',
+  },
+  {
+    quote: 'A ritual I look forward to every evening. This is the soul of my living room.',
+    author: 'Sarah L.',
+    loc: 'Brooklyn',
+    status: 'Verified Ritualist',
+  },
 ]
 
-export default function Home() {
+export default function Home({ openQuiz }) {
   return (
-    <main className="flex flex-col">
-      {/* Hero */}
-      <section className="min-h-screen flex flex-col items-center justify-center text-center px-6 pt-24">
-        <motion.p
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="text-xs tracking-[0.3em] uppercase text-candera-sage-text mb-6"
-        >
-          High Desert · Micro-Batch · Hand-Poured
-        </motion.p>
-        <motion.h1
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, delay: 0.1 }}
-          className="font-serif text-5xl md:text-7xl text-candera-obsidian leading-tight max-w-3xl mb-8"
-        >
-          An invitation to<br /><em>slow down</em>
-        </motion.h1>
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 0.3 }}
-          className="text-candera-sage-text text-sm max-w-md leading-relaxed mb-12"
-        >
-          Each vessel is numbered, cured in the studio, and made from peak botanical ingredients. Scent as a spiritual practice.
-        </motion.p>
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 0.5 }}
-          className="flex flex-col sm:flex-row gap-4"
-        >
-          <Link
-            to="/collection"
-            className="px-8 py-3 bg-candera-obsidian text-candera-vellum text-xs tracking-widest uppercase hover:bg-candera-obsidian/80 transition-colors"
-          >
-            Enter the Studio
-          </Link>
-          <Link
-            to="/quiz"
-            className="px-8 py-3 border border-candera-obsidian text-candera-obsidian text-xs tracking-widest uppercase hover:bg-candera-obsidian hover:text-candera-vellum transition-colors"
-          >
-            Find Your Ritual
-          </Link>
-        </motion.div>
-      </section>
+    <main>
+      {/* ── Hero ── */}
+      <header className="relative h-[90vh] md:h-screen flex items-center justify-center overflow-hidden">
+        <div className="absolute inset-0">
+          <img
+            src={heroImg}
+            alt=""
+            aria-hidden="true"
+            className="w-full h-full object-cover scale-110"
+            style={{ filter: 'brightness(0.6)' }}
+          />
+          <div className="absolute inset-0 bg-stone-950/30" />
+        </div>
 
-      {/* Divider */}
-      <div className="w-px h-16 bg-candera-stone mx-auto" aria-hidden="true" />
+        <div className="relative z-10 text-center text-white px-6 max-w-4xl mx-auto space-y-8">
+          <motion.span
+            initial={{ opacity: 0, y: -12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1 }}
+            className="text-[11px] md:text-[12px] tracking-[0.6em] uppercase block text-stone-300"
+          >
+            Hand-Poured in the High Desert
+          </motion.span>
 
-      {/* Featured */}
-      <section className="px-6 md:px-16 py-24">
-        <p className="text-xs tracking-[0.3em] uppercase text-candera-sage-text text-center mb-16">Current Batch</p>
-        {/* Issue #3 — tablet breakpoint added (sm:grid-cols-2) */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-candera-stone">
-          {featured.map((candle) => (
-            <Link
-              key={candle.slug}
-              to={`/collection/${candle.slug}`}
-              className="group bg-candera-vellum p-10 flex flex-col gap-4 hover:bg-candera-stone/30 transition-colors duration-300"
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.3 }}
+            className="space-y-4"
+          >
+            <h1 className="text-5xl md:text-9xl font-serif italic leading-[1.05]">
+              An invitation <br className="hidden md:block" /> to slow down.
+            </h1>
+            <p className="text-stone-300 text-sm md:text-base font-light italic tracking-wide">
+              Limited Release: Batch 014 now curing in the studio.
+            </p>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1, delay: 0.7 }}
+            className="flex flex-col md:flex-row gap-6 justify-center items-center pt-4"
+          >
+            <button
+              onClick={() => document.getElementById('collection').scrollIntoView({ behavior: 'smooth' })}
+              className="bg-white text-stone-900 text-[11px] px-12 py-5 uppercase tracking-[0.2em] font-bold hover:bg-stone-100 transition-all flex items-center gap-3 shadow-xl"
             >
-              <div className="aspect-square overflow-hidden mb-2 relative">
-                {/* Issue #4 — descriptive alt text */}
-                <img
-                  src={candle.img}
-                  alt={candle.alt}
-                  loading="lazy"
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-                {/* Issue #5 — hover overlay feedback */}
-                <div className="absolute inset-0 bg-candera-obsidian/0 group-hover:bg-candera-obsidian/10 transition-colors duration-300" aria-hidden="true" />
-              </div>
-              <span className="text-xs text-candera-sage tracking-widest">{candle.vessel}</span>
-              <h2 className="font-serif text-xl text-candera-obsidian group-hover:italic transition-all">{candle.name}</h2>
-              {/* Issue #1 — sage-text for body copy */}
-              <p className="text-xs text-candera-sage-text leading-relaxed">{candle.note}</p>
-            </Link>
-          ))}
+              Explore the Collection <ArrowRight size={14} />
+            </button>
+            <button
+              onClick={openQuiz}
+              className="text-white text-[11px] uppercase tracking-[0.2em] font-semibold border-b border-stone-400 pb-0.5 hover:border-white transition-colors"
+            >
+              Take the Scent Quiz
+            </button>
+          </motion.div>
         </div>
-        <div className="text-center mt-12">
-          <Link to="/collection" className="text-xs tracking-widest uppercase text-candera-obsidian border-b border-candera-obsidian pb-0.5 hover:text-candera-sage hover:border-candera-sage transition-colors">
-            View Full Collection
-          </Link>
+      </header>
+
+      {/* ── Collection ── */}
+      <section id="collection" className="py-32 px-6 md:px-12 bg-white">
+        <div className="max-w-7xl mx-auto">
+          <div className="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
+            <div className="max-w-2xl space-y-4">
+              <span className="text-[10px] tracking-[0.4em] uppercase text-amber-800 font-bold">The Current Batch</span>
+              <h2 className="text-4xl md:text-6xl font-serif leading-tight italic">
+                Rooted in Earth,<br />Released in Air.
+              </h2>
+            </div>
+            <p className="text-stone-500 font-light italic max-w-xs text-sm leading-relaxed pb-2">
+              Each vessel is part of a numbered micro-batch, hand-labeled and inspected for peak botanical clarity.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-x-12 gap-y-24">
+            {products.map((candle) => (
+              <div key={candle.slug} className="group space-y-8">
+                {/* Image */}
+                <Link to={`/collection/${candle.slug}`} className="block relative aspect-[4/5] overflow-hidden bg-stone-100 shadow-sm">
+                  <img
+                    src={getImage(candle.slug)}
+                    alt={candle.name}
+                    loading="lazy"
+                    className="w-full h-full object-cover transition-transform duration-[2s] group-hover:scale-110"
+                  />
+                  <div className="absolute top-4 left-4 flex flex-col gap-2">
+                    <span className="bg-white/90 backdrop-blur-md px-3 py-1 text-[9px] uppercase tracking-widest font-bold shadow-sm">
+                      {candle.tag}
+                    </span>
+                    <span className="bg-stone-900/80 text-white backdrop-blur-md px-3 py-1 text-[8px] uppercase tracking-widest font-medium self-start">
+                      Batch {candle.metadata.batch}
+                    </span>
+                  </div>
+                </Link>
+
+                {/* Card details */}
+                <div className="space-y-6">
+                  <div className="flex justify-between items-baseline border-b border-stone-100 pb-4">
+                    <Link to={`/collection/${candle.slug}`}>
+                      <h3 className="text-3xl font-serif italic hover:text-amber-800 transition-colors">{candle.name}</h3>
+                    </Link>
+                    <span className="text-stone-400 font-light tracking-widest">${candle.price.toFixed(2)}</span>
+                  </div>
+
+                  {/* Fragrance profile */}
+                  <div className="space-y-3">
+                    <p className="text-[10px] uppercase tracking-[0.2em] font-bold text-stone-400">Fragrance Profile</p>
+                    <div className="grid grid-cols-3 gap-2 text-[9px] uppercase tracking-widest font-medium text-stone-600">
+                      <div className="border-r border-stone-200 pr-2">
+                        <span className="text-amber-800 block mb-1">Top</span>
+                        {candle.scent_profile.top}
+                      </div>
+                      <div className="border-r border-stone-200 px-2">
+                        <span className="text-amber-800 block mb-1">Heart</span>
+                        {candle.scent_profile.heart}
+                      </div>
+                      <div className="pl-2">
+                        <span className="text-amber-800 block mb-1">Base</span>
+                        {candle.scent_profile.base}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Attributes */}
+                  <div className="flex items-center justify-between text-[10px] uppercase tracking-widest text-stone-400 font-bold">
+                    <div className="flex items-center gap-2">
+                      <Clock size={12} />
+                      {candle.metadata.burn_time}
+                    </div>
+                    <span className="italic text-amber-800/60 lowercase font-serif text-sm normal-case">
+                      {candle.atmosphere}
+                    </span>
+                  </div>
+
+                  <RedirectButton
+                    url={candle.etsy_link}
+                    className="w-full py-4 border border-stone-200 uppercase tracking-widest text-[10px] font-bold hover:bg-stone-900 hover:text-white hover:border-stone-900 transition-all shadow-sm"
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* Inner Circle CTA */}
-      <section className="px-6 py-24 text-center border-t border-candera-stone/40">
-        <p className="text-xs tracking-[0.3em] uppercase text-candera-sage-text mb-4">Limited Access</p>
-        <h2 className="font-serif text-3xl text-candera-obsidian mb-4">The Inner Circle</h2>
-        <p className="text-candera-sage-text text-sm max-w-sm mx-auto mb-8 leading-relaxed">
-          Each batch is numbered and finite. Collectors receive early access before the studio opens to the public.
-        </p>
-        <Link
-          to="/inner-circle"
-          className="text-xs tracking-widest uppercase text-candera-obsidian border-b border-candera-obsidian pb-0.5 hover:text-candera-sage hover:border-candera-sage transition-colors"
-        >
-          Request Entry
-        </Link>
+      {/* ── Testimonials ── */}
+      <section className="py-32 px-6 md:px-12 bg-stone-50 border-y border-stone-100">
+        <div className="max-w-7xl mx-auto text-center space-y-16">
+          <span className="text-[10px] tracking-[0.4em] uppercase text-amber-800 font-bold">
+            Voices of the Inner Circle
+          </span>
+          <div className="grid md:grid-cols-3 gap-12">
+            {TESTIMONIALS.map((t, i) => (
+              <div key={i} className="space-y-6 px-4">
+                <div className="flex justify-center gap-1 text-amber-800/40">
+                  {[...Array(5)].map((_, j) => (
+                    <Star key={j} size={14} fill="currentColor" />
+                  ))}
+                </div>
+                <p className="text-lg font-serif italic text-stone-600 leading-relaxed">"{t.quote}"</p>
+                <div className="space-y-1">
+                  <p className="text-[10px] uppercase tracking-widest font-bold text-stone-900">
+                    — {t.author}, {t.loc}
+                  </p>
+                  <div className="flex items-center justify-center gap-1 text-[8px] text-amber-800 font-bold uppercase tracking-[0.15em]">
+                    <BadgeCheck size={10} />
+                    {t.status}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Inner Circle CTA ── */}
+      <section className="py-40 px-6 md:px-12 bg-stone-900 text-stone-100 relative overflow-hidden">
+        <div className="absolute inset-y-0 right-0 w-1/3 opacity-10 pointer-events-none">
+          <img
+            src={getImage('crimson-noir')}
+            alt=""
+            aria-hidden="true"
+            className="w-full h-full object-cover"
+          />
+        </div>
+        <div className="max-w-4xl mx-auto text-center space-y-12 relative z-10">
+          <Mail className="mx-auto text-amber-500/50" size={40} strokeWidth={1} />
+          <div className="space-y-4">
+            <h2 className="text-4xl md:text-6xl font-serif italic">Join the Inner Circle</h2>
+            <p className="text-stone-400 font-light max-w-xl mx-auto leading-relaxed">
+              Our batches often sell out in days. Join our list to receive early access to new scent drops and personal ritual invitations.
+            </p>
+          </div>
+          <form
+            className="flex flex-col md:flex-row gap-4 max-w-lg mx-auto"
+            onSubmit={(e) => e.preventDefault()}
+          >
+            <input
+              type="email"
+              placeholder="ritual@email.com"
+              className="flex-1 bg-transparent border-b border-stone-700 py-3 text-stone-100 outline-none focus:border-amber-800 transition-colors placeholder:text-stone-600 font-light italic"
+            />
+            <button
+              type="submit"
+              className="bg-white text-stone-900 px-10 py-4 uppercase tracking-widest text-[11px] font-bold hover:bg-amber-100 transition-colors shadow-xl"
+            >
+              Request Entry
+            </button>
+          </form>
+        </div>
       </section>
     </main>
   )

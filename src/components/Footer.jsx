@@ -1,16 +1,72 @@
 import { Link } from 'react-router-dom'
+import { Camera, MessageSquare, Globe, ExternalLink } from 'lucide-react'
 
 export default function Footer() {
   return (
-    <footer className="mt-auto border-t border-candera-stone/40 px-8 py-10 flex flex-col md:flex-row items-center justify-between gap-4 text-xs tracking-widest uppercase text-candera-sage">
-      <span className="font-serif text-candera-obsidian">Candera</span>
-      <nav className="flex gap-8">
-        <Link to="/collection" className="hover:text-candera-obsidian transition-colors">Collection</Link>
-        <Link to="/ritual" className="hover:text-candera-obsidian transition-colors">Ritual</Link>
-        <Link to="/about" className="hover:text-candera-obsidian transition-colors">About</Link>
-        <Link to="/inner-circle" className="hover:text-candera-obsidian transition-colors">Inner Circle</Link>
-      </nav>
-      <span>High Desert · Micro-Batch · Hand-Poured</span>
+    <footer className="py-24 px-6 md:px-12 bg-[#FDFBF7] border-t border-stone-200">
+      <div className="max-w-7xl mx-auto grid md:grid-cols-4 gap-16">
+        {/* Brand */}
+        <div className="col-span-2 space-y-8">
+          <Link to="/" className="text-3xl font-serif font-bold tracking-tighter text-stone-900 hover:opacity-70 transition-opacity">
+            CANDERA
+          </Link>
+          <p className="text-stone-500 max-w-sm text-sm leading-relaxed font-light italic">
+            Cultivating intentional living through scent and micro-batch artisanry. Based in the high desert, shared everywhere.
+          </p>
+          <div className="flex gap-6 text-stone-400">
+            <Camera size={20} className="hover:text-stone-900 transition-colors cursor-pointer" />
+            <MessageSquare size={20} className="hover:text-stone-900 transition-colors cursor-pointer" />
+            <Globe size={20} className="hover:text-stone-900 transition-colors cursor-pointer" />
+          </div>
+        </div>
+
+        {/* Navigation */}
+        <div className="space-y-6">
+          <h5 className="text-[11px] uppercase tracking-[0.2em] font-bold text-stone-400">Navigation</h5>
+          <ul className="text-stone-600 text-xs space-y-4 font-semibold">
+            <li>
+              <Link to="/collection" className="hover:text-amber-800 transition-colors">Current Batch</Link>
+            </li>
+            <li>
+              <Link to="/about" className="hover:text-amber-800 transition-colors">The Craft</Link>
+            </li>
+            <li>
+              <Link to="/inner-circle" className="hover:text-amber-800 transition-colors">Inner Circle</Link>
+            </li>
+            <li>
+              <a
+                href="https://www.etsy.com/shop/CanderaCandles"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-amber-800 transition-colors flex items-center gap-1"
+              >
+                View All on Etsy <ExternalLink size={10} />
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        {/* Assistance */}
+        <div className="space-y-6">
+          <h5 className="text-[11px] uppercase tracking-[0.2em] font-bold text-stone-400">Assistance</h5>
+          <ul className="text-stone-600 text-xs space-y-4 font-semibold">
+            <li className="hover:text-amber-800 cursor-pointer transition-colors">Shipping & Returns</li>
+            <li className="hover:text-amber-800 cursor-pointer transition-colors">Wholesale</li>
+            <li>
+              <Link to="/inner-circle" className="hover:text-amber-800 transition-colors">Contact</Link>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      {/* Bottom bar */}
+      <div className="max-w-7xl mx-auto mt-24 pt-8 border-t border-stone-100 flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] text-stone-400 font-bold uppercase tracking-widest">
+        <p>© 2024 Candera Studio. All rights reserved.</p>
+        <div className="flex gap-8">
+          <span className="hover:text-stone-900 cursor-pointer">Privacy Policy</span>
+          <span className="hover:text-stone-900 cursor-pointer">Terms of Service</span>
+        </div>
+      </div>
     </footer>
   )
 }

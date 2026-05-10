@@ -1,13 +1,11 @@
 @import "tailwindcss";
 
 @theme {
-  --color-candera-vellum: #F5F2ED;
-  --color-candera-lavender: #9A91A4;
-  --color-candera-obsidian: #1A1A1B;
-  --color-candera-sage: #8C9286;
-  /* Darkened sage for text use — passes WCAG AA 4.5:1 against vellum */
-  --color-candera-sage-text: #5C5E59;
-  --color-candera-stone: #D1C7B7;
+  --color-candera-vellum: #FDFBF7;
+  --color-candera-obsidian: #1C1917;
+  --color-candera-sage: #78716C;
+  --color-candera-sage-text: #57534E;
+  --color-candera-stone: #E7E5E4;
 
   --font-serif: "Playfair Display", serif;
   --font-sans: Inter, sans-serif;
@@ -21,8 +19,8 @@
 
 html {
   font-family: Inter, sans-serif;
-  background-color: #F5F2ED;
-  color: #1A1A1B;
+  background-color: #FDFBF7;
+  color: #1C1917;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -37,15 +35,19 @@ body {
   flex-direction: column;
 }
 
-/* Issue #7 — keyboard focus indicators */
+::selection {
+  background-color: #FEF3C7;
+  color: #92400E;
+}
+
 :focus-visible {
-  outline: 2px solid #1A1A1B;
+  outline: 2px solid #1C1917;
   outline-offset: 3px;
   border-radius: 1px;
 }
 
 a:focus-visible,
 button:focus-visible {
-  outline: 2px solid #1A1A1B;
+  outline: 2px solid #1C1917;
   outline-offset: 3px;
 }
