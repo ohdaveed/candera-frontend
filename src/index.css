@@ -5,6 +5,8 @@
   --color-candera-lavender: #9A91A4;
   --color-candera-obsidian: #1A1A1B;
   --color-candera-sage: #8C9286;
+  /* Darkened sage for text use — passes WCAG AA 4.5:1 against vellum */
+  --color-candera-sage-text: #5C5E59;
   --color-candera-stone: #D1C7B7;
 
   --font-serif: "Playfair Display", serif;
@@ -33,4 +35,17 @@ body {
   min-height: 100svh;
   display: flex;
   flex-direction: column;
+}
+
+/* Issue #7 — keyboard focus indicators */
+:focus-visible {
+  outline: 2px solid #1A1A1B;
+  outline-offset: 3px;
+  border-radius: 1px;
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid #1A1A1B;
+  outline-offset: 3px;
 }

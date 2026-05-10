@@ -16,7 +16,7 @@ export default function Nav() {
         <NavLink to="/about" className={({ isActive }) => isActive ? 'text-candera-obsidian' : 'hover:text-candera-obsidian transition-colors'}>
           About
         </NavLink>
-        <NavLink to="/quiz" className="px-4 py-2 border border-candera-obsidian text-candera-obsidian hover:bg-candera-obsidian hover:text-candera-vellum transition-colors">
+        <NavLink to="/quiz" className="px-4 py-2 border border-candera-obsidian text-candera-obsidian tracking-widest uppercase hover:bg-candera-obsidian hover:text-candera-vellum transition-colors">
           Find Your Ritual
         </NavLink>
       </nav>

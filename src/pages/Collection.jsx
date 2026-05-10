@@ -31,11 +31,11 @@ export default function Collection() {
             className="group bg-candera-vellum p-8 flex flex-col gap-4 hover:bg-candera-stone/20 transition-colors"
           >
             <div className="aspect-square overflow-hidden mb-2">
-              <img src={candle.img} alt={candle.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+              <img src={candle.img} alt={candle.name} loading="lazy" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
             </div>
             <span className="text-xs text-candera-sage tracking-widest">{candle.vessel}</span>
             <h2 className="font-serif text-lg text-candera-obsidian group-hover:italic transition-all leading-snug">{candle.name}</h2>
-            <p className="text-xs text-candera-sage leading-relaxed flex-1">{candle.note}</p>
+            <p className="text-xs text-candera-sage-text leading-relaxed flex-1">{candle.note}</p>
             <span className="text-sm text-candera-obsidian">{candle.price}</span>
           </Link>
         ))}

@@ -93,7 +93,7 @@ export default function Product() {
       <div className="max-w-5xl mx-auto px-6 md:px-16 py-16 grid grid-cols-1 md:grid-cols-2 gap-16">
         {/* Image */}
         <div className="aspect-square overflow-hidden">
-          <img src={product.img} alt={product.name} className="w-full h-full object-cover" />
+          <img src={product.img} alt={product.name} loading="lazy" className="w-full h-full object-cover" />
         </div>
 
         {/* Details */}
@@ -101,7 +101,7 @@ export default function Product() {
           <div>
             <span className="text-xs text-candera-sage tracking-widest">Vessel {product.vessel}</span>
             <h1 className="font-serif text-4xl text-candera-obsidian mt-2 leading-tight">{product.name}</h1>
-            <p className="text-candera-sage text-sm mt-3 italic">{product.tagline}</p>
+            <p className="text-candera-sage-text text-sm mt-3 italic">{product.tagline}</p>
           </div>
 
           <div className="border-t border-candera-stone/40 pt-6">
