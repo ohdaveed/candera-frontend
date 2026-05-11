@@ -39,7 +39,7 @@ export default function RedirectButton({ url, className = '', children }) {
       aria-label={isRedirecting ? 'Opening Etsy' : 'View on Etsy'}
     >
       {isRedirecting ? (
-        <span className="text-amber-800 italic animate-pulse text-[10px] uppercase tracking-widest">
+        <span className="text-candera-warm italic animate-pulse text-[10px] uppercase tracking-widest">
           Preparing your vessel...
         </span>
       ) : !url ? (

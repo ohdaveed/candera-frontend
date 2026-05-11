@@ -6,7 +6,7 @@ export default function About() {
         <div className="max-w-7xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-20 items-center">
             <div className="space-y-8">
-              <span className="text-[10px] tracking-[0.4em] uppercase text-amber-800 font-bold">The Methodology</span>
+              <span className="text-[10px] tracking-[0.4em] uppercase text-candera-warm font-bold">The Methodology</span>
               <h1 className="text-5xl md:text-7xl font-serif italic leading-tight">72 Hours of Intent.</h1>
               <p className="text-stone-500 font-light text-xl leading-relaxed">
                 In a world that demands speed, we choose the opposite. Our candles are cultivated through a series of slow, deliberate rituals that ensure the highest fragrance throw and the cleanest burn.
@@ -50,7 +50,7 @@ export default function About() {
               },
             ].map((item) => (
               <div key={item.step} className="space-y-6">
-                <span className="text-4xl font-serif text-amber-800/30 italic">{item.step}</span>
+                <span className="text-4xl font-serif text-candera-warm/30 italic">{item.step}</span>
                 <h3 className="text-lg font-bold tracking-tight uppercase">{item.title}</h3>
                 <p className="text-sm text-stone-500 font-light leading-relaxed">{item.desc}</p>
               </div>
@@ -73,7 +73,7 @@ export default function About() {
               </div>
             </div>
             <div className="w-full md:w-1/2 space-y-8">
-              <span className="text-[10px] tracking-[0.4em] uppercase text-amber-800 font-bold">Behind the Vessel</span>
+              <span className="text-[10px] tracking-[0.4em] uppercase text-candera-warm font-bold">Behind the Vessel</span>
               <h2 className="text-4xl font-serif">Meet the Maker</h2>
               <div className="space-y-6 text-stone-600 font-light leading-relaxed">
                 <p>

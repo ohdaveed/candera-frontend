@@ -46,7 +46,7 @@ export default function Nav({ openQuiz }) {
             </NavLink>
             <button
               onClick={openQuiz}
-              className={`${linkBase} ${linkColor} hover:!text-amber-700 flex items-center gap-1.5`}
+              className={`${linkBase} ${linkColor} hover:!text-candera-warm flex items-center gap-1.5`}
             >
               <Sparkles size={11} />
               Scent Quiz
@@ -81,7 +81,7 @@ export default function Nav({ openQuiz }) {
             >
               <Link
                 to="/collection"
-                className="bg-stone-900 text-white text-[10px] px-6 py-3 uppercase tracking-widest hover:bg-amber-900 transition-colors font-bold"
+                className="bg-stone-900 text-white text-[10px] px-6 py-3 uppercase tracking-widest hover:bg-candera-warm transition-colors font-bold"
               >
                 Shop The Batch
               </Link>
@@ -91,7 +91,7 @@ export default function Nav({ openQuiz }) {
               className={`relative p-3.5 ${transparent ? 'text-stone-300 hover:text-white' : 'text-stone-500 hover:text-stone-900'} transition-colors`}
             >
               <ShoppingBag size={20} strokeWidth={1.5} />
-              <span className="absolute -top-1 -right-1 w-2 h-2 bg-amber-600 rounded-full" aria-hidden="true" />
+              <span className="absolute -top-1 -right-1 w-2 h-2 bg-candera-warm rounded-full" aria-hidden="true" />
             </button>
           </div>
         </div>

@@ -96,7 +96,7 @@ export default function Home({ openQuiz }) {
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
             <div className="max-w-2xl space-y-4">
-              <span className="text-[10px] tracking-[0.4em] uppercase text-amber-800 font-bold">The Current Batch</span>
+              <span className="text-[10px] tracking-[0.4em] uppercase text-candera-warm font-bold">The Current Batch</span>
               <h2 className="text-4xl md:text-6xl font-serif leading-tight italic">
                 Rooted in Earth,<br />Released in Air.
               </h2>
@@ -131,7 +131,7 @@ export default function Home({ openQuiz }) {
                 <div className="space-y-6">
                   <div className="flex justify-between items-baseline border-b border-stone-100 pb-4">
                     <Link to={`/collection/${candle.slug}`}>
-                      <h3 className="text-3xl font-serif italic hover:text-amber-800 transition-colors">{candle.name}</h3>
+                      <h3 className="text-3xl font-serif italic hover:text-candera-warm transition-colors">{candle.name}</h3>
                     </Link>
                     <span className="text-stone-400 font-light tracking-widest">${candle.price.toFixed(2)}</span>
                   </div>
@@ -141,15 +141,15 @@ export default function Home({ openQuiz }) {
                     <p className="text-[10px] uppercase tracking-[0.2em] font-bold text-stone-400">Fragrance Profile</p>
                     <div className="grid grid-cols-3 gap-2 text-[9px] uppercase tracking-widest font-medium text-stone-600">
                       <div className="border-r border-stone-200 pr-2">
-                        <span className="text-amber-800 block mb-1">Top</span>
+                        <span className="text-candera-warm block mb-1">Top</span>
                         {candle.scent_profile.top}
                       </div>
                       <div className="border-r border-stone-200 px-2">
-                        <span className="text-amber-800 block mb-1">Heart</span>
+                        <span className="text-candera-warm block mb-1">Heart</span>
                         {candle.scent_profile.heart}
                       </div>
                       <div className="pl-2">
-                        <span className="text-amber-800 block mb-1">Base</span>
+                        <span className="text-candera-warm block mb-1">Base</span>
                         {candle.scent_profile.base}
                       </div>
                     </div>
@@ -161,14 +161,14 @@ export default function Home({ openQuiz }) {
                       <Clock size={12} />
                       {candle.metadata.burn_time}
                     </div>
-                    <span className="italic text-amber-800/60 lowercase font-serif text-sm normal-case">
+                    <span className="italic text-candera-warm/60 lowercase font-serif text-sm normal-case">
                       {candle.atmosphere}
                     </span>
                   </div>
 
                   <RedirectButton
                     url={candle.etsy_link}
-                    className="w-full py-4 bg-stone-900 text-white uppercase tracking-widest text-[10px] font-bold hover:bg-amber-900 transition-all shadow-sm"
+                    className="w-full py-4 bg-stone-900 text-white uppercase tracking-widest text-[10px] font-bold hover:bg-candera-warm transition-all shadow-sm"
                   />
                 </div>
               </div>
@@ -180,13 +180,13 @@ export default function Home({ openQuiz }) {
       {/* ── Testimonials ── */}
       <section className="py-32 px-6 md:px-12 bg-stone-50 border-y border-stone-100">
         <div className="max-w-7xl mx-auto text-center space-y-16">
-          <span className="text-[10px] tracking-[0.4em] uppercase text-amber-800 font-bold">
+          <span className="text-[10px] tracking-[0.4em] uppercase text-candera-warm font-bold">
             Voices of the Inner Circle
           </span>
           <div className="grid md:grid-cols-3 gap-12">
             {TESTIMONIALS.map((t, i) => (
               <div key={i} className="space-y-6 px-4">
-                <div className="flex justify-center gap-1 text-amber-800/40">
+                <div className="flex justify-center gap-1 text-candera-warm/40">
                   {[...Array(5)].map((_, j) => (
                     <Star key={j} size={14} fill="currentColor" />
                   ))}
@@ -196,7 +196,7 @@ export default function Home({ openQuiz }) {
                   <p className="text-[10px] uppercase tracking-widest font-bold text-stone-900">
                     — {t.author}, {t.loc}
                   </p>
-                  <div className="flex items-center justify-center gap-1 text-[8px] text-amber-800 font-bold uppercase tracking-[0.15em]">
+                  <div className="flex items-center justify-center gap-1 text-[8px] text-candera-warm font-bold uppercase tracking-[0.15em]">
                     <BadgeCheck size={10} />
                     {t.status}
                   </div>
@@ -218,7 +218,7 @@ export default function Home({ openQuiz }) {
           />
         </div>
         <div className="max-w-4xl mx-auto text-center space-y-12 relative z-10">
-          <Mail className="mx-auto text-amber-500/50" size={40} strokeWidth={1} />
+          <Mail className="mx-auto text-candera-warm/50" size={40} strokeWidth={1} />
           <div className="space-y-4">
             <h2 className="text-4xl md:text-6xl font-serif italic">Join the Inner Circle</h2>
             <p className="text-stone-400 font-light max-w-xl mx-auto leading-relaxed">
@@ -232,11 +232,11 @@ export default function Home({ openQuiz }) {
             <input
               type="email"
               placeholder="ritual@email.com"
-              className="flex-1 bg-transparent border-b border-stone-700 py-3 text-stone-100 outline-none focus:border-amber-800 transition-colors placeholder:text-stone-600 font-light italic"
+              className="flex-1 bg-transparent border-b border-stone-700 py-3 text-stone-100 outline-none focus:border-candera-warm transition-colors placeholder:text-stone-600 font-light italic"
             />
             <button
               type="submit"
-              className="bg-white text-stone-900 px-10 py-4 uppercase tracking-widest text-[11px] font-bold hover:bg-amber-100 transition-colors shadow-xl"
+              className="bg-white text-stone-900 px-10 py-4 uppercase tracking-widest text-[11px] font-bold hover:bg-candera-warm/10 transition-colors shadow-xl"
             >
               Request Entry
             </button>

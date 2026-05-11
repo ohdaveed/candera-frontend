@@ -85,7 +85,7 @@ export default function Product() {
             </div>
             <RedirectButton
               url={product.etsy_link}
-              className="w-full py-4 bg-stone-900 text-white uppercase tracking-widest text-[10px] font-bold hover:bg-amber-900 transition-all shadow-sm"
+              className="w-full py-4 bg-stone-900 text-white uppercase tracking-widest text-[10px] font-bold hover:bg-candera-warm transition-all shadow-sm"
             />
           </div>
         </div>

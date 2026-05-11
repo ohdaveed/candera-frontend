@@ -25,20 +25,20 @@ export default function Footer() {
           <h5 className="text-[11px] uppercase tracking-[0.2em] font-bold text-stone-400">Navigation</h5>
           <ul className="text-stone-600 text-xs space-y-4 font-semibold">
             <li>
-              <Link to="/collection" className="hover:text-amber-800 transition-colors">Current Batch</Link>
+              <Link to="/collection" className="hover:text-candera-warm transition-colors">Current Batch</Link>
             </li>
             <li>
-              <Link to="/about" className="hover:text-amber-800 transition-colors">The Craft</Link>
+              <Link to="/about" className="hover:text-candera-warm transition-colors">The Craft</Link>
             </li>
             <li>
-              <Link to="/inner-circle" className="hover:text-amber-800 transition-colors">Inner Circle</Link>
+              <Link to="/inner-circle" className="hover:text-candera-warm transition-colors">Inner Circle</Link>
             </li>
             <li>
               <a
                 href="https://www.etsy.com/shop/CanderaCandles"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hover:text-amber-800 transition-colors flex items-center gap-1"
+                className="hover:text-candera-warm transition-colors flex items-center gap-1"
               >
                 View All on Etsy <ExternalLink size={10} />
               </a>
@@ -50,10 +50,10 @@ export default function Footer() {
         <div className="space-y-6">
           <h5 className="text-[11px] uppercase tracking-[0.2em] font-bold text-stone-400">Assistance</h5>
           <ul className="text-stone-600 text-xs space-y-4 font-semibold">
-            <li className="hover:text-amber-800 cursor-pointer transition-colors">Shipping & Returns</li>
-            <li className="hover:text-amber-800 cursor-pointer transition-colors">Wholesale</li>
+            <li className="hover:text-candera-warm cursor-pointer transition-colors">Shipping & Returns</li>
+            <li className="hover:text-candera-warm cursor-pointer transition-colors">Wholesale</li>
             <li>
-              <Link to="/inner-circle" className="hover:text-amber-800 transition-colors">Contact</Link>
+              <Link to="/inner-circle" className="hover:text-candera-warm transition-colors">Contact</Link>
             </li>
           </ul>
         </div>

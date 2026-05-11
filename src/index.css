@@ -17,6 +17,20 @@
   --color-candera-sage: var(--color-brand-sage);
   --color-candera-sage-text: #5F625C;
   --color-candera-stone: #D8D3CA;
+  --color-candera-warm: #92400E;
+
+  --color-stone-50: #FAFAF9;
+  --color-stone-100: #F5F5F4;
+  --color-stone-200: #E7E5E4;
+  --color-stone-300: #D6D3D1;
+  --color-stone-400: #A8A29E;
+  --color-stone-500: #78716B;
+  --color-stone-600: #57534E;
+  --color-stone-700: #44403C;
+  --color-stone-800: #292524;
+  --color-stone-900: #1C1917;
+  --color-white: #FFFFFF;
+  --color-red-500: #EF4444;
 
   --font-serif: "Playfair Display", serif;
   --font-sans: Inter, sans-serif;

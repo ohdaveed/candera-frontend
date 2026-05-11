@@ -63,7 +63,7 @@ export default function ScentQuiz({ isOpen, onClose }) {
         {/* Progress bar */}
         <div className="absolute top-0 left-0 w-full h-1 bg-stone-100">
           <div
-            className="h-full bg-amber-800 transition-all duration-700 ease-in-out"
+            className="h-full bg-candera-warm transition-all duration-700 ease-in-out"
             style={{ width: `${progress}%` }}
           />
         </div>
@@ -73,7 +73,7 @@ export default function ScentQuiz({ isOpen, onClose }) {
             {step < total ? (
               <div className="space-y-8">
                 <div className="space-y-2">
-                  <span className="text-[10px] uppercase tracking-widest text-amber-800 font-bold">
+                  <span className="text-[10px] uppercase tracking-widest text-candera-warm font-bold">
                     Ritual Inquiry {step + 1} of {total}
                   </span>
                   <h3 className="text-3xl font-serif leading-tight">{QUESTIONS[step].question}</h3>
@@ -83,10 +83,10 @@ export default function ScentQuiz({ isOpen, onClose }) {
                     <button
                       key={idx}
                       onClick={handleNext}
-                      className="text-left p-5 border border-stone-200 hover:border-amber-800 hover:bg-amber-50/20 transition-all group flex justify-between items-center"
+                      className="text-left p-5 border border-stone-200 hover:border-candera-warm hover:bg-candera-warm/20 transition-all group flex justify-between items-center"
                     >
                       <span className="text-stone-700 font-light italic">{option}</span>
-                      <ChevronRight size={16} className="opacity-0 group-hover:opacity-100 transition-opacity text-amber-800" />
+                      <ChevronRight size={16} className="opacity-0 group-hover:opacity-100 transition-opacity text-candera-warm" />
                     </button>
                   ))}
                 </div>
@@ -94,7 +94,7 @@ export default function ScentQuiz({ isOpen, onClose }) {
             ) : (
               <div className="space-y-8 text-center">
                 <div className="space-y-4">
-                  <Sparkles className="mx-auto text-amber-800" size={32} strokeWidth={1} />
+                  <Sparkles className="mx-auto text-candera-warm" size={32} strokeWidth={1} />
                   <h3 className="text-3xl font-serif leading-tight">Your Sensory Profile is Ready.</h3>
                   <p className="text-stone-500 font-light text-sm">
                     Join the Inner Circle to unlock your matched scent and receive early access to the next batch.
@@ -111,7 +111,7 @@ export default function ScentQuiz({ isOpen, onClose }) {
                   />
                   <button
                     type="submit"
-                    className="w-full bg-stone-900 text-white py-4 uppercase tracking-widest text-[11px] font-bold hover:bg-amber-900 transition-colors"
+                    className="w-full bg-stone-900 text-white py-4 uppercase tracking-widest text-[11px] font-bold hover:bg-candera-warm transition-colors"
                   >
                     Reveal My Match
                   </button>
@@ -121,7 +121,7 @@ export default function ScentQuiz({ isOpen, onClose }) {
           </div>
         ) : (
           <div className="text-center py-12 space-y-6">
-            <CheckCircle2 className="mx-auto text-amber-800" size={48} strokeWidth={1} />
+            <CheckCircle2 className="mx-auto text-candera-warm" size={48} strokeWidth={1} />
             <div className="space-y-2">
               <h3 className="text-3xl font-serif">Welcome to the Inner Circle.</h3>
               <p className="text-stone-500 font-light max-w-sm mx-auto">
@@ -130,7 +130,7 @@ export default function ScentQuiz({ isOpen, onClose }) {
             </div>
             <button
               onClick={handleClose}
-              className="border-b-2 border-stone-900 pb-1 text-[11px] uppercase tracking-widest font-bold hover:text-amber-800 hover:border-amber-800 transition-colors"
+              className="border-b-2 border-stone-900 pb-1 text-[11px] uppercase tracking-widest font-bold hover:text-candera-warm hover:border-candera-warm transition-colors"
             >
               Explore the Collection
             </button>
