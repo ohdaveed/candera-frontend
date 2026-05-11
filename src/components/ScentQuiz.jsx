@@ -45,8 +45,6 @@ export default function ScentQuiz({ isOpen, onClose }) {
 
   function handleClose() {
     onClose()
-    // Reset after close animation
-    setTimeout(() => { setStep(0); setEmail(''); setSubmitted(false) }, 300)
   }
 
   return (

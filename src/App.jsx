@@ -36,7 +36,7 @@ function AppInner() {
         <Route path="/inner-circle" element={<InnerCircle />} />
       </Routes>
       <Footer />
-      <ScentQuiz isOpen={isQuizOpen} onClose={() => setIsQuizOpen(false)} />
+      <ScentQuiz key={isQuizOpen ? 'open' : 'closed'} isOpen={isQuizOpen} onClose={() => setIsQuizOpen(false)} />
     </>
   )
 }

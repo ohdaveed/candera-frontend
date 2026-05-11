@@ -14,6 +14,11 @@ export default function Nav({ openQuiz }) {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
+  useEffect(() => {
+    document.body.style.overflow = mobileOpen ? 'hidden' : ''
+    return () => { document.body.style.overflow = '' }
+  }, [mobileOpen])
+
   const transparent = isHome && !scrolled
   const linkBase = `transition-colors text-[11px] uppercase tracking-[0.2em] font-semibold py-3`
   const linkColor = transparent ? 'text-stone-300 hover:text-white' : 'text-stone-500 hover:text-stone-900'
@@ -91,7 +96,6 @@ export default function Nav({ openQuiz }) {
               className={`relative p-3.5 ${transparent ? 'text-stone-300 hover:text-white' : 'text-stone-500 hover:text-stone-900'} transition-colors`}
             >
               <ShoppingBag size={20} strokeWidth={1.5} />
-              <span className="absolute -top-1 -right-1 w-2 h-2 bg-candera-warm rounded-full" aria-hidden="true" />
             </button>
           </div>
         </div>

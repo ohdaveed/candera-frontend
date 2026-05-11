@@ -14,9 +14,15 @@ export default function Footer() {
             Cultivating intentional living through scent and micro-batch artisanry. Based in the high desert, shared everywhere.
           </p>
           <div className="flex gap-6 text-stone-400">
-            <Camera size={20} className="hover:text-stone-900 transition-colors cursor-pointer" />
-            <MessageSquare size={20} className="hover:text-stone-900 transition-colors cursor-pointer" />
-            <Globe size={20} className="hover:text-stone-900 transition-colors cursor-pointer" />
+            <a href="https://www.instagram.com/canderacandles" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+              <Camera size={20} className="hover:text-stone-900 transition-colors" />
+            </a>
+            <a href="https://www.etsy.com/shop/CanderaCandles" target="_blank" rel="noopener noreferrer" aria-label="Etsy shop">
+              <MessageSquare size={20} className="hover:text-stone-900 transition-colors" />
+            </a>
+            <a href="https://candera.co" target="_blank" rel="noopener noreferrer" aria-label="Website">
+              <Globe size={20} className="hover:text-stone-900 transition-colors" />
+            </a>
           </div>
         </div>
 
