@@ -29,7 +29,7 @@ export default function SensoryMap({ products }) {
 
         {/* Product dots — plotted within the inset area */}
         <div className="absolute inset-12 pointer-events-none">
-          {products.map((product) => {
+          {products.filter((p) => typeof p.sensory?.x === 'number' && typeof p.sensory?.y === 'number').map((product) => {
             const { x, y } = product.sensory
             // x: 0=Bright(bottom) → 100=Moody(top); y: 0=Floral(right) → 100=Earthy(left)
             // CSS top=0 is the top edge (Moody), so invert x; left=0 is left edge (Earthy), so invert y

@@ -32,7 +32,9 @@ export function useProductSync() {
             typeof p?.name === 'string' &&
             typeof p?.price === 'number' &&
             Array.isArray(p?.notes) &&
-            typeof p?.metadata?.burn_time === 'string'
+            typeof p?.metadata?.burn_time === 'string' &&
+            typeof p?.sensory?.x === 'number' &&
+            typeof p?.sensory?.y === 'number'
           )
         }
 

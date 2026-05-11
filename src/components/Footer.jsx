@@ -69,8 +69,8 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto mt-24 pt-8 border-t border-stone-100 flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] text-stone-400 font-bold uppercase tracking-widest">
         <p>© 2024 Candera Studio. All rights reserved.</p>
         <div className="flex gap-8">
-          <Link to="/privacy" className="hover:text-stone-900 transition-colors">Privacy Policy</Link>
-          <Link to="/terms" className="hover:text-stone-900 transition-colors">Terms of Service</Link>
+          <span>Privacy Policy</span>
+          <span>Terms of Service</span>
         </div>
       </div>
     </footer>

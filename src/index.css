@@ -33,7 +33,7 @@
   --color-red-500: #EF4444;
 
   --font-serif: "Playfair Display", serif;
-  --font-sans: Inter, sans-serif;
+  --font-sans: "Inter", sans-serif;
 
   --animate-slow-fade: slow-fade 0.8s ease-out forwards;
 }
@@ -56,7 +56,7 @@
   }
 
   html {
-    font-family: Inter, sans-serif;
+    font-family: "Inter", sans-serif;
     background-color: var(--color-background);
     color: var(--color-foreground);
     -webkit-font-smoothing: antialiased;
