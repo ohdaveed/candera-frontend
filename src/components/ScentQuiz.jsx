@@ -49,7 +49,12 @@ export default function ScentQuiz({ isOpen, onClose }) {
 
   return (
     <div className="fixed inset-0 z-[200] flex items-center justify-center bg-stone-900/60 backdrop-blur-md p-4">
-      <div className="bg-[#FDFBF7] w-full max-w-xl p-8 md:p-12 relative overflow-hidden shadow-2xl border border-stone-200">
+      <div
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="scent-quiz-title"
+        className="bg-[#FDFBF7] w-full max-w-xl p-8 md:p-12 relative overflow-hidden shadow-2xl border border-stone-200"
+      >
         <button
           onClick={handleClose}
           aria-label="Close quiz"
@@ -74,7 +79,7 @@ export default function ScentQuiz({ isOpen, onClose }) {
                   <span className="text-[10px] uppercase tracking-widest text-candera-warm font-bold">
                     Ritual Inquiry {step + 1} of {total}
                   </span>
-                  <h3 className="text-3xl font-serif leading-tight">{QUESTIONS[step].question}</h3>
+                  <h3 id="scent-quiz-title" className="text-3xl font-serif leading-tight">{QUESTIONS[step].question}</h3>
                 </div>
                 <div className="grid gap-3">
                   {QUESTIONS[step].options.map((option, idx) => (
@@ -99,7 +104,9 @@ export default function ScentQuiz({ isOpen, onClose }) {
                   </p>
                 </div>
                 <form onSubmit={handleSubmit} className="space-y-4">
+                  <label htmlFor="scent-quiz-email" className="sr-only">Email address</label>
                   <input
+                    id="scent-quiz-email"
                     type="email"
                     required
                     placeholder="ritual@example.com"
