@@ -1,8 +1,12 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 
-export default function SensoryMap({ products }) {
+export default function SensoryMap({ products = [] }) {
   const [hovered, setHovered] = useState(null)
+
+  const plottableProducts = products.filter(
+    (p) => typeof p?.sensory?.x === 'number' && typeof p?.sensory?.y === 'number'
+  )
 
   return (
     <div className="max-w-2xl mx-auto w-full select-none">
@@ -29,7 +33,7 @@ export default function SensoryMap({ products }) {
 
         {/* Product dots — plotted within the inset area */}
         <div className="absolute inset-12 pointer-events-none">
-          {products.filter((p) => typeof p.sensory?.x === 'number' && typeof p.sensory?.y === 'number').map((product) => {
+          {plottableProducts.map((product) => {
             const { x, y } = product.sensory
             // x: 0=Bright(bottom) → 100=Moody(top); y: 0=Floral(right) → 100=Earthy(left)
             // CSS top=0 is the top edge (Moody), so invert x; left=0 is left edge (Earthy), so invert y
@@ -44,6 +48,8 @@ export default function SensoryMap({ products }) {
                 style={{ left, top, transform: 'translate(-50%, -50%)' }}
                 onMouseEnter={() => setHovered(product.slug)}
                 onMouseLeave={() => setHovered(null)}
+                onFocus={() => setHovered(product.slug)}
+                onBlur={() => setHovered(null)}
                 aria-label={product.name}
               >
                 <span
@@ -56,7 +62,7 @@ export default function SensoryMap({ products }) {
                 {hovered === product.slug && (
                   <div className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 whitespace-nowrap bg-candera-obsidian text-candera-vellum text-[10px] tracking-wider px-2 py-1 pointer-events-none">
                     <span className="font-serif">{product.name}</span>
-                    <span className="block text-candera-lavender">{product.metadata.mood}</span>
+                    <span className="block text-candera-lavender">{product.metadata?.mood ?? 'Uncharted'}</span>
                   </div>
                 )}
               </Link>
@@ -67,13 +73,15 @@ export default function SensoryMap({ products }) {
 
       {/* Legend */}
       <div className="mt-6 flex flex-wrap gap-4 justify-center">
-        {products.map((product) => (
+        {plottableProducts.map((product) => (
           <Link
             key={product.slug}
             to={`/collection/${product.slug}`}
             className="flex items-center gap-2 group"
             onMouseEnter={() => setHovered(product.slug)}
             onMouseLeave={() => setHovered(null)}
+            onFocus={() => setHovered(product.slug)}
+            onBlur={() => setHovered(null)}
           >
             <span
               className={`block w-2 h-2 rounded-full transition-colors ${
