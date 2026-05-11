@@ -1,0 +1,12 @@
+{
+  "Project Type": "React",
+  "Framework": "Vite",
+  "Build Tool": "Vite",
+  "CSS Implementation": "Vanilla CSS",
+  "Tailwind Version": "v4",
+  "TS/JS": "JS",
+  "Router": "React Router v7 (declarative mode)",
+  "Animation Library": "Framer Motion",
+  "Icon Set": "Lucide",
+  "React Version": "19"
+}

@@ -1,21 +1,34 @@
+import { useState, useMemo } from 'react'
 import { Link } from 'react-router-dom'
-import seashell from '../assets/seashell-garden.jpg'
-import meadowlight from '../assets/meadowlight-botanical.jpg'
-import crimson from '../assets/crimson-noir.jpg'
-import everAfter from '../assets/ever-after-glow.jpg'
-import anyasEyes from '../assets/anyas-eyes.jpg'
-import scarletBloom from '../assets/scarlet-bloom.jpg'
+import { AnimatePresence, motion } from 'framer-motion'
+import { getImage } from '../data/productImages'
+import { useProductSync } from '../hooks/useProductSync'
+import SensoryMap from '../components/SensoryMap'
+import FilterBar from '../components/FilterBar'
+import { cn } from '../lib/utils'
 
-const candles = [
-  { slug: 'seashell-garden-glow', name: 'Seashell Garden Glow', vessel: '001', price: '$38', note: 'Sea breeze · Driftwood · Salt air', img: seashell },
-  { slug: 'meadowlight-botanical', name: 'Meadowlight Botanical', vessel: '002', price: '$38', note: 'Lily of the valley · Wildflower · Fresh green', img: meadowlight },
-  { slug: 'crimson-noir', name: 'Crimson Noir', vessel: '003', price: '$38', note: 'Merlot · Dark berry · Vetiver', img: crimson },
-  { slug: 'ever-after-glow', name: 'Ever After Glow', vessel: '004', price: '$38', note: 'Blue hydrangea · White lilac · Soft green', img: everAfter },
-  { slug: 'anyas-eyes', name: "Anya's Eyes", vessel: '005', price: '$38', note: 'Pressed pansies · Lilac · Natural wax', img: anyasEyes },
-  { slug: 'scarlet-bloom', name: 'Scarlet Bloom', vessel: '006', price: '$38', note: 'Botanical rose · Fresh florals', img: scarletBloom },
-]
+const TAG_STYLES = {
+  'Limited Batch': 'bg-candera-warm text-white',
+  'Bestseller': 'bg-candera-obsidian text-white',
+  'New Release': 'bg-candera-lavender text-white',
+}
 
 export default function Collection() {
+  const { products } = useProductSync()
+  const [activeTag, setActiveTag] = useState('all')
+  const [sortBy, setSortBy] = useState('featured')
+
+  const tags = useMemo(() => [...new Set(products.map((p) => p.tag).filter(Boolean))], [products])
+
+  const filteredProducts = useMemo(() => {
+    let list = [...products]
+    if (activeTag !== 'all') list = list.filter((p) => p.tag === activeTag)
+    if (sortBy === 'price-asc') list.sort((a, b) => a.price - b.price)
+    if (sortBy === 'price-desc') list.sort((a, b) => b.price - a.price)
+    if (sortBy === 'name') list.sort((a, b) => a.name.localeCompare(b.name))
+    return list
+  }, [products, activeTag, sortBy])
+
   return (
     <main className="pt-24 px-6 md:px-16 py-16">
       <div className="text-center mb-20">
@@ -23,22 +36,93 @@ export default function Collection() {
         <h1 className="font-serif text-4xl md:text-5xl text-candera-obsidian">Current Collection</h1>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-px bg-candera-stone">
-        {candles.map((candle) => (
-          <Link
-            key={candle.slug}
-            to={`/collection/${candle.slug}`}
-            className="group bg-candera-vellum p-8 flex flex-col gap-4 hover:bg-candera-stone/20 transition-colors"
+      <FilterBar
+        tags={tags}
+        activeTag={activeTag}
+        onTagChange={setActiveTag}
+        sortBy={sortBy}
+        onSortChange={setSortBy}
+        count={filteredProducts.length}
+        total={products.length}
+      />
+
+      {filteredProducts.length === 0 ? (
+        <div className="text-center py-24">
+          <p className="text-sm text-candera-sage-text mb-4">No candles match this filter.</p>
+          <button
+            onClick={() => setActiveTag('all')}
+            className="text-[10px] uppercase tracking-widest text-candera-warm border-b border-candera-warm pb-0.5 hover:text-candera-warm transition-colors"
           >
-            <div className="aspect-square overflow-hidden mb-2">
-              <img src={candle.img} alt={candle.name} loading="lazy" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-            </div>
-            <span className="text-xs text-candera-sage tracking-widest">{candle.vessel}</span>
-            <h2 className="font-serif text-lg text-candera-obsidian group-hover:italic transition-all leading-snug">{candle.name}</h2>
-            <p className="text-xs text-candera-sage-text leading-relaxed flex-1">{candle.note}</p>
-            <span className="text-sm text-candera-obsidian">{candle.price}</span>
-          </Link>
-        ))}
+            View all candles
+          </button>
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-px bg-candera-stone">
+          <AnimatePresence mode="popLayout">
+            {filteredProducts.map((candle) => (
+              <motion.div
+                key={candle.slug}
+                layout
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -8 }}
+                transition={{ duration: 0.25 }}
+              >
+                <Link
+                  to={`/collection/${candle.slug}`}
+                  className="group bg-candera-vellum p-8 flex flex-col gap-4 hover:bg-candera-stone/20 transition-colors h-full"
+                >
+                  <div className="relative aspect-square overflow-hidden mb-2">
+                    <img
+                      src={getImage(candle.slug)}
+                      alt={candle.name}
+                      loading="lazy"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                    {candle.tag && (
+                      <span className={cn(
+                        'absolute top-3 right-3 text-[9px] uppercase tracking-widest px-2 py-1',
+                        TAG_STYLES[candle.tag]
+                      )}>
+                        {candle.tag}
+                      </span>
+                    )}
+                  </div>
+                  <span className="text-xs text-candera-sage tracking-widest">{candle.vessel}</span>
+                  <h2 className="font-serif text-lg text-candera-obsidian group-hover:italic transition-all leading-snug">
+                    {candle.name}
+                  </h2>
+                  <p className="text-xs text-candera-sage-text leading-relaxed flex-1">
+                    {candle.notes.slice(0, 3).join(' · ')}
+                  </p>
+                  <div className="flex items-end justify-between">
+                    <div>
+                      <span className="text-sm text-candera-obsidian">${candle.price.toFixed(2)}</span>
+                      <p className="text-[10px] uppercase tracking-widest text-candera-sage mt-1">
+                        {candle.metadata.burn_time} burn · {candle.atmosphere}
+                      </p>
+                    </div>
+                    <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-[10px] uppercase tracking-widest text-candera-warm">
+                      View details →
+                    </span>
+                  </div>
+                </Link>
+              </motion.div>
+            ))}
+          </AnimatePresence>
+        </div>
+      )}
+
+      {/* Sensory Map */}
+      <div className="mt-24 border-t border-candera-stone/40 pt-20">
+        <div className="text-center mb-12">
+          <p className="text-xs tracking-[0.3em] uppercase text-candera-sage mb-4">Explore the Collection</p>
+          <h2 className="font-serif text-3xl text-candera-obsidian">Sensory Map</h2>
+          <p className="text-sm text-candera-sage-text mt-3 max-w-sm mx-auto">
+            Each vessel plotted by mood. Find where your senses lead.
+          </p>
+        </div>
+        <SensoryMap products={products} />
       </div>
     </main>
   )
