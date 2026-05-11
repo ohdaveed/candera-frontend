@@ -1,0 +1,434 @@
+# Instincts generated from https://github.com/ohdaveed/candera-frontend
+# Generated: 2026-05-11T03:14:16.037Z
+# Version: 2.0
+# NOTE: This file supplements (does not replace) any existing curated instincts.
+# High-confidence manually curated instincts should be preserved alongside these.
+
+---
+id: candera-frontend-commit-conventional
+trigger: "when writing a commit message"
+confidence: 0.85
+domain: git
+source: repo-analysis
+source_repo: https://github.com/ohdaveed/candera-frontend
+---
+
+# Candera Frontend Commit Conventional
+
+## Action
+
+Use conventional commit format with prefixes: feat, style
+
+## Evidence
+
+- 5 commits analyzed
+- Detected conventional commit pattern
+- Examples: feat: implement product synchronization hook and update components to use it; enhance styling and accessibility, style: enhance button padding and layout across multiple components; update color variables for consistency
+
+---
+id: candera-frontend-commit-length
+trigger: "when writing a commit message"
+confidence: 0.6
+domain: git
+source: repo-analysis
+source_repo: https://github.com/ohdaveed/candera-frontend
+---
+
+# Candera Frontend Commit Length
+
+## Action
+
+Write detailed commit messages (~110 characters for first line)
+
+## Evidence
+
+- Average commit message length: 110 chars
+- Based on 5 commits
+
+---
+id: candera-frontend-naming-files
+trigger: "when creating a new file"
+confidence: 0.8
+domain: code-style
+source: repo-analysis
+source_repo: https://github.com/ohdaveed/candera-frontend
+---
+
+# Candera Frontend Naming Files
+
+## Action
+
+Use PascalCase naming convention
+
+## Evidence
+
+- Analyzed file naming patterns in repository
+- Dominant pattern: PascalCase
+
+---
+id: candera-frontend-import-relative
+trigger: "when importing modules"
+confidence: 0.75
+domain: code-style
+source: repo-analysis
+source_repo: https://github.com/ohdaveed/candera-frontend
+---
+
+# Candera Frontend Import Relative
+
+## Action
+
+Use relative imports for project files
+
+## Evidence
+
+- Import analysis shows relative import pattern
+- Example: import { x } from '../lib/x'
+
+---
+id: candera-frontend-export-style
+trigger: "when exporting from a module"
+confidence: 0.7
+domain: code-style
+source: repo-analysis
+source_repo: https://github.com/ohdaveed/candera-frontend
+---
+
+# Candera Frontend Export Style
+
+## Action
+
+Prefer mixed exports
+
+## Evidence
+
+- Export pattern analysis
+- Dominant style: mixed
+
+---
+id: candera-frontend-arch-type-based
+trigger: "when adding new code"
+confidence: 0.8
+domain: architecture
+source: repo-analysis
+source_repo: https://github.com/ohdaveed/candera-frontend
+---
+
+# Candera Frontend Arch Type Based
+
+## Action
+
+Place code in the appropriate type folder (components/, services/, utils/, etc.)
+
+## Evidence
+
+- Type-based module organization detected
+- Folders: components, data, hooks, lib, pages
+
+---
+id: candera-frontend-test-separate
+trigger: "when writing tests"
+confidence: 0.8
+domain: testing
+source: repo-analysis
+source_repo: https://github.com/ohdaveed/candera-frontend
+---
+
+# Candera Frontend Test Separate
+
+## Action
+
+Place tests in the tests/ or __tests__/ directory, mirroring src structure
+
+## Evidence
+
+- Separate test directory pattern detected
+- Tests live in dedicated test folders
+
+---
+id: candera-frontend-workflow-feature-development-across-multiple-components-and-pages
+trigger: "when doing feature development across multiple components and pages"
+confidence: 0.6
+domain: workflow
+source: repo-analysis
+source_repo: https://github.com/ohdaveed/candera-frontend
+---
+
+# Candera Frontend Workflow Feature Development Across Multiple Components And Pages
+
+## Action
+
+Follow the feature-development-across-multiple-components-and-pages workflow:
+1. Update or add relevant React component files in src/components/
+2. Update or add relevant page files in src/pages/
+3. Modify or add data files in src/data/ (e.g., products.json)
+4. Update shared utilities or hooks in src/hooks/ or src/lib/
+5. Adjust global or component-level styles in src/index.css
+6. Update configuration or meta files if necessary (e.g., vite.config.js, package.json)
+
+## Evidence
+
+- Workflow detected from commit patterns
+- Frequency: ~2x per month
+- Files: src/components/*.jsx, src/pages/*.jsx, src/data/*.json
+
+---
+id: candera-frontend-workflow-design-system-and-style-consolidation
+trigger: "when doing design system and style consolidation"
+confidence: 0.55
+domain: workflow
+source: repo-analysis
+source_repo: https://github.com/ohdaveed/candera-frontend
+---
+
+# Candera Frontend Workflow Design System And Style Consolidation
+
+## Action
+
+Follow the design-system-and-style-consolidation workflow:
+1. Update color variables or tokens in CSS (e.g., src/index.css, @theme blocks)
+2. Replace or refactor Tailwind classes in component and page files
+3. Update relevant React components and pages to use new design tokens
+4. Test visual consistency across the app
+
+## Evidence
+
+- Workflow detected from commit patterns
+- Frequency: ~1x per month
+- Files: src/index.css, src/components/*.jsx, src/pages/*.jsx
+
+---
+id: candera-frontend-instinct-file-naming
+trigger: "When creating a new file for a React component or class"
+confidence: 0.85
+domain: code-style
+source: repo-analysis
+source_repo: ohdaveed/candera-frontend
+---
+
+# Candera Frontend Instinct File Naming
+
+## Action
+
+Name the file using PascalCase (e.g., ProductList.jsx)
+
+## Evidence
+
+- Pattern in src/components/ProductList.jsx
+- Naming conventions specified in analysis
+
+---
+id: candera-frontend-instinct-function-naming
+trigger: "When defining a new function"
+confidence: 0.85
+domain: code-style
+source: repo-analysis
+source_repo: ohdaveed/candera-frontend
+---
+
+# Candera Frontend Instinct Function Naming
+
+## Action
+
+Use camelCase for function names (e.g., fetchProducts)
+
+## Evidence
+
+- Pattern in src/hooks/useProductSync.js
+- Naming conventions specified in analysis
+
+---
+id: candera-frontend-instinct-class-naming
+trigger: "When defining a new class"
+confidence: 0.8
+domain: code-style
+source: repo-analysis
+source_repo: ohdaveed/candera-frontend
+---
+
+# Candera Frontend Instinct Class Naming
+
+## Action
+
+Use PascalCase for class names (e.g., ProductManager)
+
+## Evidence
+
+- Naming conventions specified in analysis
+
+---
+id: candera-frontend-instinct-constant-naming
+trigger: "When declaring a constant"
+confidence: 0.8
+domain: code-style
+source: repo-analysis
+source_repo: ohdaveed/candera-frontend
+---
+
+# Candera Frontend Instinct Constant Naming
+
+## Action
+
+Use SCREAMING_SNAKE_CASE for constant names (e.g., MAX_ITEMS)
+
+## Evidence
+
+- Naming conventions specified in analysis
+
+---
+id: candera-frontend-instinct-import-style
+trigger: "When importing modules within the codebase"
+confidence: 0.8
+domain: code-style
+source: repo-analysis
+source_repo: ohdaveed/candera-frontend
+---
+
+# Candera Frontend Instinct Import Style
+
+## Action
+
+Use relative import paths (e.g., import X from '../lib/X')
+
+## Evidence
+
+- Pattern in src/components/*.jsx
+- Import style specified in analysis
+
+---
+id: candera-frontend-instinct-export-style
+trigger: "When exporting modules, functions, or components"
+confidence: 0.7
+domain: code-style
+source: repo-analysis
+source_repo: ohdaveed/candera-frontend
+---
+
+# Candera Frontend Instinct Export Style
+
+## Action
+
+Use both named and default exports as appropriate (mixed export style)
+
+## Evidence
+
+- Export style specified as 'mixed' in analysis
+
+---
+id: candera-frontend-instinct-test-location
+trigger: "When adding or updating tests"
+confidence: 0.8
+domain: testing
+source: repo-analysis
+source_repo: ohdaveed/candera-frontend
+---
+
+# Candera Frontend Instinct Test Location
+
+## Action
+
+Place test files in a separate directory from source files
+
+## Evidence
+
+- Test location specified as 'separate' in architecture analysis
+
+---
+id: candera-frontend-instinct-test-file-naming
+trigger: "When naming a test file"
+confidence: 0.7
+domain: testing
+source: repo-analysis
+source_repo: ohdaveed/candera-frontend
+---
+
+# Candera Frontend Instinct Test File Naming
+
+## Action
+
+Use the pattern [ComponentName].test.js or [ComponentName].spec.js
+
+## Evidence
+
+- Common convention for JavaScript projects; inferred from test location and file structure
+
+---
+id: candera-frontend-instinct-commit-format
+trigger: "When writing a commit message"
+confidence: 0.9
+domain: git
+source: repo-analysis
+source_repo: ohdaveed/candera-frontend
+---
+
+# Candera Frontend Instinct Commit Format
+
+## Action
+
+Use Conventional Commits format with 'feat' or 'style' prefixes (e.g., 'feat: add new product filter')
+
+## Evidence
+
+- Seen in commit: 'feat: implement product synchronization hook and update components to use it; enhance styling and accessibility'
+- Commit prefixes specified in analysis
+
+---
+id: candera-frontend-instinct-commit-length
+trigger: "When composing a commit message"
+confidence: 0.7
+domain: git
+source: repo-analysis
+source_repo: ohdaveed/candera-frontend
+---
+
+# Candera Frontend Instinct Commit Length
+
+## Action
+
+Write descriptive commit messages averaging around 110 characters
+
+## Evidence
+
+- Average commit length specified in analysis
+- Examples of detailed commit messages
+
+---
+id: candera-frontend-instinct-feature-workflow
+trigger: "When adding a new feature or refactoring across multiple parts of the frontend"
+confidence: 0.92
+domain: workflow
+source: repo-analysis
+source_repo: ohdaveed/candera-frontend
+---
+
+# Candera Frontend Instinct Feature Workflow
+
+## Action
+
+Update components in src/components/, pages in src/pages/, data in src/data/, hooks/lib, styles in src/index.css, and config files as needed
+
+## Evidence
+
+- Workflow 'feature-development-across-multiple-components-and-pages' described in analysis
+- Example commit sequences and files involved
+
+---
+id: candera-frontend-instinct-design-system-workflow
+trigger: "When standardizing or updating the design system or styles for consistency"
+confidence: 0.87
+domain: workflow
+source: repo-analysis
+source_repo: ohdaveed/candera-frontend
+---
+
+# Candera Frontend Instinct Design System Workflow
+
+## Action
+
+Update color variables in src/index.css, refactor Tailwind classes in components/pages, and ensure visual consistency
+
+## Evidence
+
+- Workflow 'design-system-and-style-consolidation' described in analysis
+- Example commit sequences and files involved
+
