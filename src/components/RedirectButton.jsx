@@ -17,13 +17,18 @@ export default function RedirectButton({ url, className = '', children }) {
 
   function handleClick() {
     if (isDisabled) return
-
+    try {
+      const parsed = new URL(url)
+      if (!['http:', 'https:'].includes(parsed.protocol)) return
+    } catch {
+      return
+    }
     setIsRedirecting(true)
+    window.open(url, '_blank', 'noopener,noreferrer')
     redirectTimer.current = window.setTimeout(() => {
-      window.open(url, '_blank', 'noopener,noreferrer')
       setIsRedirecting(false)
       redirectTimer.current = null
-    }, 1200)
+    }, 800)
   }
 
   return (
@@ -36,7 +41,7 @@ export default function RedirectButton({ url, className = '', children }) {
         !isDisabled && 'cursor-pointer',
         className,
       )}
-      aria-label={isRedirecting ? 'Opening Etsy' : 'View on Etsy'}
+      aria-label={isRedirecting ? 'Opening Etsy' : !url ? 'Etsy listing unavailable' : 'View on Etsy'}
     >
       {isRedirecting ? (
         <span className="text-candera-warm italic animate-pulse text-[10px] uppercase tracking-widest">

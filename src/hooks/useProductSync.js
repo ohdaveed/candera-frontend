@@ -26,8 +26,18 @@ export function useProductSync() {
 
         const syncedProducts = await response.json()
 
-        if (!Array.isArray(syncedProducts)) {
-          throw new Error('Product sync response must be an array')
+        function isValidProduct(p) {
+          return (
+            typeof p?.slug === 'string' &&
+            typeof p?.name === 'string' &&
+            typeof p?.price === 'number' &&
+            Array.isArray(p?.notes) &&
+            typeof p?.metadata?.burn_time === 'string'
+          )
+        }
+
+        if (!Array.isArray(syncedProducts) || !syncedProducts.every(isValidProduct)) {
+          throw new Error('Product sync response has an invalid product shape')
         }
 
         setProducts(syncedProducts)

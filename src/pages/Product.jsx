@@ -5,8 +5,16 @@ import RedirectButton from '../components/RedirectButton'
 
 export default function Product() {
   const { slug } = useParams()
-  const { getProductBySlug } = useProductSync()
+  const { getProductBySlug, isLoading } = useProductSync()
   const product = getProductBySlug(slug)
+
+  if (isLoading && !product) {
+    return (
+      <main className="pt-32 px-6 text-center">
+        <p className="text-candera-sage">Loading vessel…</p>
+      </main>
+    )
+  }
 
   if (!product) {
     return (

@@ -61,7 +61,7 @@ export default function Collection() {
           <AnimatePresence mode="popLayout">
             {filteredProducts.map((candle) => (
               <motion.div
-                key={candle.id}
+                key={candle.slug}
                 layout
                 initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -103,7 +103,7 @@ export default function Collection() {
                       </p>
                     </div>
                     <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-[10px] uppercase tracking-widest text-candera-warm">
-                      Shop on Etsy →
+                      View details →
                     </span>
                   </div>
                 </Link>

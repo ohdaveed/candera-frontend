@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { ArrowRight, Clock, Star, Mail, BadgeCheck } from 'lucide-react'
 import { motion } from 'framer-motion'
@@ -29,6 +30,7 @@ const TESTIMONIALS = [
 
 export default function Home({ openQuiz }) {
   const { products } = useProductSync()
+  const [formStatus, setFormStatus] = useState('')
 
   return (
     <main>
@@ -107,7 +109,12 @@ export default function Home({ openQuiz }) {
           </div>
 
           <div className="grid md:grid-cols-3 gap-x-12 gap-y-24">
-            {products.map((candle) => (
+            {products.map((candle) => {
+              const price = Number(candle?.price)
+              const metadata = candle?.metadata ?? {}
+              const scent = candle?.scent_profile ?? {}
+              if (!candle?.slug || !candle?.name || Number.isNaN(price)) return null
+              return (
               <div key={candle.slug} className="group space-y-8">
                 {/* Image */}
                 <Link to={`/collection/${candle.slug}`} className="block relative aspect-[4/5] overflow-hidden bg-stone-100 shadow-sm">
@@ -122,7 +129,7 @@ export default function Home({ openQuiz }) {
                       {candle.tag}
                     </span>
                     <span className="bg-stone-900/80 text-white backdrop-blur-md px-3 py-1 text-[8px] uppercase tracking-widest font-medium self-start">
-                      Batch {candle.metadata.batch}
+                      Batch {metadata.batch ?? '—'}
                     </span>
                   </div>
                 </Link>
@@ -133,7 +140,7 @@ export default function Home({ openQuiz }) {
                     <Link to={`/collection/${candle.slug}`}>
                       <h3 className="text-3xl font-serif italic hover:text-candera-warm transition-colors">{candle.name}</h3>
                     </Link>
-                    <span className="text-stone-400 font-light tracking-widest">${candle.price.toFixed(2)}</span>
+                    <span className="text-stone-400 font-light tracking-widest">${price.toFixed(2)}</span>
                   </div>
 
                   {/* Fragrance profile */}
@@ -142,15 +149,15 @@ export default function Home({ openQuiz }) {
                     <div className="grid grid-cols-3 gap-2 text-[9px] uppercase tracking-widest font-medium text-stone-600">
                       <div className="border-r border-stone-200 pr-2">
                         <span className="text-candera-warm block mb-1">Top</span>
-                        {candle.scent_profile.top}
+                        {scent.top ?? '—'}
                       </div>
                       <div className="border-r border-stone-200 px-2">
                         <span className="text-candera-warm block mb-1">Heart</span>
-                        {candle.scent_profile.heart}
+                        {scent.heart ?? '—'}
                       </div>
                       <div className="pl-2">
                         <span className="text-candera-warm block mb-1">Base</span>
-                        {candle.scent_profile.base}
+                        {scent.base ?? '—'}
                       </div>
                     </div>
                   </div>
@@ -159,7 +166,7 @@ export default function Home({ openQuiz }) {
                   <div className="flex items-center justify-between text-[10px] uppercase tracking-widest text-stone-400 font-bold">
                     <div className="flex items-center gap-2">
                       <Clock size={12} />
-                      {candle.metadata.burn_time}
+                      {metadata.burn_time ?? '—'}
                     </div>
                     <span className="italic text-candera-warm/60 lowercase font-serif text-sm normal-case">
                       {candle.atmosphere}
@@ -172,7 +179,8 @@ export default function Home({ openQuiz }) {
                   />
                 </div>
               </div>
-            ))}
+              )
+            })}
           </div>
         </div>
       </section>
@@ -186,7 +194,7 @@ export default function Home({ openQuiz }) {
           <div className="grid md:grid-cols-3 gap-12">
             {TESTIMONIALS.map((t, i) => (
               <div key={i} className="space-y-6 px-4">
-                <div className="flex justify-center gap-1 text-candera-warm/40">
+                <div className="flex justify-center gap-1 text-candera-warm/40" aria-hidden="true">
                   {[...Array(5)].map((_, j) => (
                     <Star key={j} size={14} fill="currentColor" />
                   ))}
@@ -197,7 +205,7 @@ export default function Home({ openQuiz }) {
                     — {t.author}, {t.loc}
                   </p>
                   <div className="flex items-center justify-center gap-1 text-[8px] text-candera-warm font-bold uppercase tracking-[0.15em]">
-                    <BadgeCheck size={10} />
+                    <BadgeCheck size={10} aria-hidden="true" />
                     {t.status}
                   </div>
                 </div>
@@ -227,10 +235,15 @@ export default function Home({ openQuiz }) {
           </div>
           <form
             className="flex flex-col md:flex-row gap-4 max-w-lg mx-auto"
-            onSubmit={(e) => e.preventDefault()}
+            onSubmit={(e) => { e.preventDefault(); setFormStatus('You\'re on the list. Watch your inbox.') }}
           >
+            <label htmlFor="inner-circle-email" className="sr-only">Email address</label>
             <input
+              id="inner-circle-email"
               type="email"
+              name="email"
+              autoComplete="email"
+              required
               placeholder="ritual@email.com"
               className="flex-1 bg-transparent border-b border-stone-700 py-3 text-stone-100 outline-none focus:border-candera-warm transition-colors placeholder:text-stone-600 font-light italic"
             />
@@ -241,6 +254,9 @@ export default function Home({ openQuiz }) {
               Request Entry
             </button>
           </form>
+          {formStatus && (
+            <p role="status" className="text-xs text-stone-400 mt-4">{formStatus}</p>
+          )}
         </div>
       </section>
     </main>

@@ -56,8 +56,8 @@ export default function Footer() {
         <div className="space-y-6">
           <h5 className="text-[11px] uppercase tracking-[0.2em] font-bold text-stone-400">Assistance</h5>
           <ul className="text-stone-600 text-xs space-y-4 font-semibold">
-            <li className="hover:text-candera-warm cursor-pointer transition-colors">Shipping & Returns</li>
-            <li className="hover:text-candera-warm cursor-pointer transition-colors">Wholesale</li>
+            <li className="text-stone-400">Shipping & Returns</li>
+            <li className="text-stone-400">Wholesale</li>
             <li>
               <Link to="/inner-circle" className="hover:text-candera-warm transition-colors">Contact</Link>
             </li>
@@ -69,8 +69,8 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto mt-24 pt-8 border-t border-stone-100 flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] text-stone-400 font-bold uppercase tracking-widest">
         <p>© 2024 Candera Studio. All rights reserved.</p>
         <div className="flex gap-8">
-          <span className="hover:text-stone-900 cursor-pointer">Privacy Policy</span>
-          <span className="hover:text-stone-900 cursor-pointer">Terms of Service</span>
+          <Link to="/privacy" className="hover:text-stone-900 transition-colors">Privacy Policy</Link>
+          <Link to="/terms" className="hover:text-stone-900 transition-colors">Terms of Service</Link>
         </div>
       </div>
     </footer>

@@ -57,8 +57,8 @@
 
   html {
     font-family: Inter, sans-serif;
-    background-color: #F5F2ED;
-    color: #1A1A1B;
+    background-color: var(--color-background);
+    color: var(--color-foreground);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
@@ -74,19 +74,19 @@
   }
 
   ::selection {
-    background-color: #D8D3CA;
-    color: #1A1A1B;
+    background-color: var(--color-candera-stone);
+    color: var(--color-foreground);
   }
 
   :focus-visible {
-    outline: 2px solid #1A1A1B;
+    outline: 2px solid var(--color-foreground);
     outline-offset: 3px;
     border-radius: 1px;
   }
 
   a:focus-visible,
   button:focus-visible {
-    outline: 2px solid #1A1A1B;
+    outline: 2px solid var(--color-foreground);
     outline-offset: 3px;
   }
 }

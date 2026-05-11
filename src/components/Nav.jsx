@@ -36,7 +36,7 @@ export default function Nav({ openQuiz }) {
             <NavLink
               to="/collection"
               className={({ isActive }) =>
-                `${linkBase} ${linkColor} ${isActive && !transparent ? '!text-stone-900 border-b border-stone-900 pb-1' : ''}`
+                `${linkBase} ${linkColor} ${isActive && !transparent ? 'text-stone-900! border-b border-stone-900 pb-1' : ''}`
               }
             >
               Collection
@@ -44,14 +44,14 @@ export default function Nav({ openQuiz }) {
             <NavLink
               to="/about"
               className={({ isActive }) =>
-                `${linkBase} ${linkColor} ${isActive && !transparent ? '!text-stone-900 border-b border-stone-900 pb-1' : ''}`
+                `${linkBase} ${linkColor} ${isActive && !transparent ? 'text-stone-900! border-b border-stone-900 pb-1' : ''}`
               }
             >
               The Craft
             </NavLink>
             <button
               onClick={openQuiz}
-              className={`${linkBase} ${linkColor} hover:!text-candera-warm flex items-center gap-1.5`}
+              className={`${linkBase} ${linkColor} hover:text-candera-warm! flex items-center gap-1.5`}
             >
               <Sparkles size={11} />
               Scent Quiz
@@ -91,12 +91,13 @@ export default function Nav({ openQuiz }) {
                 Shop The Batch
               </Link>
             </div>
-            <button
-              aria-label="Bag"
+            <Link
+              to="/collection"
+              aria-label="Shop the collection"
               className={`relative p-3.5 ${transparent ? 'text-stone-300 hover:text-white' : 'text-stone-500 hover:text-stone-900'} transition-colors`}
             >
               <ShoppingBag size={20} strokeWidth={1.5} />
-            </button>
+            </Link>
           </div>
         </div>
       </header>
