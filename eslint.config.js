@@ -12,6 +12,11 @@ export default defineConfig([
     languageOptions: { globals: globals.node },
   },
   {
+    files: ['server.js'],
+    extends: [js.configs.recommended],
+    languageOptions: { globals: globals.node },
+  },
+  {
     files: ['**/*.{js,jsx}'],
     extends: [
       js.configs.recommended,
