@@ -8,6 +8,11 @@ const ETSY_SHARED_SECRET = process.env.ETSY_SHARED_SECRET || ''
 const ETSY_SHOP_ID = process.env.ETSY_SHOP_ID || ''
 const ETSY_LISTINGS_LIMIT = Number.parseInt(process.env.ETSY_LISTINGS_LIMIT || '50', 10)
 
+if (!ETSY_KEYSTRING || !ETSY_SHOP_ID) {
+  console.error('Missing required server env vars: ETSY_KEYSTRING and ETSY_SHOP_ID.')
+  process.exit(1)
+}
+
 function sendJson(res, status, payload) {
   res.writeHead(status, {
     'Content-Type': 'application/json; charset=utf-8',
@@ -94,9 +99,6 @@ const server = http.createServer(async (req, res) => {
 })
 
 server.listen(PORT, () => {
-  if (!ETSY_KEYSTRING || !ETSY_SHOP_ID) {
-    console.warn('Missing ETSY_KEYSTRING or ETSY_SHOP_ID. /api/etsy/listings will return an error until set.')
-  }
   if (!ETSY_SHARED_SECRET) {
     console.warn('Missing ETSY_SHARED_SECRET. This is only needed for OAuth flows.')
   }
