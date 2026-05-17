@@ -2,6 +2,18 @@
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
+## Etsy backend connection prep
+
+The storefront can pull live product data from your Etsy backend while keeping `src/data/products.json` as a fallback.
+
+1. Copy `.env.example` to `.env.local`.
+2. Set:
+   - `VITE_ETSY_BACKEND_URL` (example: `http://localhost:3000`)
+   - `VITE_ETSY_PRODUCTS_ENDPOINT` (default: `/api/etsy/listings`)
+   - `VITE_ETSY_BACKEND_API_KEY` (optional; sent as `x-api-key`)
+
+The hook also supports the legacy `VITE_PRODUCTS_API_URL` variable if you already have a single products endpoint URL.
+
 Currently, two official plugins are available:
 
 - [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
