@@ -5,12 +5,14 @@ const legacyProductsApiUrl = import.meta.env.VITE_PRODUCTS_API_URL
 const etsyBackendUrl = import.meta.env.VITE_ETSY_BACKEND_URL
 const etsyProductsEndpoint = import.meta.env.VITE_ETSY_PRODUCTS_ENDPOINT || '/api/etsy/listings'
 const etsyBackendApiKey = import.meta.env.VITE_ETSY_BACKEND_API_KEY
-const DEFAULT_ETSY_SHOP_URL = 'https://www.etsy.com/shop/CanderaCandles'
+const etsyShopUrl = import.meta.env.VITE_ETSY_SHOP_URL || 'https://www.etsy.com/shop/CanderaCandles'
 // Keep the baseline aligned with the existing catalog price point.
 const DEFAULT_PRICE = 38
 // Prime multipliers reduce repeated overlap when synthesizing fallback map positions.
 const SENSORY_X_MULTIPLIER = 17
 const SENSORY_Y_MULTIPLIER = 29
+const SENSORY_COORDINATE_MAX = 100
+const MAX_TAGLINE_LENGTH = 140
 
 function resolveProductsApiUrl() {
   if (legacyProductsApiUrl) return legacyProductsApiUrl
@@ -63,7 +65,7 @@ function toProductShape(listing, index) {
   const etsyId = getEtsyId(listing)
   const description = String(listing?.description ?? '')
   const firstSentence = description.split('. ')[0]?.trim()
-  const fallbackTagline = firstSentence && firstSentence.length <= 140 ? firstSentence : 'Handcrafted listing from Etsy.'
+  const fallbackTagline = firstSentence && firstSentence.length <= MAX_TAGLINE_LENGTH ? firstSentence : 'Handcrafted listing from Etsy.'
   const tags = Array.isArray(listing?.tags) ? listing.tags.filter(Boolean) : []
   const notes = Array.isArray(listing?.notes) ? listing.notes : tags.slice(0, 4)
   const metadata = listing?.metadata ?? {}
@@ -91,12 +93,12 @@ function toProductShape(listing, index) {
     },
     etsy_id: etsyId,
     image: listing?.image ?? listing?.image_url ?? null,
-    etsy_link: listing?.etsy_link ?? listing?.url ?? DEFAULT_ETSY_SHOP_URL,
+    etsy_link: listing?.etsy_link ?? listing?.url ?? etsyShopUrl,
     tag: listing?.tag ?? null,
     atmosphere: listing?.atmosphere ?? 'Handcrafted',
     sensory: {
-      x: Number.isFinite(listing?.sensory?.x) ? listing.sensory.x : (index * SENSORY_X_MULTIPLIER) % 100,
-      y: Number.isFinite(listing?.sensory?.y) ? listing.sensory.y : (index * SENSORY_Y_MULTIPLIER) % 100,
+      x: Number.isFinite(listing?.sensory?.x) ? listing.sensory.x : (index * SENSORY_X_MULTIPLIER) % SENSORY_COORDINATE_MAX,
+      y: Number.isFinite(listing?.sensory?.y) ? listing.sensory.y : (index * SENSORY_Y_MULTIPLIER) % SENSORY_COORDINATE_MAX,
     },
   }
 }

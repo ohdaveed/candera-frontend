@@ -11,6 +11,7 @@ The storefront can pull live product data from your Etsy backend while keeping `
    - `VITE_ETSY_BACKEND_URL` (example: `http://localhost:3000`)
    - `VITE_ETSY_PRODUCTS_ENDPOINT` (default: `/api/etsy/listings`)
    - `VITE_ETSY_BACKEND_API_KEY` (optional; sent as `x-api-key`)
+   - `VITE_ETSY_SHOP_URL` (optional fallback listing/shop URL)
 
 The hook also supports the legacy `VITE_PRODUCTS_API_URL` variable if you already have a single products endpoint URL.
 
