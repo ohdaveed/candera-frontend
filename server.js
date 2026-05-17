@@ -46,13 +46,6 @@ function normalizeListing(listing) {
 }
 
 async function fetchActiveEtsyListings() {
-  if (!ETSY_KEYSTRING) {
-    throw new Error('Missing ETSY_KEYSTRING')
-  }
-  if (!ETSY_SHOP_ID) {
-    throw new Error('Missing ETSY_SHOP_ID')
-  }
-
   const endpoint = new URL(`https://openapi.etsy.com/v3/application/shops/${ETSY_SHOP_ID}/listings/active`)
   endpoint.searchParams.set('limit', String(ETSY_LISTINGS_LIMIT))
   endpoint.searchParams.set('includes', 'images')
@@ -71,6 +64,10 @@ async function fetchActiveEtsyListings() {
   const payload = await response.json()
   const results = Array.isArray(payload?.results) ? payload.results : []
   return results.map((listing) => normalizeListing(listing))
+}
+
+if (!ETSY_SHARED_SECRET) {
+  console.warn('Missing ETSY_SHARED_SECRET. This is only needed for OAuth flows.')
 }
 
 const server = http.createServer(async (req, res) => {
@@ -99,8 +96,5 @@ const server = http.createServer(async (req, res) => {
 })
 
 server.listen(PORT, () => {
-  if (!ETSY_SHARED_SECRET) {
-    console.warn('Missing ETSY_SHARED_SECRET. This is only needed for OAuth flows.')
-  }
   console.log(`Node server listening on http://localhost:${PORT}`)
 })
