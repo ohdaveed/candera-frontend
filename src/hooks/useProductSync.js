@@ -31,16 +31,20 @@ function toSlug(value) {
 }
 
 function toPrice(value) {
-  if (typeof value === 'number') return value
+  function asValidPrice(candidate) {
+    return Number.isFinite(candidate) && candidate >= 0 ? candidate : DEFAULT_PRICE
+  }
+
+  if (typeof value === 'number') return asValidPrice(value)
   if (typeof value === 'string') {
     const parsed = Number.parseFloat(value.replace(/[^\d.]/g, ''))
-    return Number.isFinite(parsed) ? parsed : DEFAULT_PRICE
+    return asValidPrice(parsed)
   }
   if (value && typeof value.amount !== 'undefined') {
     const amount = Number(value.amount)
     const divisor = Number(value.divisor || 1)
     if (Number.isFinite(amount) && Number.isFinite(divisor) && divisor > 0) {
-      return amount / divisor
+      return asValidPrice(amount / divisor)
     }
   }
   return DEFAULT_PRICE
@@ -53,11 +57,13 @@ function getEtsyId(listing) {
 }
 
 function toProductShape(listing, index) {
-  const name = String(listing?.name ?? listing?.title ?? `Candera Vessel ${index + 1}`)
+  const name = String(listing?.name ?? listing?.title ?? `Product ${index + 1}`)
   const slug = toSlug(listing?.slug ?? name) || `candera-vessel-${index + 1}`
   const id = String(listing?.id ?? listing?.listing_id ?? slug)
   const etsyId = getEtsyId(listing)
   const description = String(listing?.description ?? '')
+  const firstSentence = description.split('. ')[0]?.trim()
+  const fallbackTagline = firstSentence && firstSentence.length <= 140 ? firstSentence : 'Handcrafted listing from Etsy.'
   const tags = Array.isArray(listing?.tags) ? listing.tags.filter(Boolean) : []
   const notes = Array.isArray(listing?.notes) ? listing.notes : tags.slice(0, 4)
   const metadata = listing?.metadata ?? {}
@@ -69,7 +75,7 @@ function toProductShape(listing, index) {
     name,
     vessel: String(listing?.vessel ?? metadata.batch ?? String(index + 1).padStart(3, '0')),
     price: toPrice(listing?.price),
-    tagline: listing?.tagline ?? description.split('. ')[0],
+    tagline: listing?.tagline ?? fallbackTagline,
     description,
     scent_profile: {
       top: scentProfile.top ?? tags[0] ?? 'Top notes',
@@ -133,8 +139,11 @@ export function useProductSync() {
         const payload = await response.json()
         const syncedProducts = normalizeProductsPayload(payload)
 
-        if (!syncedProducts || syncedProducts.length === 0) {
-          throw new Error('Product sync failed: no products returned or invalid payload format')
+        if (!syncedProducts) {
+          throw new Error('Product sync failed: invalid payload format')
+        }
+        if (syncedProducts.length === 0) {
+          throw new Error('Product sync failed: no products returned')
         }
 
         setProducts(syncedProducts)
