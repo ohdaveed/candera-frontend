@@ -3,8 +3,9 @@ import localProducts from '../data/products.json'
 
 const legacyProductsApiUrl = import.meta.env.VITE_PRODUCTS_API_URL
 const etsyBackendUrl = import.meta.env.VITE_ETSY_BACKEND_URL
-const etsyProductsEndpoint = import.meta.env.VITE_ETSY_PRODUCTS_ENDPOINT ?? '/api/etsy/listings'
+const etsyProductsEndpoint = import.meta.env.VITE_ETSY_PRODUCTS_ENDPOINT || '/api/etsy/listings'
 const etsyBackendApiKey = import.meta.env.VITE_ETSY_BACKEND_API_KEY
+const DEFAULT_PRICE = 38
 
 function resolveProductsApiUrl() {
   if (legacyProductsApiUrl) return legacyProductsApiUrl
@@ -28,7 +29,7 @@ function toPrice(value) {
   if (typeof value === 'number') return value
   if (typeof value === 'string') {
     const parsed = Number.parseFloat(value.replace(/[^\d.]/g, ''))
-    return Number.isFinite(parsed) ? parsed : 38
+    return Number.isFinite(parsed) ? parsed : DEFAULT_PRICE
   }
   if (value && typeof value.amount !== 'undefined') {
     const amount = Number(value.amount)
@@ -37,7 +38,7 @@ function toPrice(value) {
       return amount / divisor
     }
   }
-  return 38
+  return DEFAULT_PRICE
 }
 
 function toProductShape(listing, index) {
@@ -121,7 +122,7 @@ export function useProductSync() {
         const syncedProducts = normalizeProductsPayload(payload)
 
         if (!syncedProducts || syncedProducts.length === 0) {
-          throw new Error('Product sync response has an invalid product shape')
+          throw new Error('Product sync failed: no products returned or invalid payload format')
         }
 
         setProducts(syncedProducts)
