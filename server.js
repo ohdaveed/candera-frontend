@@ -77,7 +77,6 @@ const server = http.createServer(async (req, res) => {
     return sendJson(res, 200, {
       ok: true,
       etsyConfigured: Boolean(ETSY_KEYSTRING && ETSY_SHOP_ID),
-      hasSharedSecret: Boolean(ETSY_SHARED_SECRET),
     })
   }
 
@@ -95,5 +94,11 @@ const server = http.createServer(async (req, res) => {
 })
 
 server.listen(PORT, () => {
+  if (!ETSY_KEYSTRING || !ETSY_SHOP_ID) {
+    console.warn('Missing ETSY_KEYSTRING or ETSY_SHOP_ID. /api/etsy/listings will return an error until set.')
+  }
+  if (!ETSY_SHARED_SECRET) {
+    console.warn('Missing ETSY_SHARED_SECRET. This is only needed for OAuth flows.')
+  }
   console.log(`Node server listening on http://localhost:${PORT}`)
 })
