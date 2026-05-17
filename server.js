@@ -21,6 +21,8 @@ function sendJson(res, status, payload) {
 function normalizeListing(listing) {
   const image = listing?.images?.[0]
   const price = listing?.price
+  const amount = Number(price?.amount ?? 0)
+  const divisor = Number(price?.divisor ?? 100)
 
   return {
     id: String(listing?.listing_id ?? ''),
@@ -28,8 +30,8 @@ function normalizeListing(listing) {
     title: listing?.title ?? 'Untitled listing',
     description: listing?.description ?? '',
     price: {
-      amount: Number(price?.amount || 0),
-      divisor: Number(price?.divisor || 100),
+      amount: Number.isFinite(amount) ? amount : 0,
+      divisor: Number.isFinite(divisor) && divisor > 0 ? divisor : 100,
       currency_code: price?.currency_code || 'USD',
     },
     tags: Array.isArray(listing?.tags) ? listing.tags : [],
@@ -74,7 +76,8 @@ const server = http.createServer(async (req, res) => {
   if (req.method === 'GET' && req.url === '/health') {
     return sendJson(res, 200, {
       ok: true,
-      etsyConfigured: Boolean(ETSY_KEYSTRING && ETSY_SHOP_ID && ETSY_SHARED_SECRET),
+      etsyConfigured: Boolean(ETSY_KEYSTRING && ETSY_SHOP_ID),
+      hasSharedSecret: Boolean(ETSY_SHARED_SECRET),
     })
   }
 
