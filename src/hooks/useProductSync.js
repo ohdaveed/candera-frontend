@@ -5,7 +5,10 @@ const legacyProductsApiUrl = import.meta.env.VITE_PRODUCTS_API_URL
 const etsyBackendUrl = import.meta.env.VITE_ETSY_BACKEND_URL
 const etsyProductsEndpoint = import.meta.env.VITE_ETSY_PRODUCTS_ENDPOINT || '/api/etsy/listings'
 const etsyBackendApiKey = import.meta.env.VITE_ETSY_BACKEND_API_KEY
+const DEFAULT_ETSY_SHOP_URL = 'https://www.etsy.com/shop/CanderaCandles'
+// Keep the baseline aligned with the existing catalog price point.
 const DEFAULT_PRICE = 38
+// Prime multipliers reduce repeated overlap when synthesizing fallback map positions.
 const SENSORY_X_MULTIPLIER = 17
 const SENSORY_Y_MULTIPLIER = 29
 
@@ -43,11 +46,17 @@ function toPrice(value) {
   return DEFAULT_PRICE
 }
 
+function getEtsyId(listing) {
+  if (listing?.etsy_id) return String(listing.etsy_id)
+  if (listing?.listing_id) return String(listing.listing_id)
+  return null
+}
+
 function toProductShape(listing, index) {
   const name = String(listing?.name ?? listing?.title ?? `Candera Vessel ${index + 1}`)
   const slug = toSlug(listing?.slug ?? name) || `candera-vessel-${index + 1}`
   const id = String(listing?.id ?? listing?.listing_id ?? slug)
-  const etsyId = listing?.etsy_id ? String(listing.etsy_id) : (listing?.listing_id ? String(listing.listing_id) : null)
+  const etsyId = getEtsyId(listing)
   const description = String(listing?.description ?? '')
   const tags = Array.isArray(listing?.tags) ? listing.tags.filter(Boolean) : []
   const notes = Array.isArray(listing?.notes) ? listing.notes : tags.slice(0, 4)
@@ -76,7 +85,7 @@ function toProductShape(listing, index) {
     },
     etsy_id: etsyId,
     image: listing?.image ?? listing?.image_url ?? null,
-    etsy_link: listing?.etsy_link ?? listing?.url ?? 'https://www.etsy.com/shop/CanderaCandles',
+    etsy_link: listing?.etsy_link ?? listing?.url ?? DEFAULT_ETSY_SHOP_URL,
     tag: listing?.tag ?? null,
     atmosphere: listing?.atmosphere ?? 'Handcrafted',
     sensory: {
