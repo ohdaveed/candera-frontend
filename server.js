@@ -4,12 +4,15 @@ import { URL } from 'node:url'
 const PORT = Number.parseInt(process.env.PORT || '3000', 10)
 const CORS_ORIGIN = process.env.CORS_ORIGIN || '*'
 const ETSY_KEYSTRING = process.env.ETSY_KEYSTRING || ''
-const ETSY_SHARED_SECRET = process.env.ETSY_SHARED_SECRET || ''
 const ETSY_SHOP_ID = process.env.ETSY_SHOP_ID || ''
 const ETSY_LISTINGS_LIMIT = Number.parseInt(process.env.ETSY_LISTINGS_LIMIT || '50', 10)
 
-if (!ETSY_KEYSTRING || !ETSY_SHOP_ID) {
-  console.error('Missing required server env vars: ETSY_KEYSTRING and ETSY_SHOP_ID.')
+const missingRequiredEnvVars = []
+if (!ETSY_KEYSTRING) missingRequiredEnvVars.push('ETSY_KEYSTRING')
+if (!ETSY_SHOP_ID) missingRequiredEnvVars.push('ETSY_SHOP_ID')
+
+if (missingRequiredEnvVars.length > 0) {
+  console.error(`Missing required server env vars: ${missingRequiredEnvVars.join(', ')}`)
   process.exit(1)
 }
 
@@ -64,10 +67,6 @@ async function fetchActiveEtsyListings() {
   const payload = await response.json()
   const results = Array.isArray(payload?.results) ? payload.results : []
   return results.map((listing) => normalizeListing(listing))
-}
-
-if (!ETSY_SHARED_SECRET) {
-  console.warn('Missing ETSY_SHARED_SECRET. This is only needed for OAuth flows.')
 }
 
 const server = http.createServer(async (req, res) => {
