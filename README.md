@@ -15,6 +15,21 @@ The storefront can pull live product data from your Etsy backend while keeping `
 
 The hook also supports the legacy `VITE_PRODUCTS_API_URL` variable if you already have a single products endpoint URL.
 
+## Local Node server
+
+A minimal Node proxy server is available in `server.js` to fetch active Etsy listings and expose them to the frontend.
+
+1. Set server env vars in `.env` (or your shell):
+   - `ETSY_KEYSTRING`
+   - `ETSY_SHARED_SECRET`
+   - `ETSY_SHOP_ID`
+   - `PORT` (optional, default `3000`)
+2. Start it:
+   - `npm run server`
+3. Available routes:
+   - `GET /health`
+   - `GET /api/etsy/listings`
+
 Currently, two official plugins are available:
 
 - [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
