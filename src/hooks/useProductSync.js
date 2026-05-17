@@ -6,6 +6,8 @@ const etsyBackendUrl = import.meta.env.VITE_ETSY_BACKEND_URL
 const etsyProductsEndpoint = import.meta.env.VITE_ETSY_PRODUCTS_ENDPOINT || '/api/etsy/listings'
 const etsyBackendApiKey = import.meta.env.VITE_ETSY_BACKEND_API_KEY
 const DEFAULT_PRICE = 38
+const SENSORY_X_MULTIPLIER = 17
+const SENSORY_Y_MULTIPLIER = 29
 
 function resolveProductsApiUrl() {
   if (legacyProductsApiUrl) return legacyProductsApiUrl
@@ -42,9 +44,10 @@ function toPrice(value) {
 }
 
 function toProductShape(listing, index) {
-  const id = String(listing?.id ?? listing?.listing_id ?? `etsy-${index + 1}`)
   const name = String(listing?.name ?? listing?.title ?? `Candera Vessel ${index + 1}`)
   const slug = toSlug(listing?.slug ?? name) || `candera-vessel-${index + 1}`
+  const id = String(listing?.id ?? listing?.listing_id ?? slug)
+  const etsyId = listing?.etsy_id ? String(listing.etsy_id) : (listing?.listing_id ? String(listing.listing_id) : null)
   const description = String(listing?.description ?? '')
   const tags = Array.isArray(listing?.tags) ? listing.tags.filter(Boolean) : []
   const notes = Array.isArray(listing?.notes) ? listing.notes : tags.slice(0, 4)
@@ -57,7 +60,7 @@ function toProductShape(listing, index) {
     name,
     vessel: String(listing?.vessel ?? metadata.batch ?? String(index + 1).padStart(3, '0')),
     price: toPrice(listing?.price),
-    tagline: listing?.tagline ?? description.split('. ')[0] ?? '',
+    tagline: listing?.tagline ?? description.split('. ')[0],
     description,
     scent_profile: {
       top: scentProfile.top ?? tags[0] ?? 'Top notes',
@@ -71,14 +74,14 @@ function toProductShape(listing, index) {
       mood: metadata.mood ?? 'Ritual',
       batch: metadata.batch ?? String(index + 1).padStart(3, '0'),
     },
-    etsy_id: listing?.etsy_id ? String(listing.etsy_id) : (listing?.listing_id ? String(listing.listing_id) : null),
+    etsy_id: etsyId,
     image: listing?.image ?? listing?.image_url ?? null,
     etsy_link: listing?.etsy_link ?? listing?.url ?? 'https://www.etsy.com/shop/CanderaCandles',
     tag: listing?.tag ?? null,
     atmosphere: listing?.atmosphere ?? 'Handcrafted',
     sensory: {
-      x: Number.isFinite(listing?.sensory?.x) ? listing.sensory.x : (index * 17) % 100,
-      y: Number.isFinite(listing?.sensory?.y) ? listing.sensory.y : (index * 29) % 100,
+      x: Number.isFinite(listing?.sensory?.x) ? listing.sensory.x : (index * SENSORY_X_MULTIPLIER) % 100,
+      y: Number.isFinite(listing?.sensory?.y) ? listing.sensory.y : (index * SENSORY_Y_MULTIPLIER) % 100,
     },
   }
 }
