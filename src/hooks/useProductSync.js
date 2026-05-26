@@ -3,7 +3,6 @@ import fallbackProducts from "../data/products.json";
 
 const legacyProductsApiUrl = import.meta.env.VITE_PRODUCTS_API_URL;
 const etsyProductsEndpoint = "/api/etsy/listings";
-const etsyBackendApiKey = import.meta.env.VITE_ETSY_BACKEND_API_KEY;
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 const etsyShopUrl =
   import.meta.env.VITE_ETSY_SHOP_URL || "https://www.etsy.com/shop/CanderaCandles";
@@ -157,9 +156,7 @@ export function useProductSync() {
               apikey: supabaseAnonKey,
               Authorization: `Bearer ${supabaseAnonKey}`,
             }
-          : etsyBackendApiKey
-            ? { "x-api-key": etsyBackendApiKey }
-            : undefined;
+          : undefined;
 
         const response = await fetch(productsApiUrl, {
           signal: controller.signal,
