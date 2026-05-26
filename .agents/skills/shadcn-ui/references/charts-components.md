@@ -36,37 +36,59 @@ Add to `globals.css`:
 `ChartContainer` wraps your Recharts component and accepts a `config` prop for theming.
 
 ```tsx
+<<<<<<< HEAD
 import { Bar, BarChart, CartesianGrid, XAxis } from "recharts";
 import { ChartContainer, ChartTooltipContent } from "@/components/ui/chart";
+=======
+import { Bar, BarChart, CartesianGrid, XAxis } from "recharts"
+import { ChartContainer, ChartTooltipContent } from "@/components/ui/chart"
+>>>>>>> origin/master
 
 const chartConfig = {
   desktop: { label: "Desktop", color: "var(--chart-1)" },
   mobile: { label: "Mobile", color: "var(--chart-2)" },
+<<<<<<< HEAD
 } satisfies import("@/components/ui/chart").ChartConfig;
+=======
+} satisfies import("@/components/ui/chart").ChartConfig
+>>>>>>> origin/master
 
 const chartData = [
   { month: "January", desktop: 186, mobile: 80 },
   { month: "February", desktop: 305, mobile: 200 },
   { month: "March", desktop: 237, mobile: 120 },
+<<<<<<< HEAD
 ];
+=======
+]
+>>>>>>> origin/master
 
 export function BarChartDemo() {
   return (
     <ChartContainer config={chartConfig} className="min-h-[200px] w-full">
       <BarChart data={chartData}>
         <CartesianGrid vertical={false} />
+<<<<<<< HEAD
         <XAxis
           dataKey="month"
           tickLine={false}
           axisLine={false}
           tickFormatter={(value) => value.slice(0, 3)}
         />
+=======
+        <XAxis dataKey="month" tickLine={false} axisLine={false}
+          tickFormatter={(value) => value.slice(0, 3)} />
+>>>>>>> origin/master
         <Bar dataKey="desktop" fill="var(--color-desktop)" radius={4} />
         <Bar dataKey="mobile" fill="var(--color-mobile)" radius={4} />
         <ChartTooltip content={<ChartTooltipContent />} />
       </BarChart>
     </ChartContainer>
+<<<<<<< HEAD
   );
+=======
+  )
+>>>>>>> origin/master
 }
 ```
 
@@ -90,18 +112,31 @@ const chartConfig = {
       dark: "oklch(0.696 0.182 281.41)",
     },
   },
+<<<<<<< HEAD
 } satisfies import("@/components/ui/chart").ChartConfig;
+=======
+} satisfies import("@/components/ui/chart").ChartConfig
+>>>>>>> origin/master
 ```
 
 ## Line Chart
 
 ```tsx
+<<<<<<< HEAD
 import { Line, LineChart, CartesianGrid, XAxis, YAxis } from "recharts";
 import { ChartContainer, ChartTooltipContent } from "@/components/ui/chart";
 
 const chartConfig = {
   price: { label: "Price", color: "var(--chart-1)" },
 } satisfies import("@/components/ui/chart").ChartConfig;
+=======
+import { Line, LineChart, CartesianGrid, XAxis, YAxis } from "recharts"
+import { ChartContainer, ChartTooltipContent } from "@/components/ui/chart"
+
+const chartConfig = {
+  price: { label: "Price", color: "var(--chart-1)" },
+} satisfies import("@/components/ui/chart").ChartConfig
+>>>>>>> origin/master
 
 export function LineChartDemo() {
   return (
@@ -114,13 +149,18 @@ export function LineChartDemo() {
         <ChartTooltip content={<ChartTooltipContent />} />
       </LineChart>
     </ChartContainer>
+<<<<<<< HEAD
   );
+=======
+  )
+>>>>>>> origin/master
 }
 ```
 
 ## Area Chart
 
 ```tsx
+<<<<<<< HEAD
 import { Area, AreaChart, XAxis, YAxis } from "recharts";
 import {
   ChartContainer,
@@ -128,11 +168,21 @@ import {
   ChartLegendContent,
   ChartTooltipContent,
 } from "@/components/ui/chart";
+=======
+import { Area, AreaChart, XAxis, YAxis } from "recharts"
+import {
+  ChartContainer, ChartLegend, ChartLegendContent, ChartTooltipContent,
+} from "@/components/ui/chart"
+>>>>>>> origin/master
 
 const chartConfig = {
   desktop: { label: "Desktop", color: "var(--chart-1)" },
   mobile: { label: "Mobile", color: "var(--chart-2)" },
+<<<<<<< HEAD
 } satisfies import("@/components/ui/chart").ChartConfig;
+=======
+} satisfies import("@/components/ui/chart").ChartConfig
+>>>>>>> origin/master
 
 export function AreaChartDemo() {
   return (
@@ -140,6 +190,7 @@ export function AreaChartDemo() {
       <AreaChart data={chartData}>
         <XAxis dataKey="month" tickLine={false} axisLine={false} />
         <YAxis tickLine={false} axisLine={false} />
+<<<<<<< HEAD
         <Area
           dataKey="desktop"
           fill="var(--color-desktop)"
@@ -152,17 +203,26 @@ export function AreaChartDemo() {
           stroke="var(--color-mobile)"
           fillOpacity={0.3}
         />
+=======
+        <Area dataKey="desktop" fill="var(--color-desktop)" stroke="var(--color-desktop)" fillOpacity={0.3} />
+        <Area dataKey="mobile" fill="var(--color-mobile)" stroke="var(--color-mobile)" fillOpacity={0.3} />
+>>>>>>> origin/master
         <ChartTooltip content={<ChartTooltipContent />} />
         <ChartLegend content={<ChartLegendContent />} />
       </AreaChart>
     </ChartContainer>
+<<<<<<< HEAD
   );
+=======
+  )
+>>>>>>> origin/master
 }
 ```
 
 ## Pie Chart
 
 ```tsx
+<<<<<<< HEAD
 import { Pie, PieChart } from "recharts";
 import {
   ChartContainer,
@@ -170,23 +230,36 @@ import {
   ChartLegendContent,
   ChartTooltipContent,
 } from "@/components/ui/chart";
+=======
+import { Pie, PieChart } from "recharts"
+import { ChartContainer, ChartLegend, ChartLegendContent, ChartTooltipContent } from "@/components/ui/chart"
+>>>>>>> origin/master
 
 const chartConfig = {
   chrome: { label: "Chrome", color: "var(--chart-1)" },
   safari: { label: "Safari", color: "var(--chart-2)" },
   firefox: { label: "Firefox", color: "var(--chart-3)" },
+<<<<<<< HEAD
 } satisfies import("@/components/ui/chart").ChartConfig;
+=======
+} satisfies import("@/components/ui/chart").ChartConfig
+>>>>>>> origin/master
 
 const pieData = [
   { browser: "Chrome", visitors: 275, fill: "var(--color-chrome)" },
   { browser: "Safari", visitors: 200, fill: "var(--color-safari)" },
   { browser: "Firefox", visitors: 187, fill: "var(--color-firefox)" },
+<<<<<<< HEAD
 ];
+=======
+]
+>>>>>>> origin/master
 
 export function PieChartDemo() {
   return (
     <ChartContainer config={chartConfig} className="min-h-[200px]">
       <PieChart>
+<<<<<<< HEAD
         <Pie
           data={pieData}
           dataKey="visitors"
@@ -195,16 +268,24 @@ export function PieChartDemo() {
           cy="50%"
           outerRadius={80}
         />
+=======
+        <Pie data={pieData} dataKey="visitors" nameKey="browser" cx="50%" cy="50%" outerRadius={80} />
+>>>>>>> origin/master
         <ChartTooltip content={<ChartTooltipContent />} />
         <ChartLegend content={<ChartLegendContent />} />
       </PieChart>
     </ChartContainer>
+<<<<<<< HEAD
   );
+=======
+  )
+>>>>>>> origin/master
 }
 ```
 
 ## ChartTooltipContent Props
 
+<<<<<<< HEAD
 | Prop            | Type                        | Default | Description           |
 | --------------- | --------------------------- | ------- | --------------------- |
 | `labelKey`      | string                      | "label" | Key for tooltip label |
@@ -212,15 +293,28 @@ export function PieChartDemo() {
 | `indicator`     | "dot" \| "line" \| "dashed" | "dot"   | Indicator style       |
 | `hideLabel`     | boolean                     | false   | Hide label            |
 | `hideIndicator` | boolean                     | false   | Hide indicator        |
+=======
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `labelKey` | string | "label" | Key for tooltip label |
+| `nameKey` | string | "name" | Key for tooltip name |
+| `indicator` | "dot" \| "line" \| "dashed" | "dot" | Indicator style |
+| `hideLabel` | boolean | false | Hide label |
+| `hideIndicator` | boolean | false | Hide indicator |
+>>>>>>> origin/master
 
 ## Accessibility
 
 Enable keyboard navigation and screen reader support:
 
 ```tsx
+<<<<<<< HEAD
 <BarChart accessibilityLayer data={chartData}>
   ...
 </BarChart>
+=======
+<BarChart accessibilityLayer data={chartData}>...</BarChart>
+>>>>>>> origin/master
 ```
 
 This adds keyboard arrow key navigation, ARIA labels, and screen reader announcements.

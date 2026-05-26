@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { defineConfig } from "vite-plus";
 import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
@@ -56,6 +57,40 @@ export default defineConfig({
       {
         files: ["api/**/*.js", "server.js"],
         rules: {
+=======
+import { defineConfig } from 'vite-plus'
+import react from '@vitejs/plugin-react'
+import tailwindcss from '@tailwindcss/vite'
+
+export default defineConfig({
+  staged: {
+    "*": "vp check --fix"
+  },
+  fmt: {},
+  lint: {
+    "plugins": [
+      "oxc",
+      "typescript",
+      "unicorn",
+      "react"
+    ],
+    "categories": {
+      "correctness": "warn"
+    },
+    "env": {
+      "builtin": true
+    },
+    "ignorePatterns": [
+      "dist"
+    ],
+    "overrides": [
+      {
+        "files": [
+          "api/**/*.js",
+          "server.js"
+        ],
+        "rules": {
+>>>>>>> origin/master
           "constructor-super": "error",
           "for-direction": "error",
           "getter-return": "error",
@@ -117,6 +152,7 @@ export default defineConfig({
           "preserve-caught-error": "error",
           "require-yield": "error",
           "use-isnan": "error",
+<<<<<<< HEAD
           "valid-typeof": "error",
         },
         env: {
@@ -126,6 +162,19 @@ export default defineConfig({
       {
         files: ["**/*.{js,jsx}"],
         rules: {
+=======
+          "valid-typeof": "error"
+        },
+        "env": {
+          "node": true
+        }
+      },
+      {
+        "files": [
+          "**/*.{js,jsx}"
+        ],
+        "rules": {
+>>>>>>> origin/master
           "constructor-super": "error",
           "for-direction": "error",
           "getter-return": "error",
@@ -193,6 +242,7 @@ export default defineConfig({
           "react/only-export-components": [
             "error",
             {
+<<<<<<< HEAD
               allowConstantExport: true,
             },
           ],
@@ -209,3 +259,21 @@ export default defineConfig({
   },
   plugins: [react(), tailwindcss(), vercelApiPlugin()],
 });
+=======
+              "allowConstantExport": true
+            }
+          ]
+        },
+        "env": {
+          "browser": true
+        }
+      }
+    ],
+    "options": {
+      "typeAware": true,
+      "typeCheck": true
+    }
+  },
+  plugins: [react(), tailwindcss()],
+})
+>>>>>>> origin/master

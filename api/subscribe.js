@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 const MAILCHIMP_API_KEY = process.env.MAILCHIMP_API_KEY;
 const MAILCHIMP_SERVER_PREFIX = process.env.MAILCHIMP_SERVER_PREFIX;
 const MAILCHIMP_LIST_ID = process.env.MAILCHIMP_LIST_ID;
@@ -9,6 +10,19 @@ const TAG_NAMES = {
   "crimson-noir": "Crimson Noir",
   "ever-after-glow": "Ever After Glow",
 };
+=======
+const MAILCHIMP_API_KEY = process.env.MAILCHIMP_API_KEY
+const MAILCHIMP_SERVER_PREFIX = process.env.MAILCHIMP_SERVER_PREFIX
+const MAILCHIMP_LIST_ID = process.env.MAILCHIMP_LIST_ID
+
+const TAG_NAMES = {
+  'inner-circle': 'Inner Circle',
+  'seashell-garden-glow': 'Seashell Garden',
+  'meadowlight-botanical': 'Meadowlight Botanical',
+  'crimson-noir': 'Crimson Noir',
+  'ever-after-glow': 'Ever After Glow',
+}
+>>>>>>> origin/master
 
 export default async function handler(req, res) {
   if (req.method !== "POST") {
@@ -21,6 +35,7 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: "Email is required" });
   }
 
+<<<<<<< HEAD
   const tags = [TAG_NAMES["inner-circle"]];
   if (match && TAG_NAMES[match]) {
     tags.push(TAG_NAMES[match]);
@@ -40,12 +55,34 @@ export default async function handler(req, res) {
       status: "subscribed",
       merge_fields: {
         FNAME: name || "",
+=======
+  const tags = [TAG_NAMES['inner-circle']]
+  if (match && TAG_NAMES[match]) {
+    tags.push(TAG_NAMES[match])
+  }
+
+  const dc = MAILCHIMP_SERVER_PREFIX || MAILCHIMP_API_KEY?.split('-')[1] || 'us1'
+  const url = `https://${dc}.api.mailchimp.com/3.0/lists/${MAILCHIMP_LIST_ID}/members`
+
+  const response = await fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Basic ${Buffer.from(`any:${MAILCHIMP_API_KEY}`).toString('base64')}`,
+    },
+    body: JSON.stringify({
+      email_address: email,
+      status: 'subscribed',
+      merge_fields: {
+        FNAME: name || '',
+>>>>>>> origin/master
       },
       tags: tags.filter(Boolean),
     }),
   });
 
   if (!response.ok) {
+<<<<<<< HEAD
     const error = await response.json().catch(() => ({}));
 
     // If user already exists, we might want to update them or just return success
@@ -55,6 +92,17 @@ export default async function handler(req, res) {
 
     console.error("MailChimp error:", error);
     return res.status(500).json({ error: "Subscription failed" });
+=======
+    const error = await response.json().catch(() => ({}))
+    
+    // If user already exists, we might want to update them or just return success
+    if (response.status === 400 && error.title === 'Member Exists') {
+      return res.status(200).json({ ok: true, message: 'Already subscribed' })
+    }
+
+    console.error('MailChimp error:', error)
+    return res.status(500).json({ error: 'Subscription failed' })
+>>>>>>> origin/master
   }
 
   return res.status(200).json({ ok: true });

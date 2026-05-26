@@ -42,27 +42,45 @@ playwright-cli video-start recordings/checkout-test-run-42.webm
 When recording a video for the user or as a proof of work, it is best to create a code snippet and execute it with run-code.
 It allows inserting appropriate pauses between the actions and annotating the video. There are new Playwright APIs for that.
 
+<<<<<<< HEAD
 1. Perform scenario using CLI and take note of all locators and actions. You'll need those locators to request their bounding boxes for highlight.
 2. Create a file with the intended script for video (below). Use pressSequentially w/ delay for nice typing, make reasonable pauses.
 3. Use playwright-cli run-code --filename your-script.js
+=======
+1) Perform scenario using CLI and take note of all locators and actions. You'll need those locators to request their bounding boxes for highlight.
+2) Create a file with the intended script for video (below). Use pressSequentially w/ delay for nice typing, make reasonable pauses.
+3) Use playwright-cli run-code --filename your-script.js
+>>>>>>> origin/master
 
 **Important**: Overlays are `pointer-events: none` — they do not interfere with page interactions. You can safely keep sticky overlays visible while clicking, filling, or performing any actions on the page.
 
 ```js
+<<<<<<< HEAD
 async (page) => {
   await page.screencast.start({ path: "video.webm", size: { width: 1280, height: 800 } });
   await page.goto("https://demo.playwright.dev/todomvc");
+=======
+async page => {
+  await page.screencast.start({ path: 'video.webm', size: { width: 1280, height: 800 } });
+  await page.goto('https://demo.playwright.dev/todomvc');
+>>>>>>> origin/master
 
   // Show a chapter card — blurs the page and shows a dialog.
   // Blocks until duration expires, then auto-removes.
   // Use this for simple use cases, but always feel free to hand-craft your own beautiful
   // overlay via await page.screencast.showOverlay().
+<<<<<<< HEAD
   await page.screencast.showChapter("Adding Todo Items", {
     description: "We will add several items to the todo list.",
+=======
+  await page.screencast.showChapter('Adding Todo Items', {
+    description: 'We will add several items to the todo list.',
+>>>>>>> origin/master
     duration: 2000,
   });
 
   // Perform action
+<<<<<<< HEAD
   await page
     .getByRole("textbox", { name: "What needs to be done?" })
     .pressSequentially("Walk the dog", { delay: 60 });
@@ -72,6 +90,15 @@ async (page) => {
   // Show next chapter
   await page.screencast.showChapter("Verifying Results", {
     description: "Checking the item appeared in the list.",
+=======
+  await page.getByRole('textbox', { name: 'What needs to be done?' }).pressSequentially('Walk the dog', { delay: 60 });
+  await page.getByRole('textbox', { name: 'What needs to be done?' }).press('Enter');
+  await page.waitForTimeout(1000);
+
+  // Show next chapter
+  await page.screencast.showChapter('Verifying Results', {
+    description: 'Checking the item appeared in the list.',
+>>>>>>> origin/master
     duration: 2000,
   });
 
@@ -86,19 +113,29 @@ async (page) => {
   `);
 
   // Perform more actions while the annotation is visible
+<<<<<<< HEAD
   await page
     .getByRole("textbox", { name: "What needs to be done?" })
     .pressSequentially("Buy groceries", { delay: 60 });
   await page.getByRole("textbox", { name: "What needs to be done?" }).press("Enter");
+=======
+  await page.getByRole('textbox', { name: 'What needs to be done?' }).pressSequentially('Buy groceries', { delay: 60 });
+  await page.getByRole('textbox', { name: 'What needs to be done?' }).press('Enter');
+>>>>>>> origin/master
   await page.waitForTimeout(1500);
 
   // Remove the annotation when done
   await annotation.dispose();
 
   // You can also highlight relevant locators and provide contextual annotations.
+<<<<<<< HEAD
   const bounds = await page.getByText("Walk the dog").boundingBox();
   await page.screencast.showOverlay(
     `
+=======
+  const bounds = await page.getByText('Walk the dog').boundingBox();
+  await page.screencast.showOverlay(`
+>>>>>>> origin/master
     <div style="position: absolute;
       top: ${bounds.y}px;
       left: ${bounds.x}px;
@@ -116,18 +153,26 @@ async (page) => {
       font-size: 14px;
       color: white;">Check it out, it is right above this text
     </div>
+<<<<<<< HEAD
   `,
     { duration: 2000 },
   );
 
   await page.screencast.stop();
 };
+=======
+  `, { duration: 2000 });
+
+  await page.screencast.stop();
+}
+>>>>>>> origin/master
 ```
 
 Embrace creativity, overlays are powerful.
 
 ### Overlay API Summary
 
+<<<<<<< HEAD
 | Method                                                                         | Use Case                                                                       |
 | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ |
 | `page.screencast.showChapter(title, { description?, duration?, styleSheet? })` | Full-screen chapter card with blurred backdrop — ideal for section transitions |
@@ -143,6 +188,23 @@ Embrace creativity, overlays are powerful.
 | Shows    | Visual recording     | DOM snapshots, network, console, actions |
 | Use case | Demos, documentation | Debugging, analysis                      |
 | Size     | Larger               | Smaller                                  |
+=======
+| Method | Use Case |
+|--------|----------|
+| `page.screencast.showChapter(title, { description?, duration?, styleSheet? })` | Full-screen chapter card with blurred backdrop — ideal for section transitions |
+| `page.screencast.showOverlay(html, { duration? })` | Custom HTML overlay — use for callouts, labels, highlights |
+| `disposable.dispose()` | Remove a sticky overlay added without duration |
+| `page.screencast.hideOverlays()` / `page.screencast.showOverlays()` | Temporarily hide/show all overlays |
+
+## Tracing vs Video
+
+| Feature | Video | Tracing |
+|---------|-------|---------|
+| Output | WebM file | Trace file (viewable in Trace Viewer) |
+| Shows | Visual recording | DOM snapshots, network, console, actions |
+| Use case | Demos, documentation | Debugging, analysis |
+| Size | Larger | Smaller |
+>>>>>>> origin/master
 
 ## Limitations
 

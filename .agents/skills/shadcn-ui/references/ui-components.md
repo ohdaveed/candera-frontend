@@ -58,6 +58,7 @@ npx shadcn@latest add card
 ```
 
 ```tsx
+<<<<<<< HEAD
 import {
   Card,
   CardContent,
@@ -66,6 +67,9 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+=======
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+>>>>>>> origin/master
 
 <Card>
   <CardHeader>
@@ -79,7 +83,11 @@ import {
     <Button variant="outline">Cancel</Button>
     <Button>Deploy</Button>
   </CardFooter>
+<<<<<<< HEAD
 </Card>;
+=======
+</Card>
+>>>>>>> origin/master
 ```
 
 ## Dialog (Modal)
@@ -90,6 +98,7 @@ npx shadcn@latest add dialog
 
 ```tsx
 import {
+<<<<<<< HEAD
   Dialog,
   DialogContent,
   DialogDescription,
@@ -98,6 +107,11 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+=======
+  Dialog, DialogContent, DialogDescription, DialogFooter,
+  DialogHeader, DialogTitle, DialogTrigger,
+} from "@/components/ui/dialog"
+>>>>>>> origin/master
 
 <Dialog>
   <DialogTrigger asChild>
@@ -110,9 +124,13 @@ import {
     </DialogHeader>
     <div className="grid gap-4 py-4">
       <div className="grid grid-cols-4 items-center gap-4">
+<<<<<<< HEAD
         <Label htmlFor="name" className="text-right">
           Name
         </Label>
+=======
+        <Label htmlFor="name" className="text-right">Name</Label>
+>>>>>>> origin/master
         <Input id="name" className="col-span-3" />
       </div>
     </div>
@@ -120,7 +138,11 @@ import {
       <Button type="submit">Save changes</Button>
     </DialogFooter>
   </DialogContent>
+<<<<<<< HEAD
 </Dialog>;
+=======
+</Dialog>
+>>>>>>> origin/master
 ```
 
 ## Sheet (Slide-over)
@@ -131,6 +153,7 @@ npx shadcn@latest add sheet
 
 ```tsx
 import {
+<<<<<<< HEAD
   Sheet,
   SheetContent,
   SheetDescription,
@@ -138,6 +161,10 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+=======
+  Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger,
+} from "@/components/ui/sheet"
+>>>>>>> origin/master
 
 // sides: top | right | bottom | left (default: right)
 <Sheet>
@@ -151,7 +178,11 @@ import {
     </SheetHeader>
     {/* Sheet content */}
   </SheetContent>
+<<<<<<< HEAD
 </Sheet>;
+=======
+</Sheet>
+>>>>>>> origin/master
 ```
 
 ## Select (Dropdown)
@@ -161,6 +192,7 @@ npx shadcn@latest add select
 ```
 
 ```tsx
+<<<<<<< HEAD
 import {
   Select,
   SelectContent,
@@ -168,6 +200,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+=======
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+>>>>>>> origin/master
 
 <Select>
   <SelectTrigger className="w-[180px]">
@@ -178,7 +213,11 @@ import {
     <SelectItem value="banana">Banana</SelectItem>
     <SelectItem value="orange">Orange</SelectItem>
   </SelectContent>
+<<<<<<< HEAD
 </Select>;
+=======
+</Select>
+>>>>>>> origin/master
 ```
 
 ## Toast Notifications
@@ -191,7 +230,11 @@ Add `<Toaster />` to root layout:
 
 ```tsx
 // app/layout.tsx
+<<<<<<< HEAD
 import { Toaster } from "@/components/ui/toaster";
+=======
+import { Toaster } from "@/components/ui/toaster"
+>>>>>>> origin/master
 
 export default function RootLayout({ children }) {
   return (
@@ -201,22 +244,34 @@ export default function RootLayout({ children }) {
         <Toaster />
       </body>
     </html>
+<<<<<<< HEAD
   );
+=======
+  )
+>>>>>>> origin/master
 }
 ```
 
 Using toast:
 
 ```tsx
+<<<<<<< HEAD
 import { useToast } from "@/components/ui/use-toast";
 
 export function ToastDemo() {
   const { toast } = useToast();
+=======
+import { useToast } from "@/components/ui/use-toast"
+
+export function ToastDemo() {
+  const { toast } = useToast()
+>>>>>>> origin/master
 
   return (
     <Button onClick={() => toast({ title: "Success", description: "Changes saved." })}>
       Show Toast
     </Button>
+<<<<<<< HEAD
   );
 }
 
@@ -224,6 +279,15 @@ export function ToastDemo() {
 toast({ title: "Success", description: "Changes have been saved." });
 toast({ variant: "destructive", title: "Error", description: "Something went wrong." });
 toast({ title: "Undo?", action: <ToastAction altText="Undo">Undo</ToastAction> });
+=======
+  )
+}
+
+// Variants
+toast({ title: "Success", description: "Changes have been saved." })
+toast({ variant: "destructive", title: "Error", description: "Something went wrong." })
+toast({ title: "Undo?", action: <ToastAction altText="Undo">Undo</ToastAction> })
+>>>>>>> origin/master
 ```
 
 ## Table
@@ -274,6 +338,7 @@ npx shadcn@latest add menubar
 
 ```tsx
 import {
+<<<<<<< HEAD
   Menubar,
   MenubarContent,
   MenubarItem,
@@ -285,17 +350,28 @@ import {
   MenubarSubTrigger,
   MenubarTrigger,
 } from "@/components/ui/menubar";
+=======
+  Menubar, MenubarContent, MenubarItem, MenubarMenu,
+  MenubarSeparator, MenubarShortcut, MenubarSub,
+  MenubarSubContent, MenubarSubTrigger, MenubarTrigger,
+} from "@/components/ui/menubar"
+>>>>>>> origin/master
 
 <Menubar>
   <MenubarMenu>
     <MenubarTrigger>File</MenubarTrigger>
     <MenubarContent>
+<<<<<<< HEAD
       <MenubarItem>
         New Tab <MenubarShortcut>⌘T</MenubarShortcut>
       </MenubarItem>
       <MenubarItem>
         New Window <MenubarShortcut>⌘N</MenubarShortcut>
       </MenubarItem>
+=======
+      <MenubarItem>New Tab <MenubarShortcut>⌘T</MenubarShortcut></MenubarItem>
+      <MenubarItem>New Window <MenubarShortcut>⌘N</MenubarShortcut></MenubarItem>
+>>>>>>> origin/master
       <MenubarSeparator />
       <MenubarItem>Print</MenubarItem>
     </MenubarContent>
@@ -303,9 +379,13 @@ import {
   <MenubarMenu>
     <MenubarTrigger>Edit</MenubarTrigger>
     <MenubarContent>
+<<<<<<< HEAD
       <MenubarItem>
         Undo <MenubarShortcut>⌘Z</MenubarShortcut>
       </MenubarItem>
+=======
+      <MenubarItem>Undo <MenubarShortcut>⌘Z</MenubarShortcut></MenubarItem>
+>>>>>>> origin/master
       <MenubarSeparator />
       <MenubarSub>
         <MenubarSubTrigger>Find</MenubarSubTrigger>
@@ -316,5 +396,9 @@ import {
       </MenubarSub>
     </MenubarContent>
   </MenubarMenu>
+<<<<<<< HEAD
 </Menubar>;
+=======
+</Menubar>
+>>>>>>> origin/master
 ```

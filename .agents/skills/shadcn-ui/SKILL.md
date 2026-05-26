@@ -18,7 +18,10 @@ Build accessible, customizable UI components with shadcn/ui, Radix UI, and Tailw
 ## When to Use
 
 Activate when user requests involve:
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/master
 - "Set up shadcn/ui", "initialize shadcn", "add shadcn components"
 - "Install button/input/form/dialog/card/select/toast/table/chart"
 - "React Hook Form", "Zod validation", "form with validation"
@@ -31,6 +34,7 @@ Activate when user requests involve:
 
 ### Available Components
 
+<<<<<<< HEAD
 | Component  | Install Command                  | Description                                                     |
 | ---------- | -------------------------------- | --------------------------------------------------------------- |
 | `button`   | `npx shadcn@latest add button`   | Variants: default, destructive, outline, secondary, ghost, link |
@@ -47,6 +51,24 @@ Activate when user requests involve:
 | `textarea` | `npx shadcn@latest add textarea` | Multi-line text input                                           |
 | `checkbox` | `npx shadcn@latest add checkbox` | Checkbox input                                                  |
 | `label`    | `npx shadcn@latest add label`    | Accessible form label                                           |
+=======
+| Component | Install Command | Description |
+|-----------|----------------|-------------|
+| `button` | `npx shadcn@latest add button` | Variants: default, destructive, outline, secondary, ghost, link |
+| `input` | `npx shadcn@latest add input` | Text input field |
+| `form` | `npx shadcn@latest add form` | React Hook Form integration with validation |
+| `card` | `npx shadcn@latest add card` | Container with header, content, footer |
+| `dialog` | `npx shadcn@latest add dialog` | Modal overlay |
+| `sheet` | `npx shadcn@latest add sheet` | Slide-over panel (top/right/bottom/left) |
+| `select` | `npx shadcn@latest add select` | Dropdown select |
+| `toast` | `npx shadcn@latest add toast` | Notification toasts |
+| `table` | `npx shadcn@latest add table` | Data table |
+| `menubar` | `npx shadcn@latest add menubar` | Desktop-style menubar |
+| `chart` | `npx shadcn@latest add chart` | Recharts wrapper with theming |
+| `textarea` | `npx shadcn@latest add textarea` | Multi-line text input |
+| `checkbox` | `npx shadcn@latest add checkbox` | Checkbox input |
+| `label` | `npx shadcn@latest add label` | Accessible form label |
+>>>>>>> origin/master
 
 ## Instructions
 
@@ -80,6 +102,7 @@ import { Button } from "@/components/ui/button"
 ### Form with Zod Validation
 
 ```tsx
+<<<<<<< HEAD
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -95,21 +118,40 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+=======
+"use client"
+
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useForm } from "react-hook-form"
+import { z } from "zod"
+import { Button } from "@/components/ui/button"
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
+import { Input } from "@/components/ui/input"
+>>>>>>> origin/master
 
 const formSchema = z.object({
   email: z.string().email("Invalid email"),
   password: z.string().min(8, "Password must be at least 8 characters"),
+<<<<<<< HEAD
 });
+=======
+})
+>>>>>>> origin/master
 
 export function LoginForm() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: { email: "", password: "" },
+<<<<<<< HEAD
   });
+=======
+  })
+>>>>>>> origin/master
 
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(console.log)} className="space-y-4">
+<<<<<<< HEAD
         <FormField
           name="email"
           control={form.control}
@@ -140,6 +182,26 @@ export function LoginForm() {
       </form>
     </Form>
   );
+=======
+        <FormField name="email" control={form.control} render={({ field }) => (
+          <FormItem>
+            <FormLabel>Email</FormLabel>
+            <FormControl><Input type="email" {...field} /></FormControl>
+            <FormMessage />
+          </FormItem>
+        )} />
+        <FormField name="password" control={form.control} render={({ field }) => (
+          <FormItem>
+            <FormLabel>Password</FormLabel>
+            <FormControl><Input type="password" {...field} /></FormControl>
+            <FormMessage />
+          </FormItem>
+        )} />
+        <Button type="submit">Login</Button>
+      </form>
+    </Form>
+  )
+>>>>>>> origin/master
 }
 ```
 
@@ -148,6 +210,7 @@ See [references/forms-and-validation.md](references/forms-and-validation.md) for
 ### Dialog (Modal)
 
 ```tsx
+<<<<<<< HEAD
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -156,6 +219,10 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+=======
+import { Button } from "@/components/ui/button"
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
+>>>>>>> origin/master
 
 <Dialog>
   <DialogTrigger asChild>
@@ -167,13 +234,18 @@ import {
     </DialogHeader>
     {/* content */}
   </DialogContent>
+<<<<<<< HEAD
 </Dialog>;
+=======
+</Dialog>
+>>>>>>> origin/master
 ```
 
 ### Toast Notification
 
 ```tsx
 // 1. Add <Toaster /> to app/layout.tsx
+<<<<<<< HEAD
 import { Toaster } from "@/components/ui/toaster";
 
 // 2. Use in components
@@ -182,6 +254,16 @@ import { useToast } from "@/components/ui/use-toast";
 const { toast } = useToast();
 toast({ title: "Success", description: "Changes saved." });
 toast({ variant: "destructive", title: "Error", description: "Something went wrong." });
+=======
+import { Toaster } from "@/components/ui/toaster"
+
+// 2. Use in components
+import { useToast } from "@/components/ui/use-toast"
+
+const { toast } = useToast()
+toast({ title: "Success", description: "Changes saved." })
+toast({ variant: "destructive", title: "Error", description: "Something went wrong." })
+>>>>>>> origin/master
 ```
 
 ### Bar Chart
@@ -209,6 +291,7 @@ See [references/charts-components.md](references/charts-components.md) for Line,
 ## Examples
 
 ### Login Form with Validation
+<<<<<<< HEAD
 
 ```tsx
 "use client";
@@ -225,21 +308,40 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+=======
+```tsx
+"use client"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useForm } from "react-hook-form"
+import { z } from "zod"
+import { Button } from "@/components/ui/button"
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
+import { Input } from "@/components/ui/input"
+>>>>>>> origin/master
 
 const formSchema = z.object({
   email: z.string().email("Invalid email"),
   password: z.string().min(8, "Min 8 characters"),
+<<<<<<< HEAD
 });
+=======
+})
+>>>>>>> origin/master
 
 export function LoginForm() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: { email: "", password: "" },
+<<<<<<< HEAD
   });
+=======
+  })
+>>>>>>> origin/master
 
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(console.log)} className="space-y-4">
+<<<<<<< HEAD
         <FormField
           name="email"
           control={form.control}
@@ -270,10 +372,31 @@ export function LoginForm() {
       </form>
     </Form>
   );
+=======
+        <FormField name="email" control={form.control} render={({ field }) => (
+          <FormItem>
+            <FormLabel>Email</FormLabel>
+            <FormControl><Input type="email" {...field} /></FormControl>
+            <FormMessage />
+          </FormItem>
+        )} />
+        <FormField name="password" control={form.control} render={({ field }) => (
+          <FormItem>
+            <FormLabel>Password</FormLabel>
+            <FormControl><Input type="password" {...field} /></FormControl>
+            <FormMessage />
+          </FormItem>
+        )} />
+        <Button type="submit">Login</Button>
+      </form>
+    </Form>
+  )
+>>>>>>> origin/master
 }
 ```
 
 ### Data Table with Actions
+<<<<<<< HEAD
 
 ```tsx
 import { ColumnDef } from "@tanstack/react-table";
@@ -311,6 +434,32 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+=======
+```tsx
+import { ColumnDef } from "@tanstack/react-table"
+import { Button } from "@/components/ui/button"
+import { Checkbox } from "@/components/ui/checkbox"
+import { DataTable } from "@/components/ui/data-table"
+
+const columns: ColumnDef<User>[] = [
+  { id: "select", header: ({ table }) => (
+    <Checkbox checked={table.getIsAllPageRowsSelected()} />
+  ), cell: ({ row }) => (
+    <Checkbox checked={row.getIsSelected()} />
+  )},
+  { accessorKey: "name", header: "Name" },
+  { accessorKey: "email", header: "Email" },
+  { id: "actions", cell: ({ row }) => (
+    <Button variant="ghost" size="sm">Edit</Button>
+  )},
+]
+```
+
+### Dialog with Form
+```tsx
+import { Button } from "@/components/ui/button"
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
+>>>>>>> origin/master
 
 <Dialog>
   <DialogTrigger asChild>
@@ -322,6 +471,7 @@ import {
     </DialogHeader>
     {/* <LoginForm /> */}
   </DialogContent>
+<<<<<<< HEAD
 </Dialog>;
 ```
 
@@ -335,6 +485,20 @@ const { toast } = useToast();
 
 toast({ title: "Saved", description: "Changes saved successfully." });
 toast({ variant: "destructive", title: "Error", description: "Failed to save." });
+=======
+</Dialog>
+```
+
+### Toast Notifications
+```tsx
+import { useToast } from "@/components/ui/use-toast"
+import { Button } from "@/components/ui/button"
+
+const { toast } = useToast()
+
+toast({ title: "Saved", description: "Changes saved successfully." })
+toast({ variant: "destructive", title: "Error", description: "Failed to save." })
+>>>>>>> origin/master
 ```
 
 ## Best Practices

@@ -5,7 +5,10 @@
 ### 1. `:root` Inside `@layer base`
 
 ❌ **WRONG:**
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/master
 ```css
 @layer base {
   :root {
@@ -15,7 +18,10 @@
 ```
 
 ✅ **CORRECT:**
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/master
 ```css
 :root {
   --background: hsl(0 0% 100%);
@@ -35,7 +41,10 @@
 ### 2. Nested `@theme` Directive
 
 ❌ **WRONG:**
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/master
 ```css
 @theme {
   --color-primary: hsl(0 0% 0%);
@@ -49,7 +58,10 @@
 ```
 
 ✅ **CORRECT:**
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/master
 ```css
 :root {
   --primary: hsl(0 0% 0%);
@@ -71,7 +83,10 @@
 ### 3. Double `hsl()` Wrapping
 
 ❌ **WRONG:**
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/master
 ```css
 @layer base {
   body {
@@ -81,11 +96,18 @@
 ```
 
 ✅ **CORRECT:**
+<<<<<<< HEAD
 
 ```css
 @layer base {
   body {
     background-color: var(--background); /* Already has hsl() */
+=======
+```css
+@layer base {
+  body {
+    background-color: var(--background);  /* Already has hsl() */
+>>>>>>> origin/master
   }
 }
 ```
@@ -97,13 +119,17 @@
 ### 4. Colors in `tailwind.config.ts`
 
 ❌ **WRONG:**
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/master
 ```typescript
 // tailwind.config.ts
 export default {
   theme: {
     extend: {
       colors: {
+<<<<<<< HEAD
         primary: "hsl(var(--primary))",
       },
     },
@@ -113,6 +139,16 @@ export default {
 
 ✅ **CORRECT:**
 
+=======
+        primary: 'hsl(var(--primary))'
+      }
+    }
+  }
+}
+```
+
+✅ **CORRECT:**
+>>>>>>> origin/master
 ```typescript
 // Delete tailwind.config.ts entirely OR leave it empty
 export default {}
@@ -132,7 +168,10 @@ export default {}
 ### 5. Missing `@theme inline` Mapping
 
 ❌ **WRONG:**
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/master
 ```css
 :root {
   --background: hsl(0 0% 100%);
@@ -144,7 +183,10 @@ export default {}
 Result: `bg-background` class doesn't exist
 
 ✅ **CORRECT:**
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/master
 ```css
 :root {
   --background: hsl(0 0% 100%);
@@ -164,21 +206,35 @@ Result: `bg-background` class doesn't exist
 ### 6. Wrong components.json Config
 
 ❌ **WRONG:**
+<<<<<<< HEAD
 
 ```json
 {
   "tailwind": {
     "config": "tailwind.config.ts" // ← No!
+=======
+```json
+{
+  "tailwind": {
+    "config": "tailwind.config.ts"  // ← No!
+>>>>>>> origin/master
   }
 }
 ```
 
 ✅ **CORRECT:**
+<<<<<<< HEAD
 
 ```json
 {
   "tailwind": {
     "config": "" // ← Empty for v4
+=======
+```json
+{
+  "tailwind": {
+    "config": ""  // ← Empty for v4
+>>>>>>> origin/master
   }
 }
 ```
@@ -188,11 +244,15 @@ Result: `bg-background` class doesn't exist
 ### 7. Using PostCSS Instead of Vite Plugin
 
 ❌ **WRONG:**
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/master
 ```typescript
 // vite.config.ts
 export default defineConfig({
   css: {
+<<<<<<< HEAD
     postcss: "./postcss.config.js", // Old v3 way
   },
 });
@@ -206,6 +266,20 @@ import tailwindcss from "@tailwindcss/vite";
 export default defineConfig({
   plugins: [react(), tailwindcss()], // v4 way
 });
+=======
+    postcss: './postcss.config.js'  // Old v3 way
+  }
+})
+```
+
+✅ **CORRECT:**
+```typescript
+import tailwindcss from '@tailwindcss/vite'
+
+export default defineConfig({
+  plugins: [react(), tailwindcss()]  // v4 way
+})
+>>>>>>> origin/master
 ```
 
 ---
@@ -213,6 +287,7 @@ export default defineConfig({
 ### 8. Missing Path Aliases
 
 ❌ **WRONG:**
+<<<<<<< HEAD
 
 ```typescript
 // tsconfig.json has no paths
@@ -221,6 +296,14 @@ import { Button } from "../../components/ui/button";
 
 ✅ **CORRECT:**
 
+=======
+```typescript
+// tsconfig.json has no paths
+import { Button } from '../../components/ui/button'
+```
+
+✅ **CORRECT:**
+>>>>>>> origin/master
 ```json
 // tsconfig.app.json
 {
@@ -234,7 +317,11 @@ import { Button } from "../../components/ui/button";
 ```
 
 ```typescript
+<<<<<<< HEAD
 import { Button } from "@/components/ui/button";
+=======
+import { Button } from '@/components/ui/button'
+>>>>>>> origin/master
 ```
 
 ---
@@ -244,13 +331,19 @@ import { Button } from "@/components/ui/button";
 ### 9. Using `dark:` Variants for Semantic Colors
 
 ❌ **WRONG:**
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/master
 ```tsx
 <div className="bg-primary dark:bg-primary-dark" />
 ```
 
 ✅ **CORRECT:**
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/master
 ```tsx
 <div className="bg-primary" />
 ```
@@ -262,13 +355,19 @@ import { Button } from "@/components/ui/button";
 ### 10. Hardcoded Color Values
 
 ❌ **WRONG:**
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/master
 ```tsx
 <div className="bg-blue-600 dark:bg-blue-400" />
 ```
 
 ✅ **CORRECT:**
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/master
 ```tsx
 <div className="bg-primary" />  {/* Or bg-info, bg-success, etc. */}
 ```
@@ -282,6 +381,7 @@ import { Button } from "@/components/ui/button";
 ### 11. Missing `cn()` Utility
 
 ❌ **WRONG:**
+<<<<<<< HEAD
 
 ```tsx
 <div className={`base ${isActive && "active"}`} />
@@ -292,6 +392,16 @@ import { Button } from "@/components/ui/button";
 ```tsx
 import { cn } from "@/lib/utils";
 <div className={cn("base", isActive && "active")} />;
+=======
+```tsx
+<div className={`base ${isActive && 'active'}`} />
+```
+
+✅ **CORRECT:**
+```tsx
+import { cn } from '@/lib/utils'
+<div className={cn("base", isActive && "active")} />
+>>>>>>> origin/master
 ```
 
 **Why:** `cn()` properly merges and deduplicates Tailwind classes.
@@ -301,13 +411,19 @@ import { cn } from "@/lib/utils";
 ### 12. Empty String in Radix Select
 
 ❌ **WRONG:**
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/master
 ```tsx
 <SelectItem value="">Select an option</SelectItem>
 ```
 
 ✅ **CORRECT:**
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/master
 ```tsx
 <SelectItem value="placeholder">Select an option</SelectItem>
 ```
@@ -321,13 +437,19 @@ import { cn } from "@/lib/utils";
 ### 13. Wrong Tailwind Package
 
 ❌ **WRONG:**
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/master
 ```bash
 npm install tailwindcss@^3.4.0  # v3
 ```
 
 ✅ **CORRECT:**
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/master
 ```bash
 npm install tailwindcss@^4.1.0  # v4
 npm install @tailwindcss/vite
@@ -338,7 +460,10 @@ npm install @tailwindcss/vite
 ### 14. Missing Dependencies
 
 ❌ **WRONG:**
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/master
 ```json
 {
   "dependencies": {
@@ -349,7 +474,10 @@ npm install @tailwindcss/vite
 ```
 
 ✅ **CORRECT:**
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/master
 ```json
 {
   "dependencies": {
@@ -369,7 +497,10 @@ npm install @tailwindcss/vite
 ### 17. tw-animate-css Import Error (REAL-WORLD ISSUE)
 
 ❌ **WRONG:**
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/master
 ```bash
 npm install tailwindcss-animate  # Deprecated package
 ```
@@ -379,14 +510,20 @@ npm install tailwindcss-animate  # Deprecated package
 ```
 
 ✅ **CORRECT:**
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/master
 ```bash
 # Don't install tailwindcss-animate at all
 # Use native CSS animations or @tailwindcss/motion
 ```
 
 **Why:**
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/master
 - `tailwindcss-animate` is deprecated in Tailwind v4
 - Causes import errors during build
 - shadcn/ui docs may still reference it (outdated)
@@ -399,7 +536,10 @@ npm install tailwindcss-animate  # Deprecated package
 ### 18. Duplicate @layer base After shadcn init (REAL-WORLD ISSUE)
 
 ❌ **WRONG:**
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/master
 ```css
 /* After running shadcn init, you might have: */
 @layer base {
@@ -408,8 +548,12 @@ npm install tailwindcss-animate  # Deprecated package
   }
 }
 
+<<<<<<< HEAD
 @layer base {
   /* ← Duplicate added by shadcn init */
+=======
+@layer base {  /* ← Duplicate added by shadcn init */
+>>>>>>> origin/master
   * {
     border-color: hsl(var(--border));
   }
@@ -417,7 +561,10 @@ npm install tailwindcss-animate  # Deprecated package
 ```
 
 ✅ **CORRECT:**
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/master
 ```css
 /* Merge into single @layer base block */
 @layer base {
@@ -433,14 +580,20 @@ npm install tailwindcss-animate  # Deprecated package
 ```
 
 **Why:**
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/master
 - `shadcn init` adds its own `@layer base` block
 - Results in duplicate layer declarations
 - Can cause unexpected CSS priority issues
 - Easy to miss during setup
 
 **Prevention:**
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/master
 - Check `src/index.css` immediately after running `shadcn init`
 - Merge any duplicate `@layer base` blocks
 - Keep only one base layer section
@@ -458,7 +611,10 @@ Only testing in light mode
 
 ✅ **CORRECT:**
 Test in:
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/master
 - Light mode
 - Dark mode
 - System mode
@@ -472,7 +628,10 @@ Test in:
 Colors look good but fail WCAG
 
 ✅ **CORRECT:**
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/master
 - Use browser DevTools Lighthouse
 - Check contrast ratios (4.5:1 minimum)
 - Test with actual users
@@ -483,6 +642,7 @@ Colors look good but fail WCAG
 
 **Symptoms → Likely Cause:**
 
+<<<<<<< HEAD
 | Symptom                   | Likely Cause                                  |
 | ------------------------- | --------------------------------------------- |
 | `bg-primary` doesn't work | Missing `@theme inline` mapping               |
@@ -491,13 +651,26 @@ Colors look good but fail WCAG
 | Build fails               | `tailwind.config.ts` exists with theme config |
 | Text invisible            | Wrong contrast colors                         |
 | `@/` imports fail         | Missing path aliases in tsconfig              |
+=======
+| Symptom | Likely Cause |
+|---------|-------------|
+| `bg-primary` doesn't work | Missing `@theme inline` mapping |
+| Colors all black/white | Double `hsl()` wrapping |
+| Dark mode not switching | Missing ThemeProvider |
+| Build fails | `tailwind.config.ts` exists with theme config |
+| Text invisible | Wrong contrast colors |
+| `@/` imports fail | Missing path aliases in tsconfig |
+>>>>>>> origin/master
 
 ---
 
 ## Prevention Checklist
 
 Before deploying:
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/master
 - [ ] No `tailwind.config.ts` file (or it's empty)
 - [ ] `components.json` has `"config": ""`
 - [ ] All colors have `hsl()` wrapper in `:root`

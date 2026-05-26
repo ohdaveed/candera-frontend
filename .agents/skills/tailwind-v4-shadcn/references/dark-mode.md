@@ -3,7 +3,10 @@
 ## Overview
 
 Tailwind v4 + shadcn/ui dark mode requires:
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/master
 1. `ThemeProvider` component to manage state
 2. `.dark` class toggling on `<html>` element
 3. localStorage persistence
@@ -186,9 +189,16 @@ UI updates automatically
 ### System Theme Detection
 
 ```typescript
+<<<<<<< HEAD
 if (theme === "system") {
   const systemTheme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
   root.classList.add(systemTheme);
+=======
+if (theme === 'system') {
+  const systemTheme = window.matchMedia('(prefers-color-scheme: dark)')
+    .matches ? 'dark' : 'light'
+  root.classList.add(systemTheme)
+>>>>>>> origin/master
 }
 ```
 

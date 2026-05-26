@@ -12,9 +12,15 @@ Vite plugins extend Rolldown's plugin interface with Vite-specific hooks.
 ```ts
 function myPlugin(): Plugin {
   return {
+<<<<<<< HEAD
     name: "my-plugin",
     // hooks...
   };
+=======
+    name: 'my-plugin',
+    // hooks...
+  }
+>>>>>>> origin/master
 }
 ```
 
@@ -26,6 +32,7 @@ Modify config before resolution:
 
 ```ts
 const plugin = () => ({
+<<<<<<< HEAD
   name: "add-alias",
   config: () => ({
     resolve: {
@@ -33,6 +40,15 @@ const plugin = () => ({
     },
   }),
 });
+=======
+  name: 'add-alias',
+  config: () => ({
+    resolve: {
+      alias: { foo: 'bar' },
+    },
+  }),
+})
+>>>>>>> origin/master
 ```
 
 ### configResolved
@@ -41,6 +57,7 @@ Access final resolved config:
 
 ```ts
 const plugin = () => {
+<<<<<<< HEAD
   let config: ResolvedConfig;
   return {
     name: "read-config",
@@ -54,6 +71,19 @@ const plugin = () => {
     },
   };
 };
+=======
+  let config: ResolvedConfig
+  return {
+    name: 'read-config',
+    configResolved(resolvedConfig) {
+      config = resolvedConfig
+    },
+    transform(code, id) {
+      if (config.command === 'serve') { /* dev */ }
+    },
+  }
+}
+>>>>>>> origin/master
 ```
 
 ### configureServer
@@ -62,6 +92,7 @@ Add custom middleware to dev server:
 
 ```ts
 const plugin = () => ({
+<<<<<<< HEAD
   name: "custom-middleware",
   configureServer(server) {
     server.middlewares.use((req, res, next) => {
@@ -70,6 +101,16 @@ const plugin = () => ({
     });
   },
 });
+=======
+  name: 'custom-middleware',
+  configureServer(server) {
+    server.middlewares.use((req, res, next) => {
+      // handle request
+      next()
+    })
+  },
+})
+>>>>>>> origin/master
 ```
 
 Return function to run **after** internal middlewares:
@@ -90,11 +131,19 @@ Transform HTML entry files:
 
 ```ts
 const plugin = () => ({
+<<<<<<< HEAD
   name: "html-transform",
   transformIndexHtml(html) {
     return html.replace(/<title>(.*?)<\/title>/, "<title>New Title</title>");
   },
 });
+=======
+  name: 'html-transform',
+  transformIndexHtml(html) {
+    return html.replace(/<title>(.*?)<\/title>/, '<title>New Title</title>')
+  },
+})
+>>>>>>> origin/master
 ```
 
 Inject tags:
@@ -124,6 +173,7 @@ Serve virtual content without files on disk:
 
 ```ts
 const plugin = () => {
+<<<<<<< HEAD
   const virtualModuleId = "virtual:my-module";
   const resolvedId = "\0" + virtualModuleId;
 
@@ -139,12 +189,33 @@ const plugin = () => {
     },
   };
 };
+=======
+  const virtualModuleId = 'virtual:my-module'
+  const resolvedId = '\0' + virtualModuleId
+
+  return {
+    name: 'virtual-module',
+    resolveId(id) {
+      if (id === virtualModuleId) return resolvedId
+    },
+    load(id) {
+      if (id === resolvedId) {
+        return `export const msg = "from virtual module"`
+      }
+    },
+  }
+}
+>>>>>>> origin/master
 ```
 
 Usage:
 
 ```ts
+<<<<<<< HEAD
 import { msg } from "virtual:my-module";
+=======
+import { msg } from 'virtual:my-module'
+>>>>>>> origin/master
 ```
 
 Convention: prefix user-facing path with `virtual:`, prefix resolved id with `\0`.
@@ -213,9 +284,15 @@ Client side:
 
 ```ts
 if (import.meta.hot) {
+<<<<<<< HEAD
   import.meta.hot.on("my:event", (data) => {
     console.log(data.msg);
   });
+=======
+  import.meta.hot.on('my:event', (data) => {
+    console.log(data.msg)
+  })
+>>>>>>> origin/master
 }
 ```
 
@@ -223,12 +300,21 @@ Client to server:
 
 ```ts
 // Client
+<<<<<<< HEAD
 import.meta.hot.send("my:from-client", { msg: "Hey!" });
 
 // Server
 server.ws.on("my:from-client", (data, client) => {
   client.send("my:ack", { msg: "Got it!" });
 });
+=======
+import.meta.hot.send('my:from-client', { msg: 'Hey!' })
+
+// Server
+server.ws.on('my:from-client', (data, client) => {
+  client.send('my:ack', { msg: 'Got it!' })
+})
+>>>>>>> origin/master
 ```
 
 <!--

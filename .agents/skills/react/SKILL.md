@@ -1,6 +1,10 @@
 ---
 name: react
+<<<<<<< HEAD
 description: "Skill: react"
+=======
+description: 'Skill: react'
+>>>>>>> origin/master
 ---
 
 ## Components
