@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import { SpeedInsights } from "@vercel/speed-insights/react";
 import Nav from "./components/Nav";
 import Footer from "./components/Footer";
 import ScentQuiz from "./components/ScentQuiz";
@@ -49,6 +50,7 @@ export default function App() {
   return (
     <BrowserRouter>
       <AppInner />
+      <SpeedInsights />
     </BrowserRouter>
   );
 }
