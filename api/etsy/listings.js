@@ -1,6 +1,7 @@
 import { URL } from "node:url";
 
 const ETSY_KEYSTRING = process.env.ETSY_KEYSTRING || "";
+const ETSY_SHARED_SECRET = process.env.ETSY_SHARED_SECRET || "";
 const ETSY_SHOP_ID = process.env.ETSY_SHOP_ID || "";
 const ETSY_LISTINGS_LIMIT = Number.parseInt(process.env.ETSY_LISTINGS_LIMIT || "50", 10);
 
@@ -35,11 +36,11 @@ async function fetchActiveEtsyListings() {
     `https://openapi.etsy.com/v3/application/shops/${ETSY_SHOP_ID}/listings/active`,
   );
   endpoint.searchParams.set("limit", String(ETSY_LISTINGS_LIMIT));
-  endpoint.searchParams.set("includes", "images");
+  endpoint.searchParams.set("includes", "Images");
 
   const response = await fetch(endpoint, {
     headers: {
-      "x-api-key": ETSY_KEYSTRING,
+      "x-api-key": `${ETSY_KEYSTRING}:${ETSY_SHARED_SECRET}`,
     },
   });
 
