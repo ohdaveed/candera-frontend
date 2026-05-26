@@ -46,7 +46,10 @@ The storefront pulls live product data from `/api/etsy/listings` while keeping `
    - `VITE_ETSY_BACKEND_API_KEY` only when a backend requires a simple API key header.
    - `VITE_ETSY_SHOP_URL` for fallback listing links.
 3. Set server-side variables for the Etsy route:
-   - `ETSY_KEYSTRING`, `ETSY_SHARED_SECRET`, `ETSY_SHOP_ID`, `ETSY_LISTINGS_LIMIT`.
+   - `ETSY_KEYSTRING` for the Etsy API key value sent in the `x-api-key` header.
+   - `ETSY_SHOP_ID`, `ETSY_LISTINGS_LIMIT`.
+
+`ETSY_SHARED_SECRET` is not currently used by the `/api/etsy/listings` backend route and should not be required for this setup.
 
 ## MailChimp Integration
 
