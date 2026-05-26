@@ -1,39 +1,41 @@
-import { useState, useMemo } from 'react'
-import { Link } from 'react-router-dom'
-import { AnimatePresence, motion } from 'framer-motion'
-import { getImage } from '../data/productImages'
-import { useProductSync } from '../hooks/useProductSync'
-import SensoryMap from '../components/SensoryMap'
-import FilterBar from '../components/FilterBar'
-import { cn } from '../lib/utils'
+import { useState, useMemo } from "react";
+import { Link } from "react-router-dom";
+import { AnimatePresence, motion } from "framer-motion";
+import { getImage } from "../data/productImages";
+import { useProductSync } from "../hooks/useProductSync";
+import SensoryMap from "../components/SensoryMap";
+import FilterBar from "../components/FilterBar";
+import { cn } from "../lib/utils";
 
 const TAG_STYLES = {
-  'Limited Batch': 'bg-candera-warm text-white',
-  'Bestseller': 'bg-candera-obsidian text-white',
-  'New Release': 'bg-candera-lavender text-white',
-}
+  "Limited Batch": "bg-candera-warm text-white",
+  Bestseller: "bg-candera-obsidian text-white",
+  "New Release": "bg-candera-lavender text-white",
+};
 
 export default function Collection() {
-  const { products } = useProductSync()
-  const [activeTag, setActiveTag] = useState('all')
-  const [sortBy, setSortBy] = useState('featured')
+  const { products } = useProductSync();
+  const [activeTag, setActiveTag] = useState("all");
+  const [sortBy, setSortBy] = useState("featured");
 
-  const tags = useMemo(() => [...new Set(products.map((p) => p.tag).filter(Boolean))], [products])
+  const tags = useMemo(() => [...new Set(products.map((p) => p.tag).filter(Boolean))], [products]);
 
   const filteredProducts = useMemo(() => {
-    let list = [...products]
-    if (activeTag !== 'all') list = list.filter((p) => p.tag === activeTag)
-    if (sortBy === 'price-asc') list.sort((a, b) => a.price - b.price)
-    if (sortBy === 'price-desc') list.sort((a, b) => b.price - a.price)
-    if (sortBy === 'name') list.sort((a, b) => a.name.localeCompare(b.name))
-    return list
-  }, [products, activeTag, sortBy])
+    let list = [...products];
+    if (activeTag !== "all") list = list.filter((p) => p.tag === activeTag);
+    if (sortBy === "price-asc") list.sort((a, b) => a.price - b.price);
+    if (sortBy === "price-desc") list.sort((a, b) => b.price - a.price);
+    if (sortBy === "name") list.sort((a, b) => a.name.localeCompare(b.name));
+    return list;
+  }, [products, activeTag, sortBy]);
 
   return (
     <main className="pt-24 px-6 md:px-16 py-16">
       <div className="text-center mb-20">
         <p className="text-xs tracking-[0.3em] uppercase text-candera-sage mb-4">The Studio</p>
-        <h1 className="font-serif text-4xl md:text-5xl text-candera-obsidian">Current Collection</h1>
+        <h1 className="font-serif text-4xl md:text-5xl text-candera-obsidian">
+          Current Collection
+        </h1>
       </div>
 
       <FilterBar
@@ -50,7 +52,7 @@ export default function Collection() {
         <div className="text-center py-24">
           <p className="text-sm text-candera-sage-text mb-4">No candles match this filter.</p>
           <button
-            onClick={() => setActiveTag('all')}
+            onClick={() => setActiveTag("all")}
             className="text-[10px] uppercase tracking-widest text-candera-warm border-b border-candera-warm pb-0.5 hover:text-candera-warm transition-colors"
           >
             View all candles
@@ -80,10 +82,12 @@ export default function Collection() {
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
                     {candle.tag && (
-                      <span className={cn(
-                        'absolute top-3 right-3 text-[9px] uppercase tracking-widest px-2 py-1',
-                        TAG_STYLES[candle.tag]
-                      )}>
+                      <span
+                        className={cn(
+                          "absolute top-3 right-3 text-[9px] uppercase tracking-widest px-2 py-1",
+                          TAG_STYLES[candle.tag],
+                        )}
+                      >
                         {candle.tag}
                       </span>
                     )}
@@ -93,11 +97,13 @@ export default function Collection() {
                     {candle.name}
                   </h2>
                   <p className="text-xs text-candera-sage-text leading-relaxed flex-1">
-                    {candle.notes.slice(0, 3).join(' · ')}
+                    {candle.notes.slice(0, 3).join(" · ")}
                   </p>
                   <div className="flex items-end justify-between">
                     <div>
-                      <span className="text-sm text-candera-obsidian">${candle.price.toFixed(2)}</span>
+                      <span className="text-sm text-candera-obsidian">
+                        ${candle.price.toFixed(2)}
+                      </span>
                       <p className="text-[10px] uppercase tracking-widest text-candera-sage mt-1">
                         {candle.metadata.burn_time} burn · {candle.atmosphere}
                       </p>
@@ -116,7 +122,9 @@ export default function Collection() {
       {/* Sensory Map */}
       <div className="mt-24 border-t border-candera-stone/40 pt-20">
         <div className="text-center mb-12">
-          <p className="text-xs tracking-[0.3em] uppercase text-candera-sage mb-4">Explore the Collection</p>
+          <p className="text-xs tracking-[0.3em] uppercase text-candera-sage mb-4">
+            Explore the Collection
+          </p>
           <h2 className="font-serif text-3xl text-candera-obsidian">Sensory Map</h2>
           <p className="text-sm text-candera-sage-text mt-3 max-w-sm mx-auto">
             Each vessel plotted by mood. Find where your senses lead.
@@ -125,5 +133,5 @@ export default function Collection() {
         <SensoryMap products={products} />
       </div>
     </main>
-  )
+  );
 }
