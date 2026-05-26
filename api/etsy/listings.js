@@ -53,7 +53,10 @@ async function fetchActiveEtsyListings() {
     const endpoint = new URL(
       `https://openapi.etsy.com/v3/application/shops/${ETSY_SHOP_ID}/listings/active`,
     );
-    endpoint.searchParams.set("limit", String(ETSY_PAGE_SIZE));
+    const limit = ETSY_LISTINGS_LIMIT > 0
+      ? Math.min(ETSY_PAGE_SIZE, ETSY_LISTINGS_LIMIT - offset)
+      : ETSY_PAGE_SIZE;
+    endpoint.searchParams.set("limit", String(limit));
     endpoint.searchParams.set("offset", String(offset));
     endpoint.searchParams.set("includes", "Images");
 
