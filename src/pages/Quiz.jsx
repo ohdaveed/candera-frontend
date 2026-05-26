@@ -1,89 +1,87 @@
-import { useState } from 'react'
-import { Link } from 'react-router-dom'
-import { motion, AnimatePresence } from 'framer-motion'
-import { getImage } from '../data/productImages'
-import { useProductSync } from '../hooks/useProductSync'
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
+import { getImage } from "../data/productImages";
+import { useProductSync } from "../hooks/useProductSync";
 
 const questions = [
   {
-    id: 'time',
-    prompt: 'When do you light a candle?',
-    subtext: 'Tell us how you move through your day.',
+    id: "time",
+    prompt: "When do you light a candle?",
+    subtext: "Tell us how you move through your day.",
     options: [
-      { label: 'To open the morning slowly', value: 'morning' },
-      { label: 'To close the evening with intention', value: 'evening' },
+      { label: "To open the morning slowly", value: "morning" },
+      { label: "To close the evening with intention", value: "evening" },
     ],
   },
   {
-    id: 'space',
-    prompt: 'What does your ideal space feel like?',
-    subtext: 'The room where you exhale.',
+    id: "space",
+    prompt: "What does your ideal space feel like?",
+    subtext: "The room where you exhale.",
     options: [
-      { label: 'Airy, open, light-filled', value: 'airy' },
-      { label: 'Warm, close, a little dramatic', value: 'dramatic' },
+      { label: "Airy, open, light-filled", value: "airy" },
+      { label: "Warm, close, a little dramatic", value: "dramatic" },
     ],
   },
   {
-    id: 'draw',
-    prompt: 'What draws you?',
-    subtext: 'Follow your instinct.',
+    id: "draw",
+    prompt: "What draws you?",
+    subtext: "Follow your instinct.",
     options: [
-      { label: 'The coast · wild botanicals · something fresh', value: 'fresh' },
-      { label: 'Dark florals · candlelight · slow rituals', value: 'dark' },
+      { label: "The coast · wild botanicals · something fresh", value: "fresh" },
+      { label: "Dark florals · candlelight · slow rituals", value: "dark" },
     ],
   },
-]
+];
 
 const results = {
-  'morning-airy-fresh': 'seashell-garden-glow',
-  'morning-airy-dark': 'meadowlight-botanical',
-  'morning-dramatic-fresh': 'meadowlight-botanical',
-  'morning-dramatic-dark': 'ever-after-glow',
-  'evening-airy-fresh': 'ever-after-glow',
-  'evening-airy-dark': 'crimson-noir',
-  'evening-dramatic-fresh': 'crimson-noir',
-  'evening-dramatic-dark': 'crimson-noir',
-}
+  "morning-airy-fresh": "seashell-garden-glow",
+  "morning-airy-dark": "meadowlight-botanical",
+  "morning-dramatic-fresh": "meadowlight-botanical",
+  "morning-dramatic-dark": "ever-after-glow",
+  "evening-airy-fresh": "ever-after-glow",
+  "evening-airy-dark": "crimson-noir",
+  "evening-dramatic-fresh": "crimson-noir",
+  "evening-dramatic-dark": "crimson-noir",
+};
 
 export default function Quiz() {
-  const { getProductBySlug } = useProductSync()
-  const [step, setStep] = useState(0)
-  const [answers, setAnswers] = useState({})
-  const [emailStep, setEmailStep] = useState(false)
-  const [email, setEmail] = useState('')
-  const [emailError, setEmailError] = useState('')
-  const [done, setDone] = useState(false)
+  const { getProductBySlug } = useProductSync();
+  const [step, setStep] = useState(0);
+  const [answers, setAnswers] = useState({});
+  const [emailStep, setEmailStep] = useState(false);
+  const [email, setEmail] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [done, setDone] = useState(false);
 
-  const question = questions[step]
-  const totalSteps = questions.length
+  const question = questions[step];
+  const totalSteps = questions.length;
 
   function handleAnswer(value) {
-    const next = { ...answers, [question.id]: value }
-    setAnswers(next)
+    const next = { ...answers, [question.id]: value };
+    setAnswers(next);
     if (step < questions.length - 1) {
-      setStep(step + 1)
+      setStep(step + 1);
     } else {
-      setEmailStep(true)
+      setEmailStep(true);
     }
   }
 
   function handleEmailSubmit(e) {
-    e.preventDefault()
-    const trimmed = email.trim()
+    e.preventDefault();
+    const trimmed = email.trim();
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmed)) {
-      setEmailError('Please enter a valid email address.')
-      return
+      setEmailError("Please enter a valid email address.");
+      return;
     }
-    setEmailError('')
+    setEmailError("");
     // In production: POST to /api/subscribe with { email, match: resultSlug }
-    setDone(true)
+    setDone(true);
   }
 
-  const resultKey = (emailStep || done)
-    ? `${answers.time}-${answers.space}-${answers.draw}`
-    : null
-  const resultSlug = resultKey ? (results[resultKey] ?? 'seashell-garden-glow') : null
-  const result = resultSlug ? getProductBySlug(resultSlug) : null
+  const resultKey = emailStep || done ? `${answers.time}-${answers.space}-${answers.draw}` : null;
+  const resultSlug = resultKey ? (results[resultKey] ?? "seashell-garden-glow") : null;
+  const result = resultSlug ? getProductBySlug(resultSlug) : null;
 
   return (
     <main className="pt-24 min-h-screen flex flex-col items-center justify-center px-6 py-16">
@@ -115,7 +113,7 @@ export default function Quiz() {
               {questions.map((_, i) => (
                 <div
                   key={i}
-                  className={`h-px w-12 ${i <= step ? 'bg-candera-obsidian' : 'bg-candera-stone'} transition-colors`}
+                  className={`h-px w-12 ${i <= step ? "bg-candera-obsidian" : "bg-candera-stone"} transition-colors`}
                 />
               ))}
             </div>
@@ -147,29 +145,38 @@ export default function Quiz() {
             transition={{ duration: 0.4 }}
             className="max-w-md w-full text-center"
           >
-            <p className="text-xs tracking-[0.3em] uppercase text-candera-sage mb-6">One last step</p>
-            <h2 className="font-serif text-3xl text-candera-obsidian mb-3">Reveal your perfect match</h2>
+            <p className="text-xs tracking-[0.3em] uppercase text-candera-sage mb-6">
+              One last step
+            </p>
+            <h2 className="font-serif text-3xl text-candera-obsidian mb-3">
+              Reveal your perfect match
+            </h2>
             <p className="text-sm text-candera-sage-text mb-10 leading-relaxed">
-              Enter your email and we'll send you early access to your matched vessel before the next batch opens.
+              Enter your email and we'll send you early access to your matched vessel before the
+              next batch opens.
             </p>
 
             <form onSubmit={handleEmailSubmit} className="flex flex-col gap-4 text-left">
               <div className="flex flex-col gap-1">
-                <label htmlFor="quiz-email" className="text-xs tracking-widest uppercase text-candera-sage">
+                <label
+                  htmlFor="quiz-email"
+                  className="text-xs tracking-widest uppercase text-candera-sage"
+                >
                   Email
                 </label>
                 <input
                   id="quiz-email"
                   type="email"
                   value={email}
-                  onChange={(e) => { setEmail(e.target.value); setEmailError('') }}
+                  onChange={(e) => {
+                    setEmail(e.target.value);
+                    setEmailError("");
+                  }}
                   required
                   placeholder="your@email.com"
                   className="bg-transparent border border-candera-stone px-4 py-3 text-sm text-candera-obsidian placeholder:text-candera-stone focus:outline-none focus:border-candera-obsidian transition-colors"
                 />
-                {emailError && (
-                  <p className="text-xs text-red-500 mt-1">{emailError}</p>
-                )}
+                {emailError && <p className="text-xs text-red-500 mt-1">{emailError}</p>}
               </div>
               <button
                 type="submit"
@@ -180,7 +187,11 @@ export default function Quiz() {
             </form>
 
             <button
-              onClick={() => { setStep(0); setAnswers({}); setEmailStep(false) }}
+              onClick={() => {
+                setStep(0);
+                setAnswers({});
+                setEmailStep(false);
+              }}
               className="mt-6 text-xs text-candera-sage tracking-widest uppercase underline hover:text-candera-obsidian transition-colors"
             >
               Start over
@@ -197,7 +208,9 @@ export default function Quiz() {
             transition={{ duration: 0.6 }}
             className="max-w-lg w-full text-center"
           >
-            <p className="text-xs tracking-[0.3em] uppercase text-candera-sage mb-6">Your Ritual Match</p>
+            <p className="text-xs tracking-[0.3em] uppercase text-candera-sage mb-6">
+              Your Ritual Match
+            </p>
             <div className="aspect-square max-w-xs mx-auto overflow-hidden mb-8">
               <img
                 src={getImage(result.slug)}
@@ -206,7 +219,7 @@ export default function Quiz() {
               />
             </div>
             <h2 className="font-serif text-3xl text-candera-obsidian mb-2">{result.name}</h2>
-            <p className="text-xs text-candera-sage mb-8">{result.notes.slice(0, 3).join(' · ')}</p>
+            <p className="text-xs text-candera-sage mb-8">{result.notes.slice(0, 3).join(" · ")}</p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
@@ -224,7 +237,13 @@ export default function Quiz() {
             </div>
 
             <button
-              onClick={() => { setStep(0); setAnswers({}); setEmailStep(false); setEmail(''); setDone(false) }}
+              onClick={() => {
+                setStep(0);
+                setAnswers({});
+                setEmailStep(false);
+                setEmail("");
+                setDone(false);
+              }}
               className="mt-8 text-xs text-candera-sage tracking-widest uppercase underline hover:text-candera-obsidian transition-colors"
             >
               Retake the Ritual
@@ -233,5 +252,5 @@ export default function Quiz() {
         )}
       </AnimatePresence>
     </main>
-  )
+  );
 }

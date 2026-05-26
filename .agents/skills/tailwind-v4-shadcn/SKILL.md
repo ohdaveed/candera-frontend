@@ -26,6 +26,10 @@ metadata:
 
 license: MIT
 ---
+<<<<<<< HEAD
+
+=======
+>>>>>>> origin/master
 # Tailwind v4 + shadcn/ui Production Stack
 
 **Production-tested**: WordPress Auditor (https://wordpress-auditor.webfonts.workers.dev)
@@ -33,6 +37,10 @@ license: MIT
 **Status**: Production Ready ✅
 
 ## Table of Contents
+<<<<<<< HEAD
+
+=======
+>>>>>>> origin/master
 1. [Before You Start](#-before-you-start-read-this)
 2. [Quick Start](#quick-start-5-minutes---follow-this-exact-order)
 3. [Four-Step Architecture](#the-four-step-architecture-critical)
@@ -66,6 +74,10 @@ Say: **"I'm setting up Tailwind v4 + shadcn/ui - check the tailwind-v4-shadcn sk
 ### Why This Matters (Real-World Results)
 
 **Without skill activation:**
+<<<<<<< HEAD
+
+=======
+>>>>>>> origin/master
 - ❌ Setup time: ~5 minutes
 - ❌ Errors encountered: 2-3 (tw-animate-css, duplicate @layer base)
 - ❌ Manual fixes needed: 2+ commits
@@ -73,6 +85,10 @@ Say: **"I'm setting up Tailwind v4 + shadcn/ui - check the tailwind-v4-shadcn sk
 - ❌ User confidence: Required debugging
 
 **With skill activation:**
+<<<<<<< HEAD
+
+=======
+>>>>>>> origin/master
 - ✅ Setup time: ~1 minute
 - ✅ Errors encountered: 0
 - ✅ Manual fixes needed: 0
@@ -110,19 +126,33 @@ pnpm dlx shadcn@latest init
 
 ```typescript
 // vite.config.ts
+<<<<<<< HEAD
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+import tailwindcss from "@tailwindcss/vite";
+import path from "path";
+=======
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 import path from 'path'
+>>>>>>> origin/master
 
 export default defineConfig({
   plugins: [react(), tailwindcss()],
   resolve: {
     alias: {
+<<<<<<< HEAD
+      "@": path.resolve(__dirname, "./src"),
+    },
+  },
+});
+=======
       '@': path.resolve(__dirname, './src')
     }
   }
 })
+>>>>>>> origin/master
 ```
 
 ### 3. Update components.json
@@ -130,7 +160,11 @@ export default defineConfig({
 ```json
 {
   "tailwind": {
+<<<<<<< HEAD
+    "config": "", // ← CRITICAL: Empty for v4
+=======
     "config": "",              // ← CRITICAL: Empty for v4
+>>>>>>> origin/master
     "css": "src/index.css",
     "cssVariables": true
   }
@@ -156,7 +190,11 @@ This pattern is **mandatory** - skipping steps will break your theme.
 @import "tailwindcss";
 
 :root {
+<<<<<<< HEAD
+  --background: hsl(0 0% 100%); /* ← hsl() wrapper required */
+=======
   --background: hsl(0 0% 100%);      /* ← hsl() wrapper required */
+>>>>>>> origin/master
   --foreground: hsl(222.2 84% 4.9%);
   --primary: hsl(221.2 83.2% 53.3%);
   /* ... all light mode colors */
@@ -171,6 +209,10 @@ This pattern is **mandatory** - skipping steps will break your theme.
 ```
 
 **Critical Rules:**
+<<<<<<< HEAD
+
+=======
+>>>>>>> origin/master
 - ✅ Define at root level (NOT inside `@layer base`)
 - ✅ Use `hsl()` wrapper on all color values
 - ✅ Use `.dark` for dark mode (NOT `.dark { @theme { } }`)
@@ -187,6 +229,10 @@ This pattern is **mandatory** - skipping steps will break your theme.
 ```
 
 **Why This Is Required:**
+<<<<<<< HEAD
+
+=======
+>>>>>>> origin/master
 - Generates utility classes (`bg-background`, `text-primary`)
 - Without this, `bg-primary` etc. won't exist
 
@@ -195,13 +241,21 @@ This pattern is **mandatory** - skipping steps will break your theme.
 ```css
 @layer base {
   body {
+<<<<<<< HEAD
+    background-color: var(--background); /* NO hsl() here */
+=======
     background-color: var(--background);  /* NO hsl() here */
+>>>>>>> origin/master
     color: var(--foreground);
   }
 }
 ```
 
 **Critical Rules:**
+<<<<<<< HEAD
+
+=======
+>>>>>>> origin/master
 - ✅ Reference variables directly: `var(--background)`
 - ❌ Never double-wrap: `hsl(var(--background))`
 
@@ -255,11 +309,21 @@ See `reference/dark-mode.md` for ModeToggle component code.
 ### ✅ Always Do:
 
 1. **Wrap color values with `hsl()` in `:root` and `.dark`**
+<<<<<<< HEAD
+
+   ```css
+   --background: hsl(0 0% 100%); /* ✅ Correct */
+   ```
+
+2. **Use `@theme inline` to map all CSS variables**
+
+=======
    ```css
    --background: hsl(0 0% 100%);  /* ✅ Correct */
    ```
 
 2. **Use `@theme inline` to map all CSS variables**
+>>>>>>> origin/master
    ```css
    @theme inline {
      --color-background: var(--background);
@@ -267,6 +331,10 @@ See `reference/dark-mode.md` for ModeToggle component code.
    ```
 
 3. **Set `"tailwind.config": ""` in components.json**
+<<<<<<< HEAD
+
+=======
+>>>>>>> origin/master
    ```json
    { "tailwind": { "config": "" } }
    ```
@@ -284,14 +352,28 @@ See `reference/dark-mode.md` for ModeToggle component code.
 ### ❌ Never Do:
 
 1. **Put `:root` or `.dark` inside `@layer base`**
+<<<<<<< HEAD
+
+   ```css
+   /* WRONG */
+   @layer base {
+     :root {
+       --background: hsl(...);
+     }
+=======
    ```css
    /* WRONG */
    @layer base {
      :root { --background: hsl(...); }
+>>>>>>> origin/master
    }
    ```
 
 2. **Use `.dark { @theme { } }` pattern**
+<<<<<<< HEAD
+
+=======
+>>>>>>> origin/master
    ```css
    /* WRONG - v4 doesn't support nested @theme */
    .dark {
@@ -302,6 +384,10 @@ See `reference/dark-mode.md` for ModeToggle component code.
    ```
 
 3. **Double-wrap colors**
+<<<<<<< HEAD
+
+=======
+>>>>>>> origin/master
    ```css
    /* WRONG */
    body {
@@ -310,20 +396,35 @@ See `reference/dark-mode.md` for ModeToggle component code.
    ```
 
 4. **Use `tailwind.config.ts` for theme colors**
+<<<<<<< HEAD
+
+=======
+>>>>>>> origin/master
    ```typescript
    /* WRONG - v4 ignores this */
    export default {
      theme: {
        extend: {
+<<<<<<< HEAD
+         colors: { primary: "hsl(var(--primary))" },
+       },
+     },
+   };
+=======
          colors: { primary: 'hsl(var(--primary))' }
        }
      }
    }
+>>>>>>> origin/master
    ```
 
 5. **Use `@apply` directive (deprecated in v4)**
 
 6. **Use `dark:` variants for semantic colors**
+<<<<<<< HEAD
+
+=======
+>>>>>>> origin/master
    ```tsx
    /* WRONG */
    <div className="bg-primary dark:bg-primary-dark" />
@@ -340,14 +441,25 @@ Always use semantic names for colors:
 
 ```css
 :root {
+<<<<<<< HEAD
+  --destructive: hsl(0 84.2% 60.2%); /* Red - errors, critical */
+  --success: hsl(142.1 76.2% 36.3%); /* Green - success states */
+  --warning: hsl(38 92% 50%); /* Yellow - warnings */
+  --info: hsl(221.2 83.2% 53.3%); /* Blue - info, primary */
+=======
   --destructive: hsl(0 84.2% 60.2%);        /* Red - errors, critical */
   --success: hsl(142.1 76.2% 36.3%);        /* Green - success states */
   --warning: hsl(38 92% 50%);               /* Yellow - warnings */
   --info: hsl(221.2 83.2% 53.3%);           /* Blue - info, primary */
+>>>>>>> origin/master
 }
 ```
 
 **Usage:**
+<<<<<<< HEAD
+
+=======
+>>>>>>> origin/master
 ```tsx
 <div className="bg-destructive text-destructive-foreground">Critical</div>
 <div className="bg-success text-success-foreground">Success</div>
@@ -359,6 +471,15 @@ Always use semantic names for colors:
 
 ## Common Issues & Quick Fixes
 
+<<<<<<< HEAD
+| Symptom                   | Cause                           | Fix                                        |
+| ------------------------- | ------------------------------- | ------------------------------------------ |
+| `bg-primary` doesn't work | Missing `@theme inline` mapping | Add `@theme inline` block                  |
+| Colors all black/white    | Double `hsl()` wrapping         | Use `var(--color)` not `hsl(var(--color))` |
+| Dark mode not switching   | Missing ThemeProvider           | Wrap app in `<ThemeProvider>`              |
+| Build fails               | `tailwind.config.ts` exists     | Delete the file                            |
+| Text invisible            | Wrong contrast colors           | Check color definitions in `:root`/`.dark` |
+=======
 | Symptom | Cause | Fix |
 |---------|-------|-----|
 | `bg-primary` doesn't work | Missing `@theme inline` mapping | Add `@theme inline` block |
@@ -366,6 +487,7 @@ Always use semantic names for colors:
 | Dark mode not switching | Missing ThemeProvider | Wrap app in `<ThemeProvider>` |
 | Build fails | `tailwind.config.ts` exists | Delete the file |
 | Text invisible | Wrong contrast colors | Check color definitions in `:root`/`.dark` |
+>>>>>>> origin/master
 
 See `reference/common-gotchas.md` for complete troubleshooting guide.
 
@@ -414,10 +536,23 @@ Load `references/advanced-usage.md` for advanced patterns including:
 - **Component Best Practices**: Semantic tokens, cn() utility, composition patterns
 
 **Quick Example:**
+<<<<<<< HEAD
+
+```css
+:root {
+  --brand: hsl(280 65% 60%);
+}
+@theme inline {
+  --color-brand: var(--brand);
+}
+```
+
+=======
 ```css
 :root { --brand: hsl(280 65% 60%); }
 @theme inline { --color-brand: var(--brand); }
 ```
+>>>>>>> origin/master
 Usage: `<div className="bg-brand">Branded</div>`
 
 For detailed patterns and component composition examples, load `references/advanced-usage.md`.
@@ -468,6 +603,10 @@ bun add tw-animate-css      # ❌ Doesn't exist
 Tailwind v4 supports official plugins using the `@plugin` directive in CSS.
 
 **Quick Example:**
+<<<<<<< HEAD
+
+=======
+>>>>>>> origin/master
 ```css
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
@@ -501,6 +640,10 @@ For deeper understanding, see:
 Load reference files based on user's specific needs:
 
 ### Load `references/common-gotchas.md` when:
+<<<<<<< HEAD
+
+=======
+>>>>>>> origin/master
 - User reports "colors not working" or "bg-primary doesn't exist"
 - Dark mode not switching properly
 - Build fails with Tailwind errors
@@ -508,24 +651,40 @@ Load reference files based on user's specific needs:
 - Debugging theme problems
 
 ### Load `references/dark-mode.md` when:
+<<<<<<< HEAD
+
+=======
+>>>>>>> origin/master
 - User asks to implement dark mode
 - Theme switching not working
 - Need ThemeProvider component code
 - Questions about system theme detection
 
 ### Load `references/migration-guide.md` when:
+<<<<<<< HEAD
+
+=======
+>>>>>>> origin/master
 - Migrating from Tailwind v3 to v4
 - User has hardcoded colors to migrate
 - Questions about v3 → v4 changes
 - Need migration checklist
 
 ### Load `references/plugins-reference.md` when:
+<<<<<<< HEAD
+
+=======
+>>>>>>> origin/master
 - User needs Typography plugin (prose class)
 - User needs Forms plugin
 - Questions about @plugin directive
 - Plugin installation errors
 
 ### Load `references/advanced-usage.md` when:
+<<<<<<< HEAD
+
+=======
+>>>>>>> origin/master
 - User asks about custom colors beyond defaults
 - Need advanced component patterns
 - Questions about component best practices
@@ -556,6 +715,10 @@ Load the `dependency-upgrade` skill for full security configuration including So
 ## Production Example
 
 This skill is based on the WordPress Auditor project:
+<<<<<<< HEAD
+
+=======
+>>>>>>> origin/master
 - **Live**: https://wordpress-auditor.webfonts.workers.dev
 - **Stack**: Vite + React 19 + Tailwind v4 + shadcn/ui + Cloudflare Workers
 - **Dark Mode**: Full system/light/dark support

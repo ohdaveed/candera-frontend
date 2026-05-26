@@ -1,5 +1,5 @@
-import { Link } from 'react-router-dom'
-import { Camera, MessageSquare, Globe, ExternalLink } from 'lucide-react'
+import { Link } from "react-router-dom";
+import { Camera, MessageSquare, Globe, ExternalLink } from "lucide-react";
 
 export default function Footer() {
   return (
@@ -7,20 +7,39 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto grid md:grid-cols-4 gap-16">
         {/* Brand */}
         <div className="col-span-2 space-y-8">
-          <Link to="/" className="text-3xl font-serif font-bold tracking-tighter text-stone-900 hover:opacity-70 transition-opacity">
+          <Link
+            to="/"
+            className="text-3xl font-serif font-bold tracking-tighter text-stone-900 hover:opacity-70 transition-opacity"
+          >
             CANDERA
           </Link>
           <p className="text-stone-500 max-w-sm text-sm leading-relaxed font-light italic">
-            Cultivating intentional living through scent and micro-batch artisanry. Based in the high desert, shared everywhere.
+            Cultivating intentional living through scent and micro-batch artisanry. Based in the
+            high desert, shared everywhere.
           </p>
           <div className="flex gap-6 text-stone-400">
-            <a href="https://www.instagram.com/canderacandles" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+            <a
+              href="https://www.instagram.com/canderacandles"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Instagram"
+            >
               <Camera size={20} className="hover:text-stone-900 transition-colors" />
             </a>
-            <a href="https://www.etsy.com/shop/CanderaCandles" target="_blank" rel="noopener noreferrer" aria-label="Etsy shop">
+            <a
+              href="https://www.etsy.com/shop/CanderaCandles"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Etsy shop"
+            >
               <MessageSquare size={20} className="hover:text-stone-900 transition-colors" />
             </a>
-            <a href="https://candera.co" target="_blank" rel="noopener noreferrer" aria-label="Website">
+            <a
+              href="https://candera.co"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Website"
+            >
               <Globe size={20} className="hover:text-stone-900 transition-colors" />
             </a>
           </div>
@@ -28,16 +47,24 @@ export default function Footer() {
 
         {/* Navigation */}
         <div className="space-y-6">
-          <h5 className="text-[11px] uppercase tracking-[0.2em] font-bold text-stone-400">Navigation</h5>
+          <h5 className="text-[11px] uppercase tracking-[0.2em] font-bold text-stone-400">
+            Navigation
+          </h5>
           <ul className="text-stone-600 text-xs space-y-4 font-semibold">
             <li>
-              <Link to="/collection" className="hover:text-candera-warm transition-colors">Current Batch</Link>
+              <Link to="/collection" className="hover:text-candera-warm transition-colors">
+                Current Batch
+              </Link>
             </li>
             <li>
-              <Link to="/about" className="hover:text-candera-warm transition-colors">The Craft</Link>
+              <Link to="/about" className="hover:text-candera-warm transition-colors">
+                The Craft
+              </Link>
             </li>
             <li>
-              <Link to="/inner-circle" className="hover:text-candera-warm transition-colors">Inner Circle</Link>
+              <Link to="/inner-circle" className="hover:text-candera-warm transition-colors">
+                Inner Circle
+              </Link>
             </li>
             <li>
               <a
@@ -54,12 +81,16 @@ export default function Footer() {
 
         {/* Assistance */}
         <div className="space-y-6">
-          <h5 className="text-[11px] uppercase tracking-[0.2em] font-bold text-stone-400">Assistance</h5>
+          <h5 className="text-[11px] uppercase tracking-[0.2em] font-bold text-stone-400">
+            Assistance
+          </h5>
           <ul className="text-stone-600 text-xs space-y-4 font-semibold">
             <li className="text-stone-400">Shipping & Returns</li>
             <li className="text-stone-400">Wholesale</li>
             <li>
-              <Link to="/inner-circle" className="hover:text-candera-warm transition-colors">Contact</Link>
+              <Link to="/inner-circle" className="hover:text-candera-warm transition-colors">
+                Contact
+              </Link>
             </li>
           </ul>
         </div>
@@ -74,5 +105,5 @@ export default function Footer() {
         </div>
       </div>
     </footer>
-  )
+  );
 }

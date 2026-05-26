@@ -8,7 +8,11 @@ The chart component in shadcn/ui is built on Recharts, providing direct access t
 npx shadcn@latest add chart
 ```
 
+<<<<<<< HEAD
+---
+=======
 --------------------------------
+>>>>>>> origin/master
 
 ### shadcn/ui Chart Component - Basic Usage
 
@@ -17,8 +21,13 @@ Source: https://ui.shadcn.com/docs/components/chart
 The ChartContainer wraps your Recharts component and accepts a config prop for theming. Requires `min-h-[value]` for responsiveness.
 
 ```tsx
+<<<<<<< HEAD
+import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from "recharts";
+import { ChartContainer, ChartTooltipContent } from "@/components/ui/chart";
+=======
 import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from "recharts"
 import { ChartContainer, ChartTooltipContent } from "@/components/ui/chart"
+>>>>>>> origin/master
 
 const chartConfig = {
   desktop: {
@@ -29,13 +38,21 @@ const chartConfig = {
     label: "Mobile",
     color: "var(--chart-2)",
   },
+<<<<<<< HEAD
+} satisfies import("@/components/ui/chart").ChartConfig;
+=======
 } satisfies import("@/components/ui/chart").ChartConfig
+>>>>>>> origin/master
 
 const chartData = [
   { month: "January", desktop: 186, mobile: 80 },
   { month: "February", desktop: 305, mobile: 200 },
   { month: "March", desktop: 237, mobile: 120 },
+<<<<<<< HEAD
+];
+=======
 ]
+>>>>>>> origin/master
 
 export function BarChartDemo() {
   return (
@@ -48,11 +65,19 @@ export function BarChartDemo() {
         <ChartTooltip content={<ChartTooltipContent />} />
       </BarChart>
     </ChartContainer>
+<<<<<<< HEAD
+  );
+}
+```
+
+---
+=======
   )
 }
 ```
 
 --------------------------------
+>>>>>>> origin/master
 
 ### shadcn/ui Chart Component - ChartConfig with Custom Colors
 
@@ -74,10 +99,17 @@ const chartConfig = {
     label: "Mobile",
     color: "var(--chart-2)",
   },
+<<<<<<< HEAD
+} satisfies import("@/components/ui/chart").ChartConfig;
+```
+
+---
+=======
 } satisfies import("@/components/ui/chart").ChartConfig
 ```
 
 --------------------------------
+>>>>>>> origin/master
 
 ### shadcn/ui Chart Component - CSS Variables
 
@@ -104,7 +136,11 @@ Add chart color variables to your globals.css for consistent theming.
 }
 ```
 
+<<<<<<< HEAD
+---
+=======
 --------------------------------
+>>>>>>> origin/master
 
 ### shadcn/ui Chart Component - Line Chart Example
 
@@ -113,15 +149,24 @@ Source: https://ui.shadcn.com/docs/components/chart
 Creating a line chart with shadcn/ui charts component.
 
 ```tsx
+<<<<<<< HEAD
+import { Line, LineChart, CartesianGrid, XAxis, YAxis } from "recharts";
+import { ChartContainer, ChartTooltipContent } from "@/components/ui/chart";
+=======
 import { Line, LineChart, CartesianGrid, XAxis, YAxis } from "recharts"
 import { ChartContainer, ChartTooltipContent } from "@/components/ui/chart"
+>>>>>>> origin/master
 
 const chartConfig = {
   price: {
     label: "Price",
     color: "var(--chart-1)",
   },
+<<<<<<< HEAD
+} satisfies import("@/components/ui/chart").ChartConfig;
+=======
 } satisfies import("@/components/ui/chart").ChartConfig
+>>>>>>> origin/master
 
 const chartData = [
   { month: "January", price: 186 },
@@ -129,7 +174,11 @@ const chartData = [
   { month: "March", price: 237 },
   { month: "April", price: 203 },
   { month: "May", price: 276 },
+<<<<<<< HEAD
+];
+=======
 ]
+>>>>>>> origin/master
 
 export function LineChartDemo() {
   return (
@@ -138,6 +187,17 @@ export function LineChartDemo() {
         <CartesianGrid vertical={false} />
         <XAxis dataKey="month" tickLine={false} axisLine={false} />
         <YAxis tickLine={false} axisLine={false} tickFormatter={(value) => `$${value}`} />
+<<<<<<< HEAD
+        <Line dataKey="price" stroke="var(--color-price)" strokeWidth={2} dot={false} />
+        <ChartTooltip content={<ChartTooltipContent />} />
+      </LineChart>
+    </ChartContainer>
+  );
+}
+```
+
+---
+=======
         <Line
           dataKey="price"
           stroke="var(--color-price)"
@@ -152,6 +212,7 @@ export function LineChartDemo() {
 ```
 
 --------------------------------
+>>>>>>> origin/master
 
 ### shadcn/ui Chart Component - Area Chart Example
 
@@ -160,18 +221,30 @@ Source: https://ui.shadcn.com/docs/components/chart
 Creating an area chart with gradient fill and legend.
 
 ```tsx
+<<<<<<< HEAD
+import { Area, AreaChart, XAxis, YAxis } from "recharts";
+=======
 import { Area, AreaChart, XAxis, YAxis } from "recharts"
+>>>>>>> origin/master
 import {
   ChartContainer,
   ChartLegend,
   ChartLegendContent,
   ChartTooltipContent,
+<<<<<<< HEAD
+} from "@/components/ui/chart";
+=======
 } from "@/components/ui/chart"
+>>>>>>> origin/master
 
 const chartConfig = {
   desktop: { label: "Desktop", color: "var(--chart-1)" },
   mobile: { label: "Mobile", color: "var(--chart-2)" },
+<<<<<<< HEAD
+} satisfies import("@/components/ui/chart").ChartConfig;
+=======
 } satisfies import("@/components/ui/chart").ChartConfig
+>>>>>>> origin/master
 
 export function AreaChartDemo() {
   return (
@@ -195,11 +268,19 @@ export function AreaChartDemo() {
         <ChartLegend content={<ChartLegendContent />} />
       </AreaChart>
     </ChartContainer>
+<<<<<<< HEAD
+  );
+}
+```
+
+---
+=======
   )
 }
 ```
 
 --------------------------------
+>>>>>>> origin/master
 
 ### shadcn/ui Chart Component - Pie Chart Example
 
@@ -208,25 +289,41 @@ Source: https://ui.shadcn.com/docs/components/chart
 Creating a pie/donut chart with shadcn/ui.
 
 ```tsx
+<<<<<<< HEAD
+import { Pie, PieChart } from "recharts";
+=======
 import { Pie, PieChart } from "recharts"
+>>>>>>> origin/master
 import {
   ChartContainer,
   ChartLegend,
   ChartLegendContent,
   ChartTooltipContent,
+<<<<<<< HEAD
+} from "@/components/ui/chart";
+=======
 } from "@/components/ui/chart"
+>>>>>>> origin/master
 
 const chartConfig = {
   chrome: { label: "Chrome", color: "var(--chart-1)" },
   safari: { label: "Safari", color: "var(--chart-2)" },
   firefox: { label: "Firefox", color: "var(--chart-3)" },
+<<<<<<< HEAD
+} satisfies import("@/components/ui/chart").ChartConfig;
+=======
 } satisfies import("@/components/ui/chart").ChartConfig
+>>>>>>> origin/master
 
 const pieData = [
   { browser: "Chrome", visitors: 275, fill: "var(--color-chrome)" },
   { browser: "Safari", visitors: 200, fill: "var(--color-safari)" },
   { browser: "Firefox", visitors: 187, fill: "var(--color-firefox)" },
+<<<<<<< HEAD
+];
+=======
 ]
+>>>>>>> origin/master
 
 export function PieChartDemo() {
   return (
@@ -244,11 +341,19 @@ export function PieChartDemo() {
         <ChartLegend content={<ChartLegendContent />} />
       </PieChart>
     </ChartContainer>
+<<<<<<< HEAD
+  );
+}
+```
+
+---
+=======
   )
 }
 ```
 
 --------------------------------
+>>>>>>> origin/master
 
 ### shadcn/ui ChartTooltipContent Props
 
@@ -256,6 +361,17 @@ Source: https://ui.shadcn.com/docs/components/chart
 
 The ChartTooltipContent component accepts these props for customizing tooltip behavior.
 
+<<<<<<< HEAD
+| Prop            | Type                        | Default | Description           |
+| --------------- | --------------------------- | ------- | --------------------- |
+| `labelKey`      | string                      | "label" | Key for tooltip label |
+| `nameKey`       | string                      | "name"  | Key for tooltip name  |
+| `indicator`     | "dot" \| "line" \| "dashed" | "dot"   | Indicator style       |
+| `hideLabel`     | boolean                     | false   | Hide label            |
+| `hideIndicator` | boolean                     | false   | Hide indicator        |
+
+---
+=======
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
 | `labelKey` | string | "label" | Key for tooltip label |
@@ -265,6 +381,7 @@ The ChartTooltipContent component accepts these props for customizing tooltip be
 | `hideIndicator` | boolean | false | Hide indicator |
 
 --------------------------------
+>>>>>>> origin/master
 
 ### shadcn/ui Chart Component - Accessibility
 
@@ -282,11 +399,19 @@ Enable keyboard navigation and screen reader support by adding the accessibility
 ```
 
 This adds:
+<<<<<<< HEAD
+
+=======
+>>>>>>> origin/master
 - Keyboard arrow key navigation
 - ARIA labels for chart elements
 - Screen reader announcements for data values
 
+<<<<<<< HEAD
+---
+=======
 --------------------------------
+>>>>>>> origin/master
 
 ### shadcn/ui Chart Component - Recharts Dependencies
 
@@ -301,6 +426,10 @@ yarn add recharts
 ```
 
 Recharts provides the following chart types:
+<<<<<<< HEAD
+
+=======
+>>>>>>> origin/master
 - Area, Bar, Line, Pie, Composed
 - Radar, RadialBar, Scatter
 - Funnel, Treemap

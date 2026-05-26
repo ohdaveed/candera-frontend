@@ -1,4 +1,8 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
+<<<<<<< HEAD
+import fallbackProducts from "../data/products.json";
+=======
+>>>>>>> origin/master
 
 const legacyProductsApiUrl = import.meta.env.VITE_PRODUCTS_API_URL;
 const etsyProductsEndpoint = "/api/etsy/listings";
@@ -182,6 +186,11 @@ export function useProductSync() {
         setProducts(syncedProducts);
       } catch (err) {
         if (err.name === "AbortError") return;
+<<<<<<< HEAD
+        console.warn("Product sync failed, using fallback data.", err);
+        setProducts(fallbackProducts);
+=======
+>>>>>>> origin/master
         setError(err);
       } finally {
         if (!controller.signal.aborted) {

@@ -1,28 +1,34 @@
-```markdown
+````markdown
 # candera-frontend Development Patterns
 
 > Auto-generated skill from repository analysis
 
 ## Overview
+
 This skill teaches the core development patterns and conventions used in the `candera-frontend` repository. The codebase is a JavaScript frontend project built with Vite, using React components and a modular file structure. It emphasizes clear feature development, consistent design system updates, and standardized coding practices to ensure maintainability and scalability.
 
 ## Coding Conventions
 
 ### File Naming
+
 - **Component and Page Files:** Use PascalCase.
   - Example: `ProductList.jsx`, `HomePage.jsx`
 - **Data, Hooks, and Utility Files:** Use camelCase or descriptive names.
   - Example: `products.json`, `useCart.js`, `apiClient.js`
 
 ### Import Style
+
 - **Relative imports** are preferred for internal modules.
   ```js
-  import ProductList from '../components/ProductList.jsx';
-  import useCart from '../hooks/useCart.js';
+  import ProductList from "../components/ProductList.jsx";
+  import useCart from "../hooks/useCart.js";
   ```
+````
 
 ### Export Style
+
 - **Mixed exports** are used (both default and named).
+
   ```js
   // Default export
   export default ProductList;
@@ -32,6 +38,7 @@ This skill teaches the core development patterns and conventions used in the `ca
   ```
 
 ### Commit Messages
+
 - **Conventional commit types** are used, with prefixes like `feat` and `style`.
   - Example: `feat: add product filtering to ProductList component`
   - Example: `style: unify button colors across all pages`
@@ -39,6 +46,7 @@ This skill teaches the core development patterns and conventions used in the `ca
 ## Workflows
 
 ### Feature Development Across Multiple Components and Pages
+
 **Trigger:** When adding or refactoring a feature that affects several parts of the frontend (components, pages, data, styles).
 **Command:** `/feature`
 
@@ -51,27 +59,29 @@ This skill teaches the core development patterns and conventions used in the `ca
 7. **CRITICAL:** Update `AGENTS.md`, `CLAUDE.md`, and `README.md` to reflect any structural, logic, or integration changes (Continuous Documentation Mandate).
 
 **Example:**
+
 ```js
 // src/components/ProductFilter.jsx
-import React from 'react';
+import React from "react";
 
 export default function ProductFilter({ onFilter }) {
   // ...
 }
 ```
+
 ```js
 // src/pages/ProductsPage.jsx
-import ProductFilter from '../components/ProductFilter.jsx';
+import ProductFilter from "../components/ProductFilter.jsx";
 // ...
 ```
+
 ```json
 // src/data/products.json
-[
-  { "id": 1, "name": "Item A", "price": 10 }
-]
+[{ "id": 1, "name": "Item A", "price": 10 }]
 ```
 
 ### Design System and Style Consolidation
+
 **Trigger:** When updating the design system, unifying color tokens, or refactoring styling for consistency.
 **Command:** `/design-system-update`
 
@@ -81,6 +91,7 @@ import ProductFilter from '../components/ProductFilter.jsx';
 4. Test visual consistency across the app.
 
 **Example:**
+
 ```css
 /* src/index.css */
 :root {
@@ -88,13 +99,12 @@ import ProductFilter from '../components/ProductFilter.jsx';
   --secondary-color: #f59e42;
 }
 ```
+
 ```js
 // src/components/Button.jsx
 export default function Button({ children }) {
   return (
-    <button className="bg-[var(--primary-color)] text-white px-4 py-2 rounded">
-      {children}
-    </button>
+    <button className="bg-[var(--primary-color)] text-white px-4 py-2 rounded">{children}</button>
   );
 }
 ```
@@ -105,12 +115,13 @@ export default function Button({ children }) {
 - **Testing framework** is not specified in the repository analysis.
 - **Location:** Test files are typically placed alongside the components they test.
 - **Example:**
+
   ```js
   // src/components/ProductList.test.jsx
-  import { render } from '@testing-library/react';
-  import ProductList from './ProductList';
+  import { render } from "@testing-library/react";
+  import ProductList from "./ProductList";
 
-  test('renders product list', () => {
+  test("renders product list", () => {
     render(<ProductList products={[]} />);
     // assertions...
   });
@@ -118,8 +129,11 @@ export default function Button({ children }) {
 
 ## Commands
 
-| Command                | Purpose                                                                 |
-|------------------------|-------------------------------------------------------------------------|
-| /feature               | Start feature development across multiple components and pages           |
-| /design-system-update  | Standardize or refactor design system and styles across the codebase     |
+| Command               | Purpose                                                              |
+| --------------------- | -------------------------------------------------------------------- |
+| /feature              | Start feature development across multiple components and pages       |
+| /design-system-update | Standardize or refactor design system and styles across the codebase |
+
+```
+
 ```
