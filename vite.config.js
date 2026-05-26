@@ -1,35 +1,61 @@
-import { defineConfig } from 'vite-plus'
-import react from '@vitejs/plugin-react'
-import tailwindcss from '@tailwindcss/vite'
+import { defineConfig } from "vite-plus";
+import react from "@vitejs/plugin-react";
+import tailwindcss from "@tailwindcss/vite";
+import dotenv from "dotenv";
+
+dotenv.config({ path: ".env.local" });
+dotenv.config({ path: ".env" });
+
+// Vite plugin to handle Vercel serverless functions locally
+function vercelApiPlugin() {
+  return {
+    name: "vercel-api-plugin",
+    configureServer(server) {
+      server.middlewares.use(async (req, res, next) => {
+        if (req.url.startsWith("/api/etsy/listings")) {
+          // Mock Vercel response methods
+          res.status = (code) => {
+            res.statusCode = code;
+            return res;
+          };
+          res.json = (data) => {
+            res.setHeader("Content-Type", "application/json");
+            res.end(JSON.stringify(data));
+          };
+          try {
+            const handlerModule = await server.ssrLoadModule("/api/etsy/listings.js");
+            const handler = handlerModule.default;
+            await handler(req, res);
+          } catch (err) {
+            console.error(err);
+            res.status(500).json({ error: err.message });
+          }
+        } else {
+          next();
+        }
+      });
+    },
+  };
+}
 
 export default defineConfig({
   staged: {
-    "*": "vp check --fix"
+    "*": "vp check --fix",
   },
   fmt: {},
   lint: {
-    "plugins": [
-      "oxc",
-      "typescript",
-      "unicorn",
-      "react"
-    ],
-    "categories": {
-      "correctness": "warn"
+    plugins: ["oxc", "typescript", "unicorn", "react"],
+    categories: {
+      correctness: "warn",
     },
-    "env": {
-      "builtin": true
+    env: {
+      builtin: true,
     },
-    "ignorePatterns": [
-      "dist"
-    ],
-    "overrides": [
+    ignorePatterns: ["dist"],
+    overrides: [
       {
-        "files": [
-          "api/**/*.js",
-          "server.js"
-        ],
-        "rules": {
+        files: ["api/**/*.js", "server.js"],
+        rules: {
           "constructor-super": "error",
           "for-direction": "error",
           "getter-return": "error",
@@ -91,17 +117,15 @@ export default defineConfig({
           "preserve-caught-error": "error",
           "require-yield": "error",
           "use-isnan": "error",
-          "valid-typeof": "error"
+          "valid-typeof": "error",
         },
-        "env": {
-          "node": true
-        }
+        env: {
+          node: true,
+        },
       },
       {
-        "files": [
-          "**/*.{js,jsx}"
-        ],
-        "rules": {
+        files: ["**/*.{js,jsx}"],
+        rules: {
           "constructor-super": "error",
           "for-direction": "error",
           "getter-return": "error",
@@ -169,19 +193,19 @@ export default defineConfig({
           "react/only-export-components": [
             "error",
             {
-              "allowConstantExport": true
-            }
-          ]
+              allowConstantExport: true,
+            },
+          ],
         },
-        "env": {
-          "browser": true
-        }
-      }
+        env: {
+          browser: true,
+        },
+      },
     ],
-    "options": {
-      "typeAware": true,
-      "typeCheck": true
-    }
+    options: {
+      typeAware: true,
+      typeCheck: true,
+    },
   },
-  plugins: [react(), tailwindcss()],
-})
+  plugins: [react(), tailwindcss(), vercelApiPlugin()],
+});
