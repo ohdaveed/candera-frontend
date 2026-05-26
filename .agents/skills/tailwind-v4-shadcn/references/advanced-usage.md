@@ -27,10 +27,9 @@ Add new semantic colors beyond the default palette:
 ```
 
 **Usage:**
-<<<<<<< HEAD
 
-=======
->>>>>>> origin/master
+> > > > > > > origin/master
+
 ```tsx
 <div className="bg-brand text-brand-foreground">Branded Component</div>
 ```
@@ -44,10 +43,9 @@ Add new semantic colors beyond the default palette:
 For complete v3 → v4 migration steps, see `references/migration-guide.md`.
 
 **Quick Summary**:
-<<<<<<< HEAD
 
-=======
->>>>>>> origin/master
+> > > > > > > origin/master
+
 - Remove `tailwind.config.js` (v4 uses CSS configuration)
 - Convert hardcoded colors to CSS variables
 - Update plugin syntax: `require('tailwindcss/plugin')(plugin)` in v3 config → `@plugin "plugin-name"` in CSS
@@ -60,19 +58,17 @@ For complete v3 → v4 migration steps, see `references/migration-guide.md`.
 ### 1. Always Use Semantic Tokens
 
 **✅ CORRECT:**
-<<<<<<< HEAD
 
-=======
->>>>>>> origin/master
+> > > > > > > origin/master
+
 ```tsx
 <Button variant="destructive">Delete</Button>
 ```
 
 **❌ WRONG:**
-<<<<<<< HEAD
 
-=======
->>>>>>> origin/master
+> > > > > > > origin/master
+
 ```tsx
 <Button className="bg-red-600">Delete</Button>
 ```
@@ -84,7 +80,6 @@ For complete v3 → v4 migration steps, see `references/migration-guide.md`.
 ### 2. Use `cn()` for Conditional Styling
 
 **Import:**
-<<<<<<< HEAD
 
 ```tsx
 import { cn } from "@/lib/utils";
@@ -94,19 +89,6 @@ import { cn } from "@/lib/utils";
 
 ```tsx
 <div className={cn("base-class", isActive && "active-class", hasError && "error-class")} />
-=======
-```tsx
-import { cn } from "@/lib/utils"
-```
-
-**Usage:**
-```tsx
-<div className={cn(
-  "base-class",
-  isActive && "active-class",
-  hasError && "error-class"
-)} />
->>>>>>> origin/master
 ```
 
 **What `cn()` does**: Merges Tailwind classes intelligently (later classes override earlier ones).
@@ -116,10 +98,9 @@ import { cn } from "@/lib/utils"
 ### 3. Compose shadcn/ui Components
 
 **Pattern:**
-<<<<<<< HEAD
 
-=======
->>>>>>> origin/master
+> > > > > > > origin/master
+
 ```tsx
 <Dialog>
   <DialogTrigger asChild>
@@ -144,7 +125,6 @@ import { cn } from "@/lib/utils"
 Apply different variables based on state:
 
 ```tsx
-<<<<<<< HEAD
 <div
   className={cn(
     "rounded-lg p-4",
@@ -152,13 +132,6 @@ Apply different variables based on state:
     variant === "error" && "bg-destructive text-destructive-foreground",
   )}
 />
-=======
-<div className={cn(
-  "rounded-lg p-4",
-  variant === "success" && "bg-success text-success-foreground",
-  variant === "error" && "bg-destructive text-destructive-foreground"
-)} />
->>>>>>> origin/master
 ```
 
 ### Custom Radius Tokens
@@ -180,7 +153,6 @@ Usage: `className="rounded-[var(--radius-lg)]"`
 Use `cva()` from `class-variance-authority` for complex variants:
 
 ```tsx
-<<<<<<< HEAD
 import { cva } from "class-variance-authority";
 
 const buttonVariants = cva("inline-flex items-center justify-center rounded-md", {
@@ -200,30 +172,6 @@ const buttonVariants = cva("inline-flex items-center justify-center rounded-md",
     size: "default",
   },
 });
-=======
-import { cva } from "class-variance-authority"
-
-const buttonVariants = cva(
-  "inline-flex items-center justify-center rounded-md",
-  {
-    variants: {
-      variant: {
-        default: "bg-primary text-primary-foreground",
-        destructive: "bg-destructive text-destructive-foreground",
-      },
-      size: {
-        default: "h-10 px-4 py-2",
-        sm: "h-9 px-3",
-        lg: "h-11 px-8",
-      },
-    },
-    defaultVariants: {
-      variant: "default",
-      size: "default",
-    },
-  }
-)
->>>>>>> origin/master
 ```
 
 ---

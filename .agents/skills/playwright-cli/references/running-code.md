@@ -17,12 +17,11 @@ You can also load the function from a file:
 playwright-cli run-code --filename=./my-script.js
 ```
 
-<<<<<<< HEAD
-=======
+# <<<<<<< HEAD
 
->>>>>>> origin/master
-The code must be a single function expression, it is wrapped in `(...)` and evaluated.
-import/export/require syntax is not supported.
+> > > > > > > origin/master
+> > > > > > > The code must be a single function expression, it is wrapped in `(...)` and evaluated.
+> > > > > > > import/export/require syntax is not supported.
 
 ## Geolocation
 

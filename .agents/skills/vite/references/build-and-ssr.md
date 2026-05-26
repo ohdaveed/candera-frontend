@@ -11,18 +11,12 @@ Build a library for distribution:
 
 ```ts
 // vite.config.ts
-<<<<<<< HEAD
 import { resolve } from "node:path";
 import { defineConfig } from "vite";
-=======
-import { resolve } from 'node:path'
-import { defineConfig } from 'vite'
->>>>>>> origin/master
 
 export default defineConfig({
   build: {
     lib: {
-<<<<<<< HEAD
       entry: resolve(import.meta.dirname, "lib/main.ts"),
       name: "MyLib",
       fileName: "my-lib",
@@ -33,27 +27,11 @@ export default defineConfig({
         globals: {
           vue: "Vue",
           react: "React",
-=======
-      entry: resolve(import.meta.dirname, 'lib/main.ts'),
-      name: 'MyLib',
-      fileName: 'my-lib',
-    },
-    rolldownOptions: {
-      external: ['vue', 'react'],
-      output: {
-        globals: {
-          vue: 'Vue',
-          react: 'React',
->>>>>>> origin/master
         },
       },
     },
   },
-<<<<<<< HEAD
 });
-=======
-})
->>>>>>> origin/master
 ```
 
 ### Multiple Entries
@@ -101,21 +79,12 @@ export default defineConfig({
   build: {
     rolldownOptions: {
       input: {
-<<<<<<< HEAD
         main: resolve(import.meta.dirname, "index.html"),
         nested: resolve(import.meta.dirname, "nested/index.html"),
       },
     },
   },
 });
-=======
-        main: resolve(import.meta.dirname, 'index.html'),
-        nested: resolve(import.meta.dirname, 'nested/index.html'),
-      },
-    },
-  },
-})
->>>>>>> origin/master
 ```
 
 ## SSR Development
@@ -136,95 +105,54 @@ These frameworks build on top of Vite's SSR primitives so you don't have to wire
 ### createServer
 
 ```ts
-<<<<<<< HEAD
 import { createServer } from "vite";
-=======
-import { createServer } from 'vite'
->>>>>>> origin/master
 
 const server = await createServer({
   configFile: false,
   root: import.meta.dirname,
   server: { port: 1337 },
-<<<<<<< HEAD
 });
 
 await server.listen();
 server.printUrls();
-=======
-})
-
-await server.listen()
-server.printUrls()
->>>>>>> origin/master
 ```
 
 ### build
 
 ```ts
-<<<<<<< HEAD
 import { build } from "vite";
 
 await build({
   root: "./project",
   build: { outDir: "dist" },
 });
-=======
-import { build } from 'vite'
-
-await build({
-  root: './project',
-  build: { outDir: 'dist' },
-})
->>>>>>> origin/master
 ```
 
 ### preview
 
 ```ts
-<<<<<<< HEAD
 import { preview } from "vite";
 
 const previewServer = await preview({
   preview: { port: 8080, open: true },
 });
 previewServer.printUrls();
-=======
-import { preview } from 'vite'
-
-const previewServer = await preview({
-  preview: { port: 8080, open: true },
-})
-previewServer.printUrls()
->>>>>>> origin/master
 ```
 
 ### resolveConfig
 
 ```ts
-<<<<<<< HEAD
 import { resolveConfig } from "vite";
 
 const config = await resolveConfig({}, "build");
-=======
-import { resolveConfig } from 'vite'
-
-const config = await resolveConfig({}, 'build')
->>>>>>> origin/master
 ```
 
 ### loadEnv
 
 ```ts
-<<<<<<< HEAD
 import { loadEnv } from "vite";
 
 const env = loadEnv("development", process.cwd(), "");
-=======
-import { loadEnv } from 'vite'
-
-const env = loadEnv('development', process.cwd(), '')
->>>>>>> origin/master
 // Loads all env vars (empty prefix = no filtering)
 ```
 

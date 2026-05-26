@@ -16,7 +16,6 @@ shadcn/ui is different from traditional component libraries:
 ### 2. Core Concepts to Master
 
 #### Class Variance Authority (CVA)
-<<<<<<< HEAD
 
 Most components use CVA for variant management:
 
@@ -49,41 +48,6 @@ import { twMerge } from "tailwind-merge";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
-=======
-Most components use CVA for variant management:
-
-```tsx
-const buttonVariants = cva(
-  "base-classes",
-  {
-    variants: {
-      variant: {
-        default: "variant-classes",
-        destructive: "destructive-classes",
-      },
-      size: {
-        default: "size-classes",
-        sm: "small-classes",
-      },
-    },
-    defaultVariants: {
-      variant: "default",
-      size: "default",
-    },
-  }
-)
-```
-
-#### cn Utility Function
-The `cn` function combines classes and resolves conflicts:
-
-```tsx
-import { clsx, type ClassValue } from "clsx"
-import { twMerge } from "tailwind-merge"
-
-export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs))
->>>>>>> origin/master
 }
 ```
 
@@ -108,11 +72,9 @@ export function cn(...inputs: ClassValue[]) {
 ### 5. Common Patterns
 
 #### Form Pattern
-<<<<<<< HEAD
 
-=======
->>>>>>> origin/master
-Every form follows this structure:
+> > > > > > > origin/master
+> > > > > > > Every form follows this structure:
 
 ```tsx
 1. Define Zod schema
@@ -123,11 +85,9 @@ Every form follows this structure:
 ```
 
 #### Component Customization Pattern
-<<<<<<< HEAD
 
-=======
->>>>>>> origin/master
-To customize a component:
+> > > > > > > origin/master
+> > > > > > > To customize a component:
 
 1. Copy component to your project
 2. Modify the variants
@@ -153,20 +113,18 @@ To customize a component:
 ## Practice Exercises
 
 ### Exercise 1: Basic Setup
-<<<<<<< HEAD
 
-=======
->>>>>>> origin/master
+> > > > > > > origin/master
+
 1. Create a new Next.js project
 2. Set up shadcn/ui
 3. Install and customize a Button component
 4. Add a new variant "gradient"
 
 ### Exercise 2: Form Building
-<<<<<<< HEAD
 
-=======
->>>>>>> origin/master
+> > > > > > > origin/master
+
 1. Create a contact form with:
    - Name input (required)
    - Email input (email validation)
@@ -174,10 +132,9 @@ To customize a component:
    - Submit button with loading state
 
 ### Exercise 3: Component Combination
-<<<<<<< HEAD
 
-=======
->>>>>>> origin/master
+> > > > > > > origin/master
+
 1. Build a settings page using:
    - Card for layout
    - Sheet for mobile menu
@@ -186,10 +143,9 @@ To customize a component:
    - Toast for notifications
 
 ### Exercise 4: Custom Component
-<<<<<<< HEAD
 
-=======
->>>>>>> origin/master
+> > > > > > > origin/master
+
 1. Create a custom Badge component
 2. Support variants: default, secondary, destructive, outline
 3. Support sizes: sm, default, lg
@@ -201,8 +157,7 @@ To customize a component:
 - [GitHub Repository](https://github.com/shadcn/ui)
 - [Examples Gallery](https://ui.shadcn.com/examples)
 - [Radix UI Primitives](https://www.radix-ui.com/primitives)
-<<<<<<< HEAD
+  <<<<<<< HEAD
+- # [Tailwind CSS Documentation](https://tailwindcss.com/docs)
 - [Tailwind CSS Documentation](https://tailwindcss.com/docs)
-=======
-- [Tailwind CSS Documentation](https://tailwindcss.com/docs)
->>>>>>> origin/master
+  > > > > > > > origin/master

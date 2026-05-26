@@ -36,7 +36,6 @@ playwright-cli click e3
 Collect the generated code into a Playwright test:
 
 ```typescript
-<<<<<<< HEAD
 import { test, expect } from "@playwright/test";
 
 test("login flow", async ({ page }) => {
@@ -45,16 +44,6 @@ test("login flow", async ({ page }) => {
   await page.getByRole("textbox", { name: "Email" }).fill("user@example.com");
   await page.getByRole("textbox", { name: "Password" }).fill("password123");
   await page.getByRole("button", { name: "Sign In" }).click();
-=======
-import { test, expect } from '@playwright/test';
-
-test('login flow', async ({ page }) => {
-  // Generated code from playwright-cli session:
-  await page.goto('https://example.com/login');
-  await page.getByRole('textbox', { name: 'Email' }).fill('user@example.com');
-  await page.getByRole('textbox', { name: 'Password' }).fill('password123');
-  await page.getByRole('button', { name: 'Sign In' }).click();
->>>>>>> origin/master
 
   // Add assertions
   await expect(page).toHaveURL(/.*dashboard/);
@@ -69,17 +58,10 @@ The generated code uses role-based locators when possible, which are more resili
 
 ```typescript
 // Generated (good - semantic)
-<<<<<<< HEAD
 await page.getByRole("button", { name: "Submit" }).click();
 
 // Avoid (fragile - CSS selectors)
 await page.locator("#submit-btn").click();
-=======
-await page.getByRole('button', { name: 'Submit' }).click();
-
-// Avoid (fragile - CSS selectors)
-await page.locator('#submit-btn').click();
->>>>>>> origin/master
 ```
 
 ### 2. Explore Before Recording
@@ -128,7 +110,6 @@ playwright-cli --raw snapshot e5
 
 ```typescript
 // Generated action
-<<<<<<< HEAD
 await page.getByRole("button", { name: "Submit" }).click();
 
 // Manual assertions using the outputs above:
@@ -136,15 +117,6 @@ await expect(page.getByRole("alert", { name: "Success" })).toBeVisible();
 await expect(page.getByTestId("main-header")).toHaveText("Welcome, user");
 await expect(page.getByRole("textbox", { name: "Email" })).toHaveValue("user@example.com");
 await expect(page.getByRole("checkbox", { name: "Enable notifications" })).toBeChecked();
-=======
-await page.getByRole('button', { name: 'Submit' }).click();
-
-// Manual assertions using the outputs above:
-await expect(page.getByRole('alert', { name: 'Success' })).toBeVisible();
-await expect(page.getByTestId('main-header')).toHaveText('Welcome, user');
-await expect(page.getByRole('textbox', { name: 'Email' })).toHaveValue('user@example.com');
-await expect(page.getByRole('checkbox', { name: 'Enable notifications' })).toBeChecked();
->>>>>>> origin/master
 
 // toMatchAriaSnapshot on the whole page, finds a matching region
 await expect(page).toMatchAriaSnapshot(`
@@ -154,11 +126,7 @@ await expect(page).toMatchAriaSnapshot(`
 `);
 
 // toMatchAriaSnapshot scoped to a region
-<<<<<<< HEAD
 await expect(page.getByRole("navigation")).toMatchAriaSnapshot(`
-=======
-await expect(page.getByRole('navigation')).toMatchAriaSnapshot(`
->>>>>>> origin/master
   - link "Home"
   - link /\\d+ new messages?/
   - link "Profile"
