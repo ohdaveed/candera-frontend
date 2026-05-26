@@ -1,11 +1,13 @@
-const MAILERLITE_API = 'https://connect.mailerlite.com/api'
+const MAILCHIMP_API_KEY = process.env.MAILCHIMP_API_KEY
+const MAILCHIMP_SERVER_PREFIX = process.env.MAILCHIMP_SERVER_PREFIX
+const MAILCHIMP_LIST_ID = process.env.MAILCHIMP_LIST_ID
 
-const GROUP_IDS = {
-  'inner-circle': process.env.MAILERLITE_GROUP_INNER_CIRCLE,
-  'seashell-garden-glow': process.env.MAILERLITE_GROUP_SEASHELL,
-  'meadowlight-botanical': process.env.MAILERLITE_GROUP_MEADOWLIGHT,
-  'crimson-noir': process.env.MAILERLITE_GROUP_CRIMSON_NOIR,
-  'ever-after-glow': process.env.MAILERLITE_GROUP_EVER_AFTER,
+const TAG_NAMES = {
+  'inner-circle': 'Inner Circle',
+  'seashell-garden-glow': 'Seashell Garden',
+  'meadowlight-botanical': 'Meadowlight Botanical',
+  'crimson-noir': 'Crimson Noir',
+  'ever-after-glow': 'Ever After Glow',
 }
 
 export default async function handler(req, res) {
@@ -19,28 +21,39 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'Email is required' })
   }
 
-  const groups = [GROUP_IDS['inner-circle']]
-  if (match && GROUP_IDS[match]) {
-    groups.push(GROUP_IDS[match])
+  const tags = [TAG_NAMES['inner-circle']]
+  if (match && TAG_NAMES[match]) {
+    tags.push(TAG_NAMES[match])
   }
 
-  const response = await fetch(`${MAILERLITE_API}/subscribers`, {
+  const dc = MAILCHIMP_SERVER_PREFIX || MAILCHIMP_API_KEY?.split('-')[1] || 'us1'
+  const url = `https://${dc}.api.mailchimp.com/3.0/lists/${MAILCHIMP_LIST_ID}/members`
+
+  const response = await fetch(url, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${process.env.MAILERLITE_API_KEY}`,
+      Authorization: `Basic ${Buffer.from(`any:${MAILCHIMP_API_KEY}`).toString('base64')}`,
     },
     body: JSON.stringify({
-      email,
-      fields: { name: name || '' },
-      groups: groups.filter(Boolean),
-      status: 'active',
+      email_address: email,
+      status: 'subscribed',
+      merge_fields: {
+        FNAME: name || '',
+      },
+      tags: tags.filter(Boolean),
     }),
   })
 
   if (!response.ok) {
     const error = await response.json().catch(() => ({}))
-    console.error('MailerLite error:', error)
+    
+    // If user already exists, we might want to update them or just return success
+    if (response.status === 400 && error.title === 'Member Exists') {
+      return res.status(200).json({ ok: true, message: 'Already subscribed' })
+    }
+
+    console.error('MailChimp error:', error)
     return res.status(500).json({ error: 'Subscription failed' })
   }
 

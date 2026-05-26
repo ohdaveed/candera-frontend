@@ -1,44 +1,66 @@
-# React + Vite
+# Candera Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is the frontend application for Candera, built with React 19, Vite (Vite+), and Tailwind CSS v4.
 
-## Etsy backend connection prep
+## Continuous Documentation Mandate
+**CRITICAL:** Every AI agent performing changes or adding new code MUST automatically update `AGENTS.md`, `CLAUDE.md`, and `README.md` to reflect changes in:
+- App structure, logic, API routes, and external tool integrations.
 
-The storefront can pull live product data from your Etsy backend while keeping `src/data/products.json` as a fallback.
+## Tech Stack
+- **React 19**: Frontend UI framework.
+- **Vite+**: Unified toolchain for development and builds.
+- **Tailwind CSS v4**: Styling engine via `@tailwindcss/vite`.
+- **React Router v7**: Client-side routing.
+- **Framer Motion**: Animations and transitions.
+- **MailChimp Marketing API v3**: Newsletter subscription integration.
 
-1. Copy `.env.example` to `.env.local`.
-2. Set:
-   - `VITE_ETSY_BACKEND_URL` (example: `http://localhost:3000`)
+## Agent Skills
+This project is configured for advanced AI agent collaboration with the following skills:
+- **Frameworks:** React 19, React Router v7, Framer Motion.
+- **Styling:** Tailwind v4, Shadcn UI.
+- **Workflow:** Writing Plans, Brainstorming, Systematic Debugging, TDD.
+- **DevOps:** GitHub CLI, GitHub Actions, Vercel Patterns, Supabase.
+- **Automated Testing:** Vitest, Playwright.
+
+## Project Structure
+- `src/App.jsx`: Main entry point and routing configuration.
+- `src/pages/`: Route-level views (Home, Collection, Product, Ritual, Quiz, Inner Circle).
+- `src/components/`: Reusable UI components (Nav, Footer, Scent Quiz).
+- `api/subscribe.js`: Vercel-style API route for MailChimp subscriptions.
+- `server.js`: Node.js proxy server for Etsy API integration.
+
+## Etsy Backend Connection
+
+The storefront pulls live product data from the Etsy proxy while keeping `src/data/products.json` as a fallback.
+
+1. Copy `.env.example` to `.env`.
+2. Set frontend variables:
+   - `VITE_ETSY_BACKEND_URL` (e.g., `http://localhost:3000`)
    - `VITE_ETSY_PRODUCTS_ENDPOINT` (default: `/api/etsy/listings`)
-   - `VITE_ETSY_BACKEND_API_KEY` (optional; sent as `x-api-key`)
-   - `VITE_ETSY_SHOP_URL` (optional fallback listing/shop URL)
+3. Set server-side variables (for `server.js`):
+   - `ETSY_KEYSTRING`, `ETSY_SHARED_SECRET`, `ETSY_SHOP_ID`.
 
-The hook also supports the legacy `VITE_PRODUCTS_API_URL` variable if you already have a single products endpoint URL.
+## MailChimp Integration
 
-## Local Node server
+The newsletter form is powered by the MailChimp Marketing API.
 
-A minimal Node proxy server is available in `server.js` to fetch active Etsy listings and expose them to the frontend.
+Required environment variables:
+- `MAILCHIMP_API_KEY`
+- `MAILCHIMP_SERVER_PREFIX` (e.g., `us1`)
+- `MAILCHIMP_LIST_ID`
 
-1. Set server env vars in `.env` (or your shell):
-   - `ETSY_KEYSTRING`
-   - `ETSY_SHARED_SECRET`
-   - `ETSY_SHOP_ID`
-   - `PORT` (optional, default `3000`)
-2. Start it:
-   - `npm run server`
-3. Available routes:
-   - `GET /health`
-   - `GET /api/etsy/listings`
+## Development
 
-Currently, two official plugins are available:
+```bash
+# Install dependencies
+vp install
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+# Start the Vite dev server
+npm run dev
 
-## React Compiler
+# Start the Etsy proxy server
+npm run server
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+# Run checks (lint, format, type-check)
+vp check
+```
