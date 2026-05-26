@@ -1,6 +1,12 @@
 const ETSY_KEYSTRING = process.env.ETSY_KEYSTRING || "";
 const ETSY_SHOP_ID = process.env.ETSY_SHOP_ID || "";
-const ETSY_LISTINGS_LIMIT = Number.parseInt(process.env.ETSY_LISTINGS_LIMIT || "50", 10);
+const ETSY_LISTINGS_LIMIT = Number.parseInt(process.env.ETSY_LISTINGS_LIMIT || "0", 10);
+
+const ETSY_PAGE_SIZE = 100; // Etsy v3 max per request
+const CACHE_TTL_MS = 5 * 60 * 1000; // 5 minutes
+
+let _cachedListings = null;
+let _cacheExpiry = 0;
 
 function normalizeListing(listing) {
   const image = listing?.Images?.[0] || listing?.images?.[0];
@@ -25,30 +31,50 @@ function normalizeListing(listing) {
 }
 
 async function fetchActiveEtsyListings() {
+  if (_cachedListings && Date.now() < _cacheExpiry) {
+    return _cachedListings;
+  }
+
   if (!ETSY_KEYSTRING || !ETSY_SHOP_ID) {
     throw new Error("Etsy configuration missing: ETSY_KEYSTRING and ETSY_SHOP_ID must be set");
   }
 
-  const endpoint = new URL(
-    `https://openapi.etsy.com/v3/application/shops/${ETSY_SHOP_ID}/listings/active`,
-  );
-  endpoint.searchParams.set("limit", String(ETSY_LISTINGS_LIMIT));
-  endpoint.searchParams.set("includes", "Images");
+  const allListings = [];
+  let offset = 0;
 
-  const response = await fetch(endpoint, {
-    headers: {
-      "x-api-key": ETSY_KEYSTRING,
-    },
-  });
+  while (true) {
+    const endpoint = new URL(
+      `https://openapi.etsy.com/v3/application/shops/${ETSY_SHOP_ID}/listings/active`,
+    );
+    endpoint.searchParams.set("limit", String(ETSY_PAGE_SIZE));
+    endpoint.searchParams.set("offset", String(offset));
+    endpoint.searchParams.set("includes", "Images");
 
-  if (!response.ok) {
-    const body = await response.text().catch(() => "");
-    throw new Error(`Etsy API request failed (${response.status}): ${body}`);
+    const response = await fetch(endpoint, {
+      headers: { "x-api-key": ETSY_KEYSTRING },
+    });
+
+    if (!response.ok) {
+      const body = await response.text().catch(() => "");
+      throw new Error(`Etsy API request failed (${response.status}): ${body}`);
+    }
+
+    const payload = await response.json();
+    const results = Array.isArray(payload?.results) ? payload.results : [];
+    allListings.push(...results);
+
+    const reachedCap = ETSY_LISTINGS_LIMIT > 0 && allListings.length >= ETSY_LISTINGS_LIMIT;
+    if (results.length < ETSY_PAGE_SIZE || reachedCap) break;
+    offset += ETSY_PAGE_SIZE;
   }
 
-  const payload = await response.json();
-  const results = Array.isArray(payload?.results) ? payload.results : [];
-  return results.map((listing) => normalizeListing(listing));
+  const normalized = (
+    ETSY_LISTINGS_LIMIT > 0 ? allListings.slice(0, ETSY_LISTINGS_LIMIT) : allListings
+  ).map((listing) => normalizeListing(listing));
+
+  _cachedListings = normalized;
+  _cacheExpiry = Date.now() + CACHE_TTL_MS;
+  return normalized;
 }
 
 export default async function handler(req, res) {
