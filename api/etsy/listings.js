@@ -1,12 +1,11 @@
 import { URL } from "node:url";
 
 const ETSY_KEYSTRING = process.env.ETSY_KEYSTRING || "";
-const ETSY_SHARED_SECRET = process.env.ETSY_SHARED_SECRET || "";
 const ETSY_SHOP_ID = process.env.ETSY_SHOP_ID || "";
 const ETSY_LISTINGS_LIMIT = Number.parseInt(process.env.ETSY_LISTINGS_LIMIT || "50", 10);
 
 function normalizeListing(listing) {
-  const image = listing?.images?.[0];
+  const image = listing?.Images?.[0] || listing?.images?.[0];
   const price = listing?.price;
   const amount = Number(price?.amount ?? 0);
   const divisor = Number(price?.divisor ?? 100);
@@ -40,7 +39,7 @@ async function fetchActiveEtsyListings() {
 
   const response = await fetch(endpoint, {
     headers: {
-      "x-api-key": `${ETSY_KEYSTRING}:${ETSY_SHARED_SECRET}`,
+      "x-api-key": ETSY_KEYSTRING,
     },
   });
 

@@ -45,13 +45,7 @@ export function SectionHeader({
         {icon && <span className="text-primary/60 shrink-0">{icon}</span>}
         <h2 className={cn("truncate", sectionHeaderTitleVariants({ size }))}>{title}</h2>
         {count !== undefined && (
-<<<<<<< HEAD
           <span className="inline-flex items-center rounded-full border px-2.5 py-0.5 text-[10px] h-4 font-bold bg-muted/80 text-muted-foreground border-transparent transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2">
-=======
-          <span
-            className="inline-flex items-center rounded-full border px-2.5 py-0.5 text-[10px] h-4 font-bold bg-muted/80 text-muted-foreground border-transparent transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
-          >
->>>>>>> origin/master
             {count}
           </span>
         )}

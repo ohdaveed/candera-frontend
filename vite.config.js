@@ -1,19 +1,43 @@
-<<<<<<< HEAD
 import { defineConfig } from "vite-plus";
+import { Buffer } from "node:buffer";
 import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 import dotenv from "dotenv";
 
-dotenv.config({ path: ".env.local" });
 dotenv.config({ path: ".env" });
 
 // Vite plugin to handle Vercel serverless functions locally
 function vercelApiPlugin() {
+  const apiRoutes = new Map([
+    ["/api/etsy/listings", "/api/etsy/listings.js"],
+    ["/api/subscribe", "/api/subscribe.js"],
+  ]);
+
+  async function readJsonBody(req) {
+    const chunks = [];
+    for await (const chunk of req) {
+      chunks.push(chunk);
+    }
+
+    const rawBody = Buffer.concat(chunks).toString("utf8");
+    if (!rawBody) return {};
+
+    try {
+      return JSON.parse(rawBody);
+    } catch {
+      return {};
+    }
+  }
+
   return {
     name: "vercel-api-plugin",
     configureServer(server) {
       server.middlewares.use(async (req, res, next) => {
-        if (req.url.startsWith("/api/etsy/listings")) {
+        const route = [...apiRoutes.entries()].find(([path]) => req.url.startsWith(path));
+
+        if (route) {
+          const [, modulePath] = route;
+
           // Mock Vercel response methods
           res.status = (code) => {
             res.statusCode = code;
@@ -23,8 +47,13 @@ function vercelApiPlugin() {
             res.setHeader("Content-Type", "application/json");
             res.end(JSON.stringify(data));
           };
+
+          if (req.method !== "GET" && req.method !== "OPTIONS") {
+            req.body = await readJsonBody(req);
+          }
+
           try {
-            const handlerModule = await server.ssrLoadModule("/api/etsy/listings.js");
+            const handlerModule = await server.ssrLoadModule(modulePath);
             const handler = handlerModule.default;
             await handler(req, res);
           } catch (err) {
@@ -57,40 +86,6 @@ export default defineConfig({
       {
         files: ["api/**/*.js", "server.js"],
         rules: {
-=======
-import { defineConfig } from 'vite-plus'
-import react from '@vitejs/plugin-react'
-import tailwindcss from '@tailwindcss/vite'
-
-export default defineConfig({
-  staged: {
-    "*": "vp check --fix"
-  },
-  fmt: {},
-  lint: {
-    "plugins": [
-      "oxc",
-      "typescript",
-      "unicorn",
-      "react"
-    ],
-    "categories": {
-      "correctness": "warn"
-    },
-    "env": {
-      "builtin": true
-    },
-    "ignorePatterns": [
-      "dist"
-    ],
-    "overrides": [
-      {
-        "files": [
-          "api/**/*.js",
-          "server.js"
-        ],
-        "rules": {
->>>>>>> origin/master
           "constructor-super": "error",
           "for-direction": "error",
           "getter-return": "error",
@@ -152,7 +147,6 @@ export default defineConfig({
           "preserve-caught-error": "error",
           "require-yield": "error",
           "use-isnan": "error",
-<<<<<<< HEAD
           "valid-typeof": "error",
         },
         env: {
@@ -162,19 +156,6 @@ export default defineConfig({
       {
         files: ["**/*.{js,jsx}"],
         rules: {
-=======
-          "valid-typeof": "error"
-        },
-        "env": {
-          "node": true
-        }
-      },
-      {
-        "files": [
-          "**/*.{js,jsx}"
-        ],
-        "rules": {
->>>>>>> origin/master
           "constructor-super": "error",
           "for-direction": "error",
           "getter-return": "error",
@@ -242,7 +223,6 @@ export default defineConfig({
           "react/only-export-components": [
             "error",
             {
-<<<<<<< HEAD
               allowConstantExport: true,
             },
           ],
@@ -259,21 +239,3 @@ export default defineConfig({
   },
   plugins: [react(), tailwindcss(), vercelApiPlugin()],
 });
-=======
-              "allowConstantExport": true
-            }
-          ]
-        },
-        "env": {
-          "browser": true
-        }
-      }
-    ],
-    "options": {
-      "typeAware": true,
-      "typeCheck": true
-    }
-  },
-  plugins: [react(), tailwindcss()],
-})
->>>>>>> origin/master

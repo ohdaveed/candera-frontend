@@ -11,7 +11,10 @@ export default defineConfig({
   projects: [
     {
       name: "chromium",
-      use: { ...devices["Desktop Chrome"] },
+      use: {
+        ...devices["Desktop Chrome"],
+        executablePath: "/mnt/c/Program Files/Google/Chrome/Application/chrome.exe",
+      },
     },
   ],
   webServer: {

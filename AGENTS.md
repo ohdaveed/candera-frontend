@@ -40,7 +40,8 @@ This workspace is optimized for AI agents with the following global skills insta
 - Styling: Tailwind CSS v4 is integrated via the `@tailwindcss/vite` plugin. Global styles in `src/index.css`.
 - Backend/API:
   - `api/subscribe.js`: Handles newsletter subscriptions via **MailChimp API v3** (uses tags for list segmentation).
-  - `server.js`: Node.js proxy for fetching Etsy listings.
+  - `api/etsy/listings.js`: Handles Etsy listing sync through the **Etsy Open API v3**.
+  - `vite.config.js`: Provides local Vite middleware for Vercel-style `/api/etsy/listings` and `/api/subscribe` routes.
 - Assets: `src/assets/` for imports; `public/` for static files (including `icons.svg` sprite).
 
 ## Work style
