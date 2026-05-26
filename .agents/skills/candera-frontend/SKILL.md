@@ -48,6 +48,7 @@ This skill teaches the core development patterns and conventions used in the `ca
 4. Update shared utilities or hooks in `src/hooks/` or `src/lib/`.
 5. Adjust global or component-level styles in `src/index.css`.
 6. Update configuration or meta files if necessary (e.g., `vite.config.js`, `package.json`).
+7. **CRITICAL:** Update `AGENTS.md`, `CLAUDE.md`, and `README.md` to reflect any structural, logic, or integration changes (Continuous Documentation Mandate).
 
 **Example:**
 ```js
