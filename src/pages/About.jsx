@@ -6,10 +6,16 @@ export default function About() {
         <div className="max-w-7xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-20 items-center">
             <div className="space-y-8">
-              <span className="text-[10px] tracking-[0.4em] uppercase text-candera-warm font-bold">The Methodology</span>
-              <h1 className="text-5xl md:text-7xl font-serif italic leading-tight">72 Hours of Intent.</h1>
+              <span className="text-[10px] tracking-[0.4em] uppercase text-candera-warm font-bold">
+                The Methodology
+              </span>
+              <h1 className="text-5xl md:text-7xl font-serif italic leading-tight">
+                72 Hours of Intent.
+              </h1>
               <p className="text-stone-500 font-light text-xl leading-relaxed">
-                In a world that demands speed, we choose the opposite. Our candles are cultivated through a series of slow, deliberate rituals that ensure the highest fragrance throw and the cleanest burn.
+                In a world that demands speed, we choose the opposite. Our candles are cultivated
+                through a series of slow, deliberate rituals that ensure the highest fragrance throw
+                and the cleanest burn.
               </p>
             </div>
             <div className="aspect-[4/5] overflow-hidden bg-stone-100 shadow-sm">
@@ -29,23 +35,23 @@ export default function About() {
           <div className="grid md:grid-cols-4 gap-12">
             {[
               {
-                step: '01',
-                title: 'Botanical Sourcing',
-                desc: 'We partner with sustainable apiaries and soy farms in the Midwest to ensure our base is 100% biodegradable and phthalate-free.',
+                step: "01",
+                title: "Botanical Sourcing",
+                desc: "We partner with sustainable apiaries and soy farms in the Midwest to ensure our base is 100% biodegradable and phthalate-free.",
               },
               {
-                step: '02',
-                title: 'Precision Infusion',
-                desc: 'Our oils are blended at precisely 185°F to ensure the fragrance molecules bond perfectly with the wax matrix for a consistent scent.',
+                step: "02",
+                title: "Precision Infusion",
+                desc: "Our oils are blended at precisely 185°F to ensure the fragrance molecules bond perfectly with the wax matrix for a consistent scent.",
               },
               {
-                step: '03',
-                title: 'The Hand Pour',
-                desc: 'Every vessel is pre-heated and hand-poured in micro-batches to prevent air pockets and ensure a perfectly level surface.',
+                step: "03",
+                title: "The Hand Pour",
+                desc: "Every vessel is pre-heated and hand-poured in micro-batches to prevent air pockets and ensure a perfectly level surface.",
               },
               {
-                step: '04',
-                title: 'Curing Silence',
+                step: "04",
+                title: "Curing Silence",
                 desc: 'Finished candles sit in a temperature-controlled dark room for two full weeks to "cure," allowing the scent to reach its peak complexity.',
               },
             ].map((item) => (
@@ -73,18 +79,26 @@ export default function About() {
               </div>
             </div>
             <div className="w-full md:w-1/2 space-y-8">
-              <span className="text-[10px] tracking-[0.4em] uppercase text-candera-warm font-bold">Behind the Vessel</span>
+              <span className="text-[10px] tracking-[0.4em] uppercase text-candera-warm font-bold">
+                Behind the Vessel
+              </span>
               <h2 className="text-4xl font-serif">Meet the Maker</h2>
               <div className="space-y-6 text-stone-600 font-light leading-relaxed">
                 <p>
-                  "Candera began as a personal necessity. Living in the high desert, I found that the mass-produced candles in my home were causing headaches and burning far too quickly. I wanted something that echoed the silence of the canyon."
+                  "Candera began as a personal necessity. Living in the high desert, I found that
+                  the mass-produced candles in my home were causing headaches and burning far too
+                  quickly. I wanted something that echoed the silence of the canyon."
                 </p>
                 <p>
-                  With a background in botanical chemistry and a passion for minimalist design, two years were spent perfecting the formula. Today, every single candle that leaves the studio is personally inspected.
+                  With a background in botanical chemistry and a passion for minimalist design, two
+                  years were spent perfecting the formula. Today, every single candle that leaves
+                  the studio is personally inspected.
                 </p>
               </div>
               <div className="pt-6 border-t border-stone-100">
-                <p className="text-[10px] uppercase tracking-widest font-bold text-stone-400">Founder & Lead Maker</p>
+                <p className="text-[10px] uppercase tracking-widest font-bold text-stone-400">
+                  Founder & Lead Maker
+                </p>
               </div>
             </div>
           </div>
@@ -96,7 +110,9 @@ export default function About() {
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-20 space-y-4">
             <h3 className="text-4xl font-serif italic">Care & Logistics</h3>
-            <p className="text-stone-400 font-light">Common inquiries for the intentional collector.</p>
+            <p className="text-stone-400 font-light">
+              Common inquiries for the intentional collector.
+            </p>
           </div>
           <div className="grid gap-12">
             {[
@@ -105,12 +121,12 @@ export default function About() {
                 a: "Always trim the wick to 1/4 inch before lighting. On your first burn, allow the wax to melt across the entire surface to prevent 'tunneling.'",
               },
               {
-                q: 'Are the vessels reusable?',
+                q: "Are the vessels reusable?",
                 a: "Yes. Once 1/2 inch of wax remains, pour boiling water into the vessel to lift the remaining wax. The stoneware is food-safe and perfect for plants or storage.",
               },
               {
-                q: 'Why are batches limited?',
-                a: 'Quality control is paramount. By pouring in small micro-batches, we ensure the fragrance oil is perfectly distributed and the wicks are centered manually.',
+                q: "Why are batches limited?",
+                a: "Quality control is paramount. By pouring in small micro-batches, we ensure the fragrance oil is perfectly distributed and the wicks are centered manually.",
               },
             ].map((faq, i) => (
               <div key={i} className="border-b border-stone-800 pb-8">
@@ -118,12 +134,14 @@ export default function About() {
                   {faq.q}
                   <span className="text-stone-700 text-2xl font-light">+</span>
                 </h4>
-                <p className="text-stone-400 font-light text-sm leading-relaxed max-w-2xl">{faq.a}</p>
+                <p className="text-stone-400 font-light text-sm leading-relaxed max-w-2xl">
+                  {faq.a}
+                </p>
               </div>
             ))}
           </div>
         </div>
       </section>
     </div>
-  )
+  );
 }

@@ -18,6 +18,7 @@ Build accessible, customizable UI components with shadcn/ui, Radix UI, and Tailw
 ## When to Use
 
 Activate when user requests involve:
+
 - "Set up shadcn/ui", "initialize shadcn", "add shadcn components"
 - "Install button/input/form/dialog/card/select/toast/table/chart"
 - "React Hook Form", "Zod validation", "form with validation"
@@ -30,22 +31,22 @@ Activate when user requests involve:
 
 ### Available Components
 
-| Component | Install Command | Description |
-|-----------|----------------|-------------|
-| `button` | `npx shadcn@latest add button` | Variants: default, destructive, outline, secondary, ghost, link |
-| `input` | `npx shadcn@latest add input` | Text input field |
-| `form` | `npx shadcn@latest add form` | React Hook Form integration with validation |
-| `card` | `npx shadcn@latest add card` | Container with header, content, footer |
-| `dialog` | `npx shadcn@latest add dialog` | Modal overlay |
-| `sheet` | `npx shadcn@latest add sheet` | Slide-over panel (top/right/bottom/left) |
-| `select` | `npx shadcn@latest add select` | Dropdown select |
-| `toast` | `npx shadcn@latest add toast` | Notification toasts |
-| `table` | `npx shadcn@latest add table` | Data table |
-| `menubar` | `npx shadcn@latest add menubar` | Desktop-style menubar |
-| `chart` | `npx shadcn@latest add chart` | Recharts wrapper with theming |
-| `textarea` | `npx shadcn@latest add textarea` | Multi-line text input |
-| `checkbox` | `npx shadcn@latest add checkbox` | Checkbox input |
-| `label` | `npx shadcn@latest add label` | Accessible form label |
+| Component  | Install Command                  | Description                                                     |
+| ---------- | -------------------------------- | --------------------------------------------------------------- |
+| `button`   | `npx shadcn@latest add button`   | Variants: default, destructive, outline, secondary, ghost, link |
+| `input`    | `npx shadcn@latest add input`    | Text input field                                                |
+| `form`     | `npx shadcn@latest add form`     | React Hook Form integration with validation                     |
+| `card`     | `npx shadcn@latest add card`     | Container with header, content, footer                          |
+| `dialog`   | `npx shadcn@latest add dialog`   | Modal overlay                                                   |
+| `sheet`    | `npx shadcn@latest add sheet`    | Slide-over panel (top/right/bottom/left)                        |
+| `select`   | `npx shadcn@latest add select`   | Dropdown select                                                 |
+| `toast`    | `npx shadcn@latest add toast`    | Notification toasts                                             |
+| `table`    | `npx shadcn@latest add table`    | Data table                                                      |
+| `menubar`  | `npx shadcn@latest add menubar`  | Desktop-style menubar                                           |
+| `chart`    | `npx shadcn@latest add chart`    | Recharts wrapper with theming                                   |
+| `textarea` | `npx shadcn@latest add textarea` | Multi-line text input                                           |
+| `checkbox` | `npx shadcn@latest add checkbox` | Checkbox input                                                  |
+| `label`    | `npx shadcn@latest add label`    | Accessible form label                                           |
 
 ## Instructions
 
@@ -79,47 +80,66 @@ import { Button } from "@/components/ui/button"
 ### Form with Zod Validation
 
 ```tsx
-"use client"
+"use client";
 
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
-import { z } from "zod"
-import { Button } from "@/components/ui/button"
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { Button } from "@/components/ui/button";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
 
 const formSchema = z.object({
   email: z.string().email("Invalid email"),
   password: z.string().min(8, "Password must be at least 8 characters"),
-})
+});
 
 export function LoginForm() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: { email: "", password: "" },
-  })
+  });
 
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(console.log)} className="space-y-4">
-        <FormField name="email" control={form.control} render={({ field }) => (
-          <FormItem>
-            <FormLabel>Email</FormLabel>
-            <FormControl><Input type="email" {...field} /></FormControl>
-            <FormMessage />
-          </FormItem>
-        )} />
-        <FormField name="password" control={form.control} render={({ field }) => (
-          <FormItem>
-            <FormLabel>Password</FormLabel>
-            <FormControl><Input type="password" {...field} /></FormControl>
-            <FormMessage />
-          </FormItem>
-        )} />
+        <FormField
+          name="email"
+          control={form.control}
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Email</FormLabel>
+              <FormControl>
+                <Input type="email" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          name="password"
+          control={form.control}
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Password</FormLabel>
+              <FormControl>
+                <Input type="password" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
         <Button type="submit">Login</Button>
       </form>
     </Form>
-  )
+  );
 }
 ```
 
@@ -128,8 +148,14 @@ See [references/forms-and-validation.md](references/forms-and-validation.md) for
 ### Dialog (Modal)
 
 ```tsx
-import { Button } from "@/components/ui/button"
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
+import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 
 <Dialog>
   <DialogTrigger asChild>
@@ -141,21 +167,21 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
     </DialogHeader>
     {/* content */}
   </DialogContent>
-</Dialog>
+</Dialog>;
 ```
 
 ### Toast Notification
 
 ```tsx
 // 1. Add <Toaster /> to app/layout.tsx
-import { Toaster } from "@/components/ui/toaster"
+import { Toaster } from "@/components/ui/toaster";
 
 // 2. Use in components
-import { useToast } from "@/components/ui/use-toast"
+import { useToast } from "@/components/ui/use-toast";
 
-const { toast } = useToast()
-toast({ title: "Success", description: "Changes saved." })
-toast({ variant: "destructive", title: "Error", description: "Something went wrong." })
+const { toast } = useToast();
+toast({ title: "Success", description: "Changes saved." });
+toast({ variant: "destructive", title: "Error", description: "Something went wrong." });
 ```
 
 ### Bar Chart
@@ -183,75 +209,108 @@ See [references/charts-components.md](references/charts-components.md) for Line,
 ## Examples
 
 ### Login Form with Validation
+
 ```tsx
-"use client"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
-import { z } from "zod"
-import { Button } from "@/components/ui/button"
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
+"use client";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { Button } from "@/components/ui/button";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
 
 const formSchema = z.object({
   email: z.string().email("Invalid email"),
   password: z.string().min(8, "Min 8 characters"),
-})
+});
 
 export function LoginForm() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: { email: "", password: "" },
-  })
+  });
 
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(console.log)} className="space-y-4">
-        <FormField name="email" control={form.control} render={({ field }) => (
-          <FormItem>
-            <FormLabel>Email</FormLabel>
-            <FormControl><Input type="email" {...field} /></FormControl>
-            <FormMessage />
-          </FormItem>
-        )} />
-        <FormField name="password" control={form.control} render={({ field }) => (
-          <FormItem>
-            <FormLabel>Password</FormLabel>
-            <FormControl><Input type="password" {...field} /></FormControl>
-            <FormMessage />
-          </FormItem>
-        )} />
+        <FormField
+          name="email"
+          control={form.control}
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Email</FormLabel>
+              <FormControl>
+                <Input type="email" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          name="password"
+          control={form.control}
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Password</FormLabel>
+              <FormControl>
+                <Input type="password" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
         <Button type="submit">Login</Button>
       </form>
     </Form>
-  )
+  );
 }
 ```
 
 ### Data Table with Actions
+
 ```tsx
-import { ColumnDef } from "@tanstack/react-table"
-import { Button } from "@/components/ui/button"
-import { Checkbox } from "@/components/ui/checkbox"
-import { DataTable } from "@/components/ui/data-table"
+import { ColumnDef } from "@tanstack/react-table";
+import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
+import { DataTable } from "@/components/ui/data-table";
 
 const columns: ColumnDef<User>[] = [
-  { id: "select", header: ({ table }) => (
-    <Checkbox checked={table.getIsAllPageRowsSelected()} />
-  ), cell: ({ row }) => (
-    <Checkbox checked={row.getIsSelected()} />
-  )},
+  {
+    id: "select",
+    header: ({ table }) => <Checkbox checked={table.getIsAllPageRowsSelected()} />,
+    cell: ({ row }) => <Checkbox checked={row.getIsSelected()} />,
+  },
   { accessorKey: "name", header: "Name" },
   { accessorKey: "email", header: "Email" },
-  { id: "actions", cell: ({ row }) => (
-    <Button variant="ghost" size="sm">Edit</Button>
-  )},
-]
+  {
+    id: "actions",
+    cell: ({ row }) => (
+      <Button variant="ghost" size="sm">
+        Edit
+      </Button>
+    ),
+  },
+];
 ```
 
 ### Dialog with Form
+
 ```tsx
-import { Button } from "@/components/ui/button"
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
+import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 
 <Dialog>
   <DialogTrigger asChild>
@@ -263,18 +322,19 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
     </DialogHeader>
     {/* <LoginForm /> */}
   </DialogContent>
-</Dialog>
+</Dialog>;
 ```
 
 ### Toast Notifications
+
 ```tsx
-import { useToast } from "@/components/ui/use-toast"
-import { Button } from "@/components/ui/button"
+import { useToast } from "@/components/ui/use-toast";
+import { Button } from "@/components/ui/button";
 
-const { toast } = useToast()
+const { toast } = useToast();
 
-toast({ title: "Saved", description: "Changes saved successfully." })
-toast({ variant: "destructive", title: "Error", description: "Failed to save." })
+toast({ title: "Saved", description: "Changes saved successfully." });
+toast({ variant: "destructive", title: "Error", description: "Failed to save." });
 ```
 
 ## Best Practices

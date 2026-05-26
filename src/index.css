@@ -1,10 +1,10 @@
 @import "tailwindcss";
 
 @theme {
-  --color-brand-vellum: #F5F2ED;
-  --color-brand-lavender: #6E6478;
-  --color-brand-obsidian: #1A1A1B;
-  --color-brand-sage: #6B6B63;
+  --color-brand-vellum: #f5f2ed;
+  --color-brand-lavender: #6e6478;
+  --color-brand-obsidian: #1a1a1b;
+  --color-brand-sage: #6b6b63;
 
   --color-background: var(--color-brand-vellum);
   --color-foreground: var(--color-brand-obsidian);
@@ -15,22 +15,22 @@
   --color-candera-lavender: var(--color-brand-lavender);
   --color-candera-obsidian: var(--color-brand-obsidian);
   --color-candera-sage: var(--color-brand-sage);
-  --color-candera-sage-text: #5F625C;
-  --color-candera-stone: #D8D3CA;
-  --color-candera-warm: #92400E;
+  --color-candera-sage-text: #5f625c;
+  --color-candera-stone: #d8d3ca;
+  --color-candera-warm: #92400e;
 
-  --color-stone-50: #FAFAF9;
-  --color-stone-100: #F5F5F4;
-  --color-stone-200: #E7E5E4;
-  --color-stone-300: #D6D3D1;
-  --color-stone-400: #A8A29E;
-  --color-stone-500: #78716B;
-  --color-stone-600: #57534E;
-  --color-stone-700: #44403C;
+  --color-stone-50: #fafaf9;
+  --color-stone-100: #f5f5f4;
+  --color-stone-200: #e7e5e4;
+  --color-stone-300: #d6d3d1;
+  --color-stone-400: #a8a29e;
+  --color-stone-500: #78716b;
+  --color-stone-600: #57534e;
+  --color-stone-700: #44403c;
   --color-stone-800: #292524;
-  --color-stone-900: #1C1917;
-  --color-white: #FFFFFF;
-  --color-red-500: #EF4444;
+  --color-stone-900: #1c1917;
+  --color-white: #ffffff;
+  --color-red-500: #ef4444;
 
   --font-serif: "Playfair Display", serif;
   --font-sans: "Inter", sans-serif;
@@ -51,7 +51,9 @@
 }
 
 @layer base {
-  *, *::before, *::after {
+  *,
+  *::before,
+  *::after {
     box-sizing: border-box;
   }
 

@@ -58,7 +58,14 @@ npx shadcn@latest add card
 ```
 
 ```tsx
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 
 <Card>
   <CardHeader>
@@ -72,7 +79,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
     <Button variant="outline">Cancel</Button>
     <Button>Deploy</Button>
   </CardFooter>
-</Card>
+</Card>;
 ```
 
 ## Dialog (Modal)
@@ -83,9 +90,14 @@ npx shadcn@latest add dialog
 
 ```tsx
 import {
-  Dialog, DialogContent, DialogDescription, DialogFooter,
-  DialogHeader, DialogTitle, DialogTrigger,
-} from "@/components/ui/dialog"
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 
 <Dialog>
   <DialogTrigger asChild>
@@ -98,7 +110,9 @@ import {
     </DialogHeader>
     <div className="grid gap-4 py-4">
       <div className="grid grid-cols-4 items-center gap-4">
-        <Label htmlFor="name" className="text-right">Name</Label>
+        <Label htmlFor="name" className="text-right">
+          Name
+        </Label>
         <Input id="name" className="col-span-3" />
       </div>
     </div>
@@ -106,7 +120,7 @@ import {
       <Button type="submit">Save changes</Button>
     </DialogFooter>
   </DialogContent>
-</Dialog>
+</Dialog>;
 ```
 
 ## Sheet (Slide-over)
@@ -117,8 +131,13 @@ npx shadcn@latest add sheet
 
 ```tsx
 import {
-  Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger,
-} from "@/components/ui/sheet"
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 
 // sides: top | right | bottom | left (default: right)
 <Sheet>
@@ -132,7 +151,7 @@ import {
     </SheetHeader>
     {/* Sheet content */}
   </SheetContent>
-</Sheet>
+</Sheet>;
 ```
 
 ## Select (Dropdown)
@@ -142,7 +161,13 @@ npx shadcn@latest add select
 ```
 
 ```tsx
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 <Select>
   <SelectTrigger className="w-[180px]">
@@ -153,7 +178,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
     <SelectItem value="banana">Banana</SelectItem>
     <SelectItem value="orange">Orange</SelectItem>
   </SelectContent>
-</Select>
+</Select>;
 ```
 
 ## Toast Notifications
@@ -166,7 +191,7 @@ Add `<Toaster />` to root layout:
 
 ```tsx
 // app/layout.tsx
-import { Toaster } from "@/components/ui/toaster"
+import { Toaster } from "@/components/ui/toaster";
 
 export default function RootLayout({ children }) {
   return (
@@ -176,29 +201,29 @@ export default function RootLayout({ children }) {
         <Toaster />
       </body>
     </html>
-  )
+  );
 }
 ```
 
 Using toast:
 
 ```tsx
-import { useToast } from "@/components/ui/use-toast"
+import { useToast } from "@/components/ui/use-toast";
 
 export function ToastDemo() {
-  const { toast } = useToast()
+  const { toast } = useToast();
 
   return (
     <Button onClick={() => toast({ title: "Success", description: "Changes saved." })}>
       Show Toast
     </Button>
-  )
+  );
 }
 
 // Variants
-toast({ title: "Success", description: "Changes have been saved." })
-toast({ variant: "destructive", title: "Error", description: "Something went wrong." })
-toast({ title: "Undo?", action: <ToastAction altText="Undo">Undo</ToastAction> })
+toast({ title: "Success", description: "Changes have been saved." });
+toast({ variant: "destructive", title: "Error", description: "Something went wrong." });
+toast({ title: "Undo?", action: <ToastAction altText="Undo">Undo</ToastAction> });
 ```
 
 ## Table
@@ -249,17 +274,28 @@ npx shadcn@latest add menubar
 
 ```tsx
 import {
-  Menubar, MenubarContent, MenubarItem, MenubarMenu,
-  MenubarSeparator, MenubarShortcut, MenubarSub,
-  MenubarSubContent, MenubarSubTrigger, MenubarTrigger,
-} from "@/components/ui/menubar"
+  Menubar,
+  MenubarContent,
+  MenubarItem,
+  MenubarMenu,
+  MenubarSeparator,
+  MenubarShortcut,
+  MenubarSub,
+  MenubarSubContent,
+  MenubarSubTrigger,
+  MenubarTrigger,
+} from "@/components/ui/menubar";
 
 <Menubar>
   <MenubarMenu>
     <MenubarTrigger>File</MenubarTrigger>
     <MenubarContent>
-      <MenubarItem>New Tab <MenubarShortcut>⌘T</MenubarShortcut></MenubarItem>
-      <MenubarItem>New Window <MenubarShortcut>⌘N</MenubarShortcut></MenubarItem>
+      <MenubarItem>
+        New Tab <MenubarShortcut>⌘T</MenubarShortcut>
+      </MenubarItem>
+      <MenubarItem>
+        New Window <MenubarShortcut>⌘N</MenubarShortcut>
+      </MenubarItem>
       <MenubarSeparator />
       <MenubarItem>Print</MenubarItem>
     </MenubarContent>
@@ -267,7 +303,9 @@ import {
   <MenubarMenu>
     <MenubarTrigger>Edit</MenubarTrigger>
     <MenubarContent>
-      <MenubarItem>Undo <MenubarShortcut>⌘Z</MenubarShortcut></MenubarItem>
+      <MenubarItem>
+        Undo <MenubarShortcut>⌘Z</MenubarShortcut>
+      </MenubarItem>
       <MenubarSeparator />
       <MenubarSub>
         <MenubarSubTrigger>Find</MenubarSubTrigger>
@@ -278,5 +316,5 @@ import {
       </MenubarSub>
     </MenubarContent>
   </MenubarMenu>
-</Menubar>
+</Menubar>;
 ```

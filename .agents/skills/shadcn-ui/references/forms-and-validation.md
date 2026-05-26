@@ -10,12 +10,12 @@ npm install react-hook-form @hookform/resolvers zod
 ## Basic Form with Zod Validation
 
 ```tsx
-"use client"
+"use client";
 
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
-import * as z from "zod"
-import { Button } from "@/components/ui/button"
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import * as z from "zod";
+import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -24,22 +24,22 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
 
 const formSchema = z.object({
   username: z.string().min(2, { message: "Username must be at least 2 characters." }),
   email: z.string().email({ message: "Please enter a valid email address." }),
-})
+});
 
 export function ProfileForm() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: { username: "", email: "" },
-  })
+  });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values)
+    console.log(values);
   }
 
   return (
@@ -75,7 +75,7 @@ export function ProfileForm() {
         <Button type="submit">Submit</Button>
       </form>
     </Form>
-  )
+  );
 }
 ```
 
@@ -88,7 +88,7 @@ const formSchema = z.object({
   bio: z.string().max(160).min(4),
   role: z.enum(["admin", "user", "guest"]),
   notifications: z.boolean().default(false),
-})
+});
 
 export function AdvancedForm() {
   const form = useForm<z.infer<typeof formSchema>>({
@@ -100,7 +100,7 @@ export function AdvancedForm() {
       role: "user",
       notifications: false,
     },
-  })
+  });
 
   return (
     <Form {...form}>
@@ -112,7 +112,9 @@ export function AdvancedForm() {
           render={({ field }) => (
             <FormItem>
               <FormLabel>Username</FormLabel>
-              <FormControl><Input placeholder="johndoe" {...field} /></FormControl>
+              <FormControl>
+                <Input placeholder="johndoe" {...field} />
+              </FormControl>
               <FormMessage />
             </FormItem>
           )}
@@ -177,7 +179,7 @@ export function AdvancedForm() {
         <Button type="submit">Submit</Button>
       </form>
     </Form>
-  )
+  );
 }
 ```
 
@@ -218,7 +220,9 @@ export function AdvancedForm() {
             </FormItem>
           )}
         />
-        <Button type="submit" className="w-full">Login</Button>
+        <Button type="submit" className="w-full">
+          Login
+        </Button>
       </form>
     </Form>
   </CardContent>
@@ -228,22 +232,29 @@ export function AdvancedForm() {
 ## Contact Form with API Submission
 
 ```tsx
-"use client"
+"use client";
 
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
-import * as z from "zod"
-import { Button } from "@/components/ui/button"
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
-import { toast } from "@/components/ui/use-toast"
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import * as z from "zod";
+import { Button } from "@/components/ui/button";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { toast } from "@/components/ui/use-toast";
 
 const formSchema = z.object({
   name: z.string().min(2),
   email: z.string().email(),
   message: z.string().min(10),
-})
+});
 
 async function onSubmit(values: z.infer<typeof formSchema>) {
   try {
@@ -251,42 +262,52 @@ async function onSubmit(values: z.infer<typeof formSchema>) {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(values),
-    })
-    if (!response.ok) throw new Error("Failed to submit")
-    toast({ title: "Success!", description: "Your message has been sent." })
+    });
+    if (!response.ok) throw new Error("Failed to submit");
+    toast({ title: "Success!", description: "Your message has been sent." });
   } catch {
-    toast({ variant: "destructive", title: "Error", description: "Failed to send message." })
+    toast({ variant: "destructive", title: "Error", description: "Failed to send message." });
   }
 }
 
 export default function ContactPage() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-  })
+  });
 
   return (
     <div className="container mx-auto max-w-2xl py-8">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-          <FormField control={form.control} name="name"
+          <FormField
+            control={form.control}
+            name="name"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Name</FormLabel>
-                <FormControl><Input placeholder="Your name" {...field} /></FormControl>
+                <FormControl>
+                  <Input placeholder="Your name" {...field} />
+                </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
-          <FormField control={form.control} name="email"
+          <FormField
+            control={form.control}
+            name="email"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Email</FormLabel>
-                <FormControl><Input type="email" placeholder="your@email.com" {...field} /></FormControl>
+                <FormControl>
+                  <Input type="email" placeholder="your@email.com" {...field} />
+                </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
-          <FormField control={form.control} name="message"
+          <FormField
+            control={form.control}
+            name="message"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Message</FormLabel>
@@ -297,11 +318,13 @@ export default function ContactPage() {
               </FormItem>
             )}
           />
-          <Button type="submit" className="w-full">Send Message</Button>
+          <Button type="submit" className="w-full">
+            Send Message
+          </Button>
         </form>
       </Form>
     </div>
-  )
+  );
 }
 ```
 
@@ -309,26 +332,26 @@ export default function ContactPage() {
 
 ```ts
 // app/api/contact/route.ts
-import { NextRequest, NextResponse } from "next/server"
-import { z } from "zod"
+import { NextRequest, NextResponse } from "next/server";
+import { z } from "zod";
 
 const contactSchema = z.object({
   name: z.string().min(2),
   email: z.string().email(),
   message: z.string().min(10),
-})
+});
 
 export async function POST(request: NextRequest) {
   try {
-    const body = await request.json()
-    const validated = contactSchema.parse(body)
-    console.log("Form submission:", validated)
-    return NextResponse.json({ success: true })
+    const body = await request.json();
+    const validated = contactSchema.parse(body);
+    console.log("Form submission:", validated);
+    return NextResponse.json({ success: true });
   } catch (error) {
     if (error instanceof z.ZodError) {
-      return NextResponse.json({ errors: error.errors }, { status: 400 })
+      return NextResponse.json({ errors: error.errors }, { status: 400 });
     }
-    return NextResponse.json({ error: "Internal server error" }, { status: 500 })
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }
 ```

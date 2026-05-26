@@ -40,7 +40,5 @@
     ]
   },
   "enableAllProjectMcpServers": true,
-  "enabledMcpjsonServers": [
-    "postgresql"
-  ]
+  "enabledMcpjsonServers": ["postgresql"]
 }

@@ -1,26 +1,26 @@
-import { useState, useEffect } from 'react'
-import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
-import Nav from './components/Nav'
-import Footer from './components/Footer'
-import ScentQuiz from './components/ScentQuiz'
-import Home from './pages/Home'
-import Collection from './pages/Collection'
-import Product from './pages/Product'
-import About from './pages/About'
-import Ritual from './pages/Ritual'
-import Quiz from './pages/Quiz'
-import InnerCircle from './pages/InnerCircle'
+import { useState, useEffect } from "react";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import Nav from "./components/Nav";
+import Footer from "./components/Footer";
+import ScentQuiz from "./components/ScentQuiz";
+import Home from "./pages/Home";
+import Collection from "./pages/Collection";
+import Product from "./pages/Product";
+import About from "./pages/About";
+import Ritual from "./pages/Ritual";
+import Quiz from "./pages/Quiz";
+import InnerCircle from "./pages/InnerCircle";
 
 function ScrollToTop() {
-  const { pathname } = useLocation()
+  const { pathname } = useLocation();
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'smooth' })
-  }, [pathname])
-  return null
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [pathname]);
+  return null;
 }
 
 function AppInner() {
-  const [isQuizOpen, setIsQuizOpen] = useState(false)
+  const [isQuizOpen, setIsQuizOpen] = useState(false);
 
   return (
     <>
@@ -36,9 +36,13 @@ function AppInner() {
         <Route path="/inner-circle" element={<InnerCircle />} />
       </Routes>
       <Footer />
-      <ScentQuiz key={isQuizOpen ? 'open' : 'closed'} isOpen={isQuizOpen} onClose={() => setIsQuizOpen(false)} />
+      <ScentQuiz
+        key={isQuizOpen ? "open" : "closed"}
+        isOpen={isQuizOpen}
+        onClose={() => setIsQuizOpen(false)}
+      />
     </>
-  )
+  );
 }
 
 export default function App() {
@@ -46,5 +50,5 @@ export default function App() {
     <BrowserRouter>
       <AppInner />
     </BrowserRouter>
-  )
+  );
 }

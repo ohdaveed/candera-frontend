@@ -1,6 +1,6 @@
 ---
 name: react
-description: 'Skill: react'
+description: "Skill: react"
 ---
 
 ## Components

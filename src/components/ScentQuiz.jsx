@@ -1,50 +1,70 @@
-import { useState } from 'react'
-import { X, Sparkles, CheckCircle2, ChevronRight } from 'lucide-react'
+import { useState } from "react";
+import { X, Sparkles, CheckCircle2, ChevronRight } from "lucide-react";
 
 const QUESTIONS = [
   {
-    question: 'Where do you find your deepest sense of calm?',
-    options: ['An ancient, sun-dappled forest', 'A crisp, high-altitude desert', 'A hidden, dew-covered garden', 'A cozy study by the fire'],
+    question: "Where do you find your deepest sense of calm?",
+    options: [
+      "An ancient, sun-dappled forest",
+      "A crisp, high-altitude desert",
+      "A hidden, dew-covered garden",
+      "A cozy study by the fire",
+    ],
   },
   {
-    question: 'Select a sensory texture that resonates with you.',
-    options: ['Rough-hewn linen', 'Smooth, cold ceramic', 'Aged, weathered leather', 'Soft, wild silk'],
+    question: "Select a sensory texture that resonates with you.",
+    options: [
+      "Rough-hewn linen",
+      "Smooth, cold ceramic",
+      "Aged, weathered leather",
+      "Soft, wild silk",
+    ],
   },
   {
-    question: 'What is your preferred ritual time?',
-    options: ['Early morning clarity', 'Mid-day pause', 'The golden hour', 'The quiet of midnight'],
+    question: "What is your preferred ritual time?",
+    options: ["Early morning clarity", "Mid-day pause", "The golden hour", "The quiet of midnight"],
   },
   {
-    question: 'Which atmosphere calls to your spirit?',
-    options: ['Mystical and Smokey', 'Bright and Botanical', 'Earthy and Grounded', 'Clean and Ethereal'],
+    question: "Which atmosphere calls to your spirit?",
+    options: [
+      "Mystical and Smokey",
+      "Bright and Botanical",
+      "Earthy and Grounded",
+      "Clean and Ethereal",
+    ],
   },
   {
-    question: 'What is the primary intention for your space?',
-    options: ['Focus and Creativity', 'Deep Restoration', 'Energy and Awakening', 'Comfort and Intimacy'],
+    question: "What is the primary intention for your space?",
+    options: [
+      "Focus and Creativity",
+      "Deep Restoration",
+      "Energy and Awakening",
+      "Comfort and Intimacy",
+    ],
   },
-]
+];
 
 export default function ScentQuiz({ isOpen, onClose }) {
-  const [step, setStep] = useState(0)
-  const [email, setEmail] = useState('')
-  const [submitted, setSubmitted] = useState(false)
+  const [step, setStep] = useState(0);
+  const [email, setEmail] = useState("");
+  const [submitted, setSubmitted] = useState(false);
 
-  if (!isOpen) return null
+  if (!isOpen) return null;
 
-  const total = QUESTIONS.length
-  const progress = ((step + 1) / (total + 1)) * 100
+  const total = QUESTIONS.length;
+  const progress = ((step + 1) / (total + 1)) * 100;
 
   function handleNext() {
-    if (step < total) setStep(step + 1)
+    if (step < total) setStep(step + 1);
   }
 
   function handleSubmit(e) {
-    e.preventDefault()
-    setSubmitted(true)
+    e.preventDefault();
+    setSubmitted(true);
   }
 
   function handleClose() {
-    onClose()
+    onClose();
   }
 
   return (
@@ -79,7 +99,9 @@ export default function ScentQuiz({ isOpen, onClose }) {
                   <span className="text-[10px] uppercase tracking-widest text-candera-warm font-bold">
                     Ritual Inquiry {step + 1} of {total}
                   </span>
-                  <h3 id="scent-quiz-title" className="text-3xl font-serif leading-tight">{QUESTIONS[step].question}</h3>
+                  <h3 id="scent-quiz-title" className="text-3xl font-serif leading-tight">
+                    {QUESTIONS[step].question}
+                  </h3>
                 </div>
                 <div className="grid gap-3">
                   {QUESTIONS[step].options.map((option, idx) => (
@@ -89,7 +111,10 @@ export default function ScentQuiz({ isOpen, onClose }) {
                       className="text-left p-5 border border-stone-200 hover:border-candera-warm hover:bg-candera-warm/20 transition-all group flex justify-between items-center"
                     >
                       <span className="text-stone-700 font-light italic">{option}</span>
-                      <ChevronRight size={16} className="opacity-0 group-hover:opacity-100 transition-opacity text-candera-warm" />
+                      <ChevronRight
+                        size={16}
+                        className="opacity-0 group-hover:opacity-100 transition-opacity text-candera-warm"
+                      />
                     </button>
                   ))}
                 </div>
@@ -98,13 +123,18 @@ export default function ScentQuiz({ isOpen, onClose }) {
               <div className="space-y-8 text-center">
                 <div className="space-y-4">
                   <Sparkles className="mx-auto text-candera-warm" size={32} strokeWidth={1} />
-                  <h3 className="text-3xl font-serif leading-tight">Your Sensory Profile is Ready.</h3>
+                  <h3 className="text-3xl font-serif leading-tight">
+                    Your Sensory Profile is Ready.
+                  </h3>
                   <p className="text-stone-500 font-light text-sm">
-                    Join the Inner Circle to unlock your matched scent and receive early access to the next batch.
+                    Join the Inner Circle to unlock your matched scent and receive early access to
+                    the next batch.
                   </p>
                 </div>
                 <form onSubmit={handleSubmit} className="space-y-4">
-                  <label htmlFor="scent-quiz-email" className="sr-only">Email address</label>
+                  <label htmlFor="scent-quiz-email" className="sr-only">
+                    Email address
+                  </label>
                   <input
                     id="scent-quiz-email"
                     type="email"
@@ -143,5 +173,5 @@ export default function ScentQuiz({ isOpen, onClose }) {
         )}
       </div>
     </div>
-  )
+  );
 }

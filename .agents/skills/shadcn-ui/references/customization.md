@@ -41,10 +41,10 @@ Since you own the code, extend components directly:
 
 ```tsx
 // components/ui/button.tsx
-import * as React from "react"
-import { Slot } from "@radix-ui/react-slot"
-import { cva, type VariantProps } from "class-variance-authority"
-import { cn } from "@/lib/utils"
+import * as React from "react";
+import { Slot } from "@radix-ui/react-slot";
+import { cva, type VariantProps } from "class-variance-authority";
+import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
   "inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors",
@@ -69,26 +69,25 @@ const buttonVariants = cva(
       variant: "default",
       size: "default",
     },
-  }
-)
+  },
+);
 
 export interface ButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-    VariantProps<typeof buttonVariants> {
-  asChild?: boolean
+  extends React.ButtonHTMLAttributes<HTMLButtonElement>, VariantProps<typeof buttonVariants> {
+  asChild?: boolean;
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant, size, asChild = false, ...props }, ref) => {
-    const Comp = asChild ? Slot : "button"
+    const Comp = asChild ? Slot : "button";
     return (
       <Comp className={cn(buttonVariants({ variant, size, className }))} ref={ref} {...props} />
-    )
-  }
-)
-Button.displayName = "Button"
+    );
+  },
+);
+Button.displayName = "Button";
 
-export { Button, buttonVariants }
+export { Button, buttonVariants };
 ```
 
 ## Custom Color Themes
@@ -115,16 +114,16 @@ The `cn()` utility combines `clsx` and `tailwind-merge` for conditional class na
 
 ```tsx
 // lib/utils.ts
-import { type ClassValue, clsx } from "clsx"
-import { twMerge } from "tailwind-merge"
+import { type ClassValue, clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
 
 export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs))
+  return twMerge(clsx(inputs));
 }
 
 // Usage examples
-cn("px-4 py-2", isActive && "bg-primary text-white")
-cn("text-sm", size === "lg" && "text-lg", className)
+cn("px-4 py-2", isActive && "bg-primary text-white");
+cn("text-sm", size === "lg" && "text-lg", className);
 ```
 
 ## Extending a Component
@@ -133,12 +132,12 @@ Create wrapper components to add functionality without modifying the base:
 
 ```tsx
 // components/ui/loading-button.tsx
-"use client"
-import { Button, ButtonProps } from "@/components/ui/button"
-import { Loader2 } from "lucide-react"
+"use client";
+import { Button, ButtonProps } from "@/components/ui/button";
+import { Loader2 } from "lucide-react";
 
 interface LoadingButtonProps extends ButtonProps {
-  loading?: boolean
+  loading?: boolean;
 }
 
 export function LoadingButton({ loading, children, disabled, ...props }: LoadingButtonProps) {
@@ -147,13 +146,13 @@ export function LoadingButton({ loading, children, disabled, ...props }: Loading
       {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
       {children}
     </Button>
-  )
+  );
 }
 
 // Usage
 <LoadingButton loading={isSubmitting} type="submit">
   Save Changes
-</LoadingButton>
+</LoadingButton>;
 ```
 
 ## components.json Configuration

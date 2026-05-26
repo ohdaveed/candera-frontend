@@ -9,7 +9,6 @@ effort: medium
 
 # Playwright E2E Testing Skill
 
-
 For end-to-end testing of web applications with Playwright - cross-browser, fast, reliable.
 
 **Sources:** [Playwright Best Practices](https://playwright.dev/docs/best-practices) | [Playwright Docs](https://playwright.dev/docs/intro) | [Better Stack Guide](https://betterstack.com/community/guides/testing/playwright-best-practices/)
@@ -33,63 +32,59 @@ npx playwright install
 
 ```typescript
 // playwright.config.ts
-import { defineConfig, devices } from '@playwright/test';
+import { defineConfig, devices } from "@playwright/test";
 
 export default defineConfig({
-  testDir: './e2e',
+  testDir: "./e2e",
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
   workers: process.env.CI ? 1 : undefined,
-  reporter: [
-    ['html'],
-    ['list'],
-    process.env.CI ? ['github'] : ['line'],
-  ],
+  reporter: [["html"], ["list"], process.env.CI ? ["github"] : ["line"]],
 
   use: {
-    baseURL: process.env.BASE_URL || 'http://localhost:3000',
-    trace: 'on-first-retry',
-    screenshot: 'only-on-failure',
-    video: 'retain-on-failure',
+    baseURL: process.env.BASE_URL || "http://localhost:3000",
+    trace: "on-first-retry",
+    screenshot: "only-on-failure",
+    video: "retain-on-failure",
   },
 
   projects: [
     // Auth setup - runs once before all tests
-    { name: 'setup', testMatch: /.*\.setup\.ts/ },
+    { name: "setup", testMatch: /.*\.setup\.ts/ },
 
     {
-      name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
-      dependencies: ['setup'],
+      name: "chromium",
+      use: { ...devices["Desktop Chrome"] },
+      dependencies: ["setup"],
     },
     {
-      name: 'firefox',
-      use: { ...devices['Desktop Firefox'] },
-      dependencies: ['setup'],
+      name: "firefox",
+      use: { ...devices["Desktop Firefox"] },
+      dependencies: ["setup"],
     },
     {
-      name: 'webkit',
-      use: { ...devices['Desktop Safari'] },
-      dependencies: ['setup'],
+      name: "webkit",
+      use: { ...devices["Desktop Safari"] },
+      dependencies: ["setup"],
     },
     // Mobile viewports
     {
-      name: 'mobile-chrome',
-      use: { ...devices['Pixel 5'] },
-      dependencies: ['setup'],
+      name: "mobile-chrome",
+      use: { ...devices["Pixel 5"] },
+      dependencies: ["setup"],
     },
     {
-      name: 'mobile-safari',
-      use: { ...devices['iPhone 12'] },
-      dependencies: ['setup'],
+      name: "mobile-safari",
+      use: { ...devices["iPhone 12"] },
+      dependencies: ["setup"],
     },
   ],
 
   // Start dev server before tests
   webServer: {
-    command: 'npm run dev',
-    url: 'http://localhost:3000',
+    command: "npm run dev",
+    url: "http://localhost:3000",
     reuseExistingServer: !process.env.CI,
     timeout: 120 * 1000,
   },
@@ -131,41 +126,40 @@ Use locators that mirror how users interact with the page:
 
 ```typescript
 // ✅ BEST: Role-based (accessible, resilient)
-page.getByRole('button', { name: 'Submit' })
-page.getByRole('textbox', { name: 'Email' })
-page.getByRole('link', { name: 'Sign up' })
-page.getByRole('heading', { name: 'Welcome' })
+page.getByRole("button", { name: "Submit" });
+page.getByRole("textbox", { name: "Email" });
+page.getByRole("link", { name: "Sign up" });
+page.getByRole("heading", { name: "Welcome" });
 
 // ✅ GOOD: User-facing text
-page.getByLabel('Email address')
-page.getByPlaceholder('Enter your email')
-page.getByText('Welcome back')
-page.getByTitle('Profile settings')
+page.getByLabel("Email address");
+page.getByPlaceholder("Enter your email");
+page.getByText("Welcome back");
+page.getByTitle("Profile settings");
 
 // ✅ GOOD: Test IDs (stable, explicit)
-page.getByTestId('submit-button')
-page.getByTestId('user-avatar')
+page.getByTestId("submit-button");
+page.getByTestId("user-avatar");
 
 // ⚠️ AVOID: CSS selectors (brittle)
-page.locator('.btn-primary')
-page.locator('#submit')
+page.locator(".btn-primary");
+page.locator("#submit");
 
 // ❌ NEVER: XPath (extremely brittle)
-page.locator('//div[@class="container"]/button[1]')
+page.locator('//div[@class="container"]/button[1]');
 ```
 
 ### Chaining Locators
 
 ```typescript
 // Narrow down to specific section
-const form = page.getByRole('form', { name: 'Login' });
-await form.getByRole('textbox', { name: 'Email' }).fill('user@example.com');
-await form.getByRole('button', { name: 'Submit' }).click();
+const form = page.getByRole("form", { name: "Login" });
+await form.getByRole("textbox", { name: "Email" }).fill("user@example.com");
+await form.getByRole("button", { name: "Submit" }).click();
 
 // Filter within a list
-const productCard = page.getByTestId('product-card')
-  .filter({ hasText: 'Pro Plan' });
-await productCard.getByRole('button', { name: 'Buy' }).click();
+const productCard = page.getByTestId("product-card").filter({ hasText: "Pro Plan" });
+await productCard.getByRole("button", { name: "Buy" }).click();
 ```
 
 ---
@@ -176,31 +170,31 @@ await productCard.getByRole('button', { name: 'Buy' }).click();
 
 ```typescript
 // e2e/pages/base.page.ts
-import { Page, Locator } from '@playwright/test';
+import { Page, Locator } from "@playwright/test";
 
 export abstract class BasePage {
   constructor(protected page: Page) {}
 
-  async navigate(path: string = '/') {
+  async navigate(path: string = "/") {
     await this.page.goto(path);
   }
 
   async waitForPageLoad() {
-    await this.page.waitForLoadState('networkidle');
+    await this.page.waitForLoadState("networkidle");
   }
 
   // Common elements
   get header() {
-    return this.page.getByRole('banner');
+    return this.page.getByRole("banner");
   }
 
   get footer() {
-    return this.page.getByRole('contentinfo');
+    return this.page.getByRole("contentinfo");
   }
 
   // Common actions
   async clickNavLink(name: string) {
-    await this.header.getByRole('link', { name }).click();
+    await this.header.getByRole("link", { name }).click();
   }
 }
 ```
@@ -209,8 +203,8 @@ export abstract class BasePage {
 
 ```typescript
 // e2e/pages/login.page.ts
-import { Page, expect } from '@playwright/test';
-import { BasePage } from './base.page';
+import { Page, expect } from "@playwright/test";
+import { BasePage } from "./base.page";
 
 export class LoginPage extends BasePage {
   readonly emailInput: Locator;
@@ -220,14 +214,14 @@ export class LoginPage extends BasePage {
 
   constructor(page: Page) {
     super(page);
-    this.emailInput = page.getByLabel('Email');
-    this.passwordInput = page.getByLabel('Password');
-    this.submitButton = page.getByRole('button', { name: 'Sign in' });
-    this.errorMessage = page.getByRole('alert');
+    this.emailInput = page.getByLabel("Email");
+    this.passwordInput = page.getByLabel("Password");
+    this.submitButton = page.getByRole("button", { name: "Sign in" });
+    this.errorMessage = page.getByRole("alert");
   }
 
   async goto() {
-    await this.navigate('/login');
+    await this.navigate("/login");
   }
 
   async login(email: string, password: string) {
@@ -248,8 +242,8 @@ export class LoginPage extends BasePage {
 
 ```typescript
 // e2e/pages/dashboard.page.ts
-import { Page, Locator, expect } from '@playwright/test';
-import { BasePage } from './base.page';
+import { Page, Locator, expect } from "@playwright/test";
+import { BasePage } from "./base.page";
 
 export class DashboardPage extends BasePage {
   readonly welcomeHeading: Locator;
@@ -258,13 +252,13 @@ export class DashboardPage extends BasePage {
 
   constructor(page: Page) {
     super(page);
-    this.welcomeHeading = page.getByRole('heading', { name: /welcome/i });
-    this.userMenu = page.getByTestId('user-menu');
-    this.logoutButton = page.getByRole('button', { name: 'Logout' });
+    this.welcomeHeading = page.getByRole("heading", { name: /welcome/i });
+    this.userMenu = page.getByTestId("user-menu");
+    this.logoutButton = page.getByRole("button", { name: "Logout" });
   }
 
   async goto() {
-    await this.navigate('/dashboard');
+    await this.navigate("/dashboard");
   }
 
   async logout() {
@@ -282,9 +276,9 @@ export class DashboardPage extends BasePage {
 
 ```typescript
 // e2e/pages/index.ts
-export { BasePage } from './base.page';
-export { LoginPage } from './login.page';
-export { DashboardPage } from './dashboard.page';
+export { BasePage } from "./base.page";
+export { LoginPage } from "./login.page";
+export { DashboardPage } from "./dashboard.page";
 ```
 
 ---
@@ -295,19 +289,19 @@ export { DashboardPage } from './dashboard.page';
 
 ```typescript
 // e2e/auth.setup.ts
-import { test as setup, expect } from '@playwright/test';
-import path from 'path';
+import { test as setup, expect } from "@playwright/test";
+import path from "path";
 
-const authFile = path.join(__dirname, '../.auth/user.json');
+const authFile = path.join(__dirname, "../.auth/user.json");
 
-setup('authenticate', async ({ page }) => {
+setup("authenticate", async ({ page }) => {
   // Go to login page
-  await page.goto('/login');
+  await page.goto("/login");
 
   // Login with test credentials
-  await page.getByLabel('Email').fill(process.env.TEST_USER_EMAIL!);
-  await page.getByLabel('Password').fill(process.env.TEST_USER_PASSWORD!);
-  await page.getByRole('button', { name: 'Sign in' }).click();
+  await page.getByLabel("Email").fill(process.env.TEST_USER_EMAIL!);
+  await page.getByLabel("Password").fill(process.env.TEST_USER_PASSWORD!);
+  await page.getByRole("button", { name: "Sign in" }).click();
 
   // Wait for auth to complete
   await expect(page).toHaveURL(/.*dashboard/);
@@ -323,14 +317,14 @@ setup('authenticate', async ({ page }) => {
 // playwright.config.ts
 export default defineConfig({
   projects: [
-    { name: 'setup', testMatch: /.*\.setup\.ts/ },
+    { name: "setup", testMatch: /.*\.setup\.ts/ },
     {
-      name: 'chromium',
+      name: "chromium",
       use: {
-        ...devices['Desktop Chrome'],
-        storageState: '.auth/user.json',
+        ...devices["Desktop Chrome"],
+        storageState: ".auth/user.json",
       },
-      dependencies: ['setup'],
+      dependencies: ["setup"],
     },
   ],
 });
@@ -340,14 +334,14 @@ export default defineConfig({
 
 ```typescript
 // e2e/tests/public.spec.ts
-import { test } from '@playwright/test';
+import { test } from "@playwright/test";
 
 // Override to skip auth
 test.use({ storageState: { cookies: [], origins: [] } });
 
-test('homepage loads for anonymous users', async ({ page }) => {
-  await page.goto('/');
-  await expect(page.getByRole('heading', { name: 'Welcome' })).toBeVisible();
+test("homepage loads for anonymous users", async ({ page }) => {
+  await page.goto("/");
+  await expect(page.getByRole("heading", { name: "Welcome" })).toBeVisible();
 });
 ```
 
@@ -359,39 +353,39 @@ test('homepage loads for anonymous users', async ({ page }) => {
 
 ```typescript
 // e2e/tests/auth.spec.ts
-import { test, expect } from '@playwright/test';
-import { LoginPage } from '../pages';
+import { test, expect } from "@playwright/test";
+import { LoginPage } from "../pages";
 
-test.describe('Authentication', () => {
+test.describe("Authentication", () => {
   test.beforeEach(async ({ page }) => {
     // Skip stored auth for login tests
     await page.context().clearCookies();
   });
 
-  test('successful login redirects to dashboard', async ({ page }) => {
+  test("successful login redirects to dashboard", async ({ page }) => {
     const loginPage = new LoginPage(page);
 
     await loginPage.goto();
-    await loginPage.login('user@example.com', 'password123');
+    await loginPage.login("user@example.com", "password123");
     await loginPage.expectLoggedIn();
   });
 
-  test('invalid credentials show error', async ({ page }) => {
+  test("invalid credentials show error", async ({ page }) => {
     const loginPage = new LoginPage(page);
 
     await loginPage.goto();
-    await loginPage.login('wrong@example.com', 'wrongpass');
-    await loginPage.expectError('Invalid email or password');
+    await loginPage.login("wrong@example.com", "wrongpass");
+    await loginPage.expectError("Invalid email or password");
   });
 
-  test('empty form shows validation errors', async ({ page }) => {
+  test("empty form shows validation errors", async ({ page }) => {
     const loginPage = new LoginPage(page);
 
     await loginPage.goto();
     await loginPage.submitButton.click();
 
-    await expect(page.getByText('Email is required')).toBeVisible();
-    await expect(page.getByText('Password is required')).toBeVisible();
+    await expect(page.getByText("Email is required")).toBeVisible();
+    await expect(page.getByText("Password is required")).toBeVisible();
   });
 });
 ```
@@ -400,37 +394,38 @@ test.describe('Authentication', () => {
 
 ```typescript
 // e2e/tests/checkout.spec.ts
-import { test, expect } from '@playwright/test';
+import { test, expect } from "@playwright/test";
 
-test.describe('Checkout Flow', () => {
-  test('complete purchase flow', async ({ page }) => {
+test.describe("Checkout Flow", () => {
+  test("complete purchase flow", async ({ page }) => {
     // 1. Browse products
-    await page.goto('/products');
-    await page.getByTestId('product-card')
-      .filter({ hasText: 'Pro Plan' })
-      .getByRole('button', { name: 'Add to cart' })
+    await page.goto("/products");
+    await page
+      .getByTestId("product-card")
+      .filter({ hasText: "Pro Plan" })
+      .getByRole("button", { name: "Add to cart" })
       .click();
 
     // 2. View cart
-    await page.getByRole('link', { name: 'Cart' }).click();
-    await expect(page.getByText('Pro Plan')).toBeVisible();
-    await expect(page.getByTestId('cart-total')).toContainText('$29.99');
+    await page.getByRole("link", { name: "Cart" }).click();
+    await expect(page.getByText("Pro Plan")).toBeVisible();
+    await expect(page.getByTestId("cart-total")).toContainText("$29.99");
 
     // 3. Checkout
-    await page.getByRole('button', { name: 'Checkout' }).click();
+    await page.getByRole("button", { name: "Checkout" }).click();
 
     // 4. Fill payment (use Stripe test card)
     const stripeFrame = page.frameLocator('iframe[name*="stripe"]');
-    await stripeFrame.getByPlaceholder('Card number').fill('4242424242424242');
-    await stripeFrame.getByPlaceholder('MM / YY').fill('12/30');
-    await stripeFrame.getByPlaceholder('CVC').fill('123');
+    await stripeFrame.getByPlaceholder("Card number").fill("4242424242424242");
+    await stripeFrame.getByPlaceholder("MM / YY").fill("12/30");
+    await stripeFrame.getByPlaceholder("CVC").fill("123");
 
     // 5. Complete purchase
-    await page.getByRole('button', { name: 'Pay now' }).click();
+    await page.getByRole("button", { name: "Pay now" }).click();
 
     // 6. Verify success
     await expect(page).toHaveURL(/.*success/);
-    await expect(page.getByRole('heading', { name: 'Thank you' })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Thank you" })).toBeVisible();
   });
 });
 ```
@@ -443,22 +438,22 @@ test.describe('Checkout Flow', () => {
 
 ```typescript
 // ✅ These wait and retry automatically
-await expect(page.getByRole('button')).toBeVisible();
-await expect(page.getByRole('button')).toBeEnabled();
-await expect(page.getByRole('button')).toHaveText('Submit');
-await expect(page).toHaveURL('/dashboard');
+await expect(page.getByRole("button")).toBeVisible();
+await expect(page.getByRole("button")).toBeEnabled();
+await expect(page.getByRole("button")).toHaveText("Submit");
+await expect(page).toHaveURL("/dashboard");
 await expect(page).toHaveTitle(/Dashboard/);
 
 // ❌ Avoid manual waits
-await page.waitForTimeout(3000);  // NEVER do this
+await page.waitForTimeout(3000); // NEVER do this
 ```
 
 ### Soft Assertions
 
 ```typescript
 // Continue test even if assertion fails
-await expect.soft(page.getByTestId('price')).toHaveText('$29.99');
-await expect.soft(page.getByTestId('stock')).toHaveText('In Stock');
+await expect.soft(page.getByTestId("price")).toHaveText("$29.99");
+await expect.soft(page.getByTestId("stock")).toHaveText("In Stock");
 
 // Fail at end if any soft assertions failed
 ```
@@ -472,9 +467,9 @@ await expect(locator).toBeHidden();
 await expect(locator).toBeAttached();
 
 // Text content
-await expect(locator).toHaveText('exact text');
-await expect(locator).toContainText('partial');
-await expect(locator).toHaveValue('input value');
+await expect(locator).toHaveText("exact text");
+await expect(locator).toContainText("partial");
+await expect(locator).toHaveValue("input value");
 
 // State
 await expect(locator).toBeEnabled();
@@ -486,9 +481,9 @@ await expect(locator).toBeFocused();
 await expect(locator).toHaveCount(5);
 
 // Page
-await expect(page).toHaveURL('/dashboard');
-await expect(page).toHaveTitle('Dashboard | App');
-await expect(page).toHaveScreenshot('dashboard.png');
+await expect(page).toHaveURL("/dashboard");
+await expect(page).toHaveTitle("Dashboard | App");
+await expect(page).toHaveScreenshot("dashboard.png");
 ```
 
 ---
@@ -498,57 +493,57 @@ await expect(page).toHaveScreenshot('dashboard.png');
 ### Mock API Responses
 
 ```typescript
-test('shows error when API fails', async ({ page }) => {
+test("shows error when API fails", async ({ page }) => {
   // Mock API to return error
-  await page.route('**/api/users', (route) => {
+  await page.route("**/api/users", (route) => {
     route.fulfill({
       status: 500,
-      body: JSON.stringify({ error: 'Server error' }),
+      body: JSON.stringify({ error: "Server error" }),
     });
   });
 
-  await page.goto('/users');
-  await expect(page.getByText('Failed to load users')).toBeVisible();
+  await page.goto("/users");
+  await expect(page.getByText("Failed to load users")).toBeVisible();
 });
 
-test('displays user data from API', async ({ page }) => {
+test("displays user data from API", async ({ page }) => {
   // Mock successful response
-  await page.route('**/api/users', (route) => {
+  await page.route("**/api/users", (route) => {
     route.fulfill({
       status: 200,
-      contentType: 'application/json',
+      contentType: "application/json",
       body: JSON.stringify([
-        { id: 1, name: 'John Doe', email: 'john@example.com' },
-        { id: 2, name: 'Jane Doe', email: 'jane@example.com' },
+        { id: 1, name: "John Doe", email: "john@example.com" },
+        { id: 2, name: "Jane Doe", email: "jane@example.com" },
       ]),
     });
   });
 
-  await page.goto('/users');
-  await expect(page.getByText('John Doe')).toBeVisible();
-  await expect(page.getByText('Jane Doe')).toBeVisible();
+  await page.goto("/users");
+  await expect(page.getByText("John Doe")).toBeVisible();
+  await expect(page.getByText("Jane Doe")).toBeVisible();
 });
 ```
 
 ### Wait for API Calls
 
 ```typescript
-test('submits form and shows success', async ({ page }) => {
-  await page.goto('/contact');
+test("submits form and shows success", async ({ page }) => {
+  await page.goto("/contact");
 
   // Fill form
-  await page.getByLabel('Name').fill('John');
-  await page.getByLabel('Email').fill('john@example.com');
-  await page.getByLabel('Message').fill('Hello!');
+  await page.getByLabel("Name").fill("John");
+  await page.getByLabel("Email").fill("john@example.com");
+  await page.getByLabel("Message").fill("Hello!");
 
   // Wait for API call on submit
-  const responsePromise = page.waitForResponse('**/api/contact');
-  await page.getByRole('button', { name: 'Send' }).click();
+  const responsePromise = page.waitForResponse("**/api/contact");
+  await page.getByRole("button", { name: "Send" }).click();
 
   const response = await responsePromise;
   expect(response.status()).toBe(200);
 
-  await expect(page.getByText('Message sent!')).toBeVisible();
+  await expect(page.getByText("Message sent!")).toBeVisible();
 });
 ```
 
@@ -558,15 +553,15 @@ test('submits form and shows success', async ({ page }) => {
 
 ```typescript
 // Full page screenshot
-await expect(page).toHaveScreenshot('homepage.png');
+await expect(page).toHaveScreenshot("homepage.png");
 
 // Element screenshot
-await expect(page.getByTestId('chart')).toHaveScreenshot('chart.png');
+await expect(page.getByTestId("chart")).toHaveScreenshot("chart.png");
 
 // With options
-await expect(page).toHaveScreenshot('dashboard.png', {
+await expect(page).toHaveScreenshot("dashboard.png", {
   maxDiffPixels: 100,
-  mask: [page.getByTestId('timestamp')], // Ignore dynamic content
+  mask: [page.getByTestId("timestamp")], // Ignore dynamic content
 });
 ```
 
@@ -595,7 +590,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'npm'
+          cache: "npm"
 
       - name: Install dependencies
         run: npm ci
@@ -651,7 +646,7 @@ npx playwright show-report
 
 ```typescript
 // e2e/utils/test-data.ts
-import { faker } from '@faker-js/faker';
+import { faker } from "@faker-js/faker";
 
 export const createUser = (overrides = {}) => ({
   email: faker.internet.email(),
@@ -706,6 +701,7 @@ await page.pause();  // In test code
 ### VS Code Extension
 
 Install "Playwright Test for VS Code" for:
+
 - Run tests from editor
 - Debug with breakpoints
 - Pick locators visually
@@ -721,32 +717,30 @@ Install "Playwright Test for VS Code" for:
 
 ```typescript
 // e2e/tests/links.spec.ts
-import { test, expect } from '@playwright/test';
+import { test, expect } from "@playwright/test";
 
-const PAGES_TO_CHECK = ['/', '/about', '/pricing', '/blog', '/contact'];
+const PAGES_TO_CHECK = ["/", "/about", "/pricing", "/blog", "/contact"];
 
-test.describe('Dead Link Detection', () => {
+test.describe("Dead Link Detection", () => {
   for (const pagePath of PAGES_TO_CHECK) {
     test(`no dead links on ${pagePath}`, async ({ page, request }) => {
       await page.goto(pagePath);
 
       // Get all links on the page
-      const links = await page.locator('a[href]').all();
-      const hrefs = await Promise.all(
-        links.map(link => link.getAttribute('href'))
-      );
+      const links = await page.locator("a[href]").all();
+      const hrefs = await Promise.all(links.map((link) => link.getAttribute("href")));
 
       // Filter to internal and absolute external links
       const uniqueLinks = [...new Set(hrefs.filter(Boolean))] as string[];
 
       for (const href of uniqueLinks) {
         // Skip mailto, tel, and anchor links
-        if (href.startsWith('mailto:') || href.startsWith('tel:') || href.startsWith('#')) {
+        if (href.startsWith("mailto:") || href.startsWith("tel:") || href.startsWith("#")) {
           continue;
         }
 
         // Build full URL
-        const url = href.startsWith('http') ? href : new URL(href, page.url()).href;
+        const url = href.startsWith("http") ? href : new URL(href, page.url()).href;
 
         // Check link status
         const response = await request.get(url, {
@@ -756,7 +750,7 @@ test.describe('Dead Link Detection', () => {
 
         expect(
           response.ok(),
-          `Dead link found on ${pagePath}: ${href} returned ${response.status()}`
+          `Dead link found on ${pagePath}: ${href} returned ${response.status()}`,
         ).toBeTruthy();
       }
     });
@@ -768,7 +762,7 @@ test.describe('Dead Link Detection', () => {
 
 ```typescript
 // e2e/tests/site-links.spec.ts
-import { test, expect, Page, APIRequestContext } from '@playwright/test';
+import { test, expect, Page, APIRequestContext } from "@playwright/test";
 
 interface LinkResult {
   url: string;
@@ -779,7 +773,7 @@ interface LinkResult {
 async function checkAllLinks(
   page: Page,
   request: APIRequestContext,
-  startUrl: string
+  startUrl: string,
 ): Promise<LinkResult[]> {
   const visited = new Set<string>();
   const results: LinkResult[] = [];
@@ -793,15 +787,20 @@ async function checkAllLinks(
 
     try {
       await page.goto(currentUrl);
-      const links = await page.locator('a[href]').all();
+      const links = await page.locator("a[href]").all();
 
       for (const link of links) {
-        const href = await link.getAttribute('href');
-        if (!href || href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('tel:')) {
+        const href = await link.getAttribute("href");
+        if (
+          !href ||
+          href.startsWith("#") ||
+          href.startsWith("mailto:") ||
+          href.startsWith("tel:")
+        ) {
           continue;
         }
 
-        const fullUrl = href.startsWith('http') ? href : new URL(href, currentUrl).href;
+        const fullUrl = href.startsWith("http") ? href : new URL(href, currentUrl).href;
 
         // Check link
         const response = await request.get(fullUrl, {
@@ -824,7 +823,7 @@ async function checkAllLinks(
       results.push({
         url: currentUrl,
         status: 0,
-        foundOn: 'navigation',
+        foundOn: "navigation",
       });
     }
   }
@@ -832,13 +831,13 @@ async function checkAllLinks(
   return results;
 }
 
-test('no dead links on entire site', async ({ page, request, baseURL }) => {
+test("no dead links on entire site", async ({ page, request, baseURL }) => {
   const results = await checkAllLinks(page, request, baseURL!);
-  const deadLinks = results.filter(r => r.status >= 400 || r.status === 0);
+  const deadLinks = results.filter((r) => r.status >= 400 || r.status === 0);
 
   if (deadLinks.length > 0) {
-    console.error('Dead links found:');
-    deadLinks.forEach(link => {
+    console.error("Dead links found:");
+    deadLinks.forEach((link) => {
       console.error(`  ${link.url} (${link.status}) - found on ${link.foundOn}`);
     });
   }
@@ -851,33 +850,30 @@ test('no dead links on entire site', async ({ page, request, baseURL }) => {
 
 ```typescript
 // e2e/tests/images.spec.ts
-import { test, expect } from '@playwright/test';
+import { test, expect } from "@playwright/test";
 
-test('no broken images on homepage', async ({ page, request }) => {
-  await page.goto('/');
+test("no broken images on homepage", async ({ page, request }) => {
+  await page.goto("/");
 
-  const images = await page.locator('img[src]').all();
+  const images = await page.locator("img[src]").all();
 
   for (const img of images) {
-    const src = await img.getAttribute('src');
+    const src = await img.getAttribute("src");
     if (!src) continue;
 
-    const url = src.startsWith('http') ? src : new URL(src, page.url()).href;
+    const url = src.startsWith("http") ? src : new URL(src, page.url()).href;
 
     // Skip data URLs
-    if (url.startsWith('data:')) continue;
+    if (url.startsWith("data:")) continue;
 
     const response = await request.get(url);
-    expect(
-      response.ok(),
-      `Broken image: ${src}`
-    ).toBeTruthy();
+    expect(response.ok(), `Broken image: ${src}`).toBeTruthy();
 
     // Verify it's actually an image
-    const contentType = response.headers()['content-type'];
+    const contentType = response.headers()["content-type"];
     expect(
-      contentType?.startsWith('image/'),
-      `${src} is not an image (${contentType})`
+      contentType?.startsWith("image/"),
+      `${src} is not an image (${contentType})`,
     ).toBeTruthy();
   }
 });
@@ -891,7 +887,7 @@ name: Link Check
 
 on:
   schedule:
-    - cron: '0 6 * * 1'  # Weekly on Monday
+    - cron: "0 6 * * 1" # Weekly on Monday
   push:
     branches: [main]
 
