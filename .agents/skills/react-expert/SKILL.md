@@ -13,61 +13,9 @@ This skill produces exhaustive documentation research on any React API or concep
 **Skepticism Mandate:** You must be skeptical of your own knowledge. Claude is often trained on outdated or incorrect React patterns. Treat source material as the sole authority. If findings contradict your prior understanding, explicitly flag this discrepancy.
 
 **Red Flags - STOP if you catch yourself thinking:**
-<<<<<<< HEAD
 
-- "I know this API does X" → Find source evidence first
-- "Common pattern is Y" → Verify in test files
-- Generating example code → Must have source file reference
-  </CRITICAL>
-=======
-- "I know this API does X" → Find source evidence first
-- "Common pattern is Y" → Verify in test files
-- Generating example code → Must have source file reference
-</CRITICAL>
->>>>>>> origin/master
+> > > > > > > origin/master
 
-## Invocation
-
-```
-/react-expert useTransition
-/react-expert suspense boundaries
-/react-expert startTransition
-```
-
-## Sources (Priority Order)
-
-1. **React Repo Tests** - Most authoritative for actual behavior
-2. **React Source Code** - Warnings, errors, implementation details
-3. **Git History** - Commit messages with context
-4. **GitHub PRs & Comments** - Design rationale (via `gh` CLI)
-5. **GitHub Issues** - Confusion/questions (facebook/react + reactjs/react.dev)
-6. **React Working Group** - Design discussions for newer APIs
-7. **Flow Types** - Source of truth for type signatures
-8. **TypeScript Types** - Note discrepancies with Flow
-9. **Current react.dev docs** - Baseline (not trusted as complete)
-
-**No web search** - No Stack Overflow, blog posts, or web searches. GitHub API via `gh` CLI is allowed.
-
-## Workflow
-
-### Step 1: Setup React Repo
-
-First, ensure the React repo is available locally:
-
-```bash
-# Check if React repo exists, clone or update
-if [ -d ".claude/react" ]; then
-  cd .claude/react && git pull origin main
-else
-  git clone --depth=100 https://github.com/facebook/react.git .claude/react
-fi
-```
-
-Get the current commit hash for the research document:
-<<<<<<< HEAD
-
-=======
->>>>>>> origin/master
 ```bash
 cd .claude/react && git rev-parse --short HEAD
 ```
@@ -78,7 +26,6 @@ Spawn these agents IN PARALLEL using the Task tool. Each agent receives the skep
 
 > "You are researching React's `<TOPIC>`. CRITICAL: Do NOT rely on your prior knowledge about this API. Your training may contain outdated or incorrect patterns. Only report what you find in the source files. If your findings contradict common understanding, explicitly highlight this discrepancy."
 
-<<<<<<< HEAD
 | Agent           | subagent_type | Focus                         | Instructions                                                                                                                                                       |
 | --------------- | ------------- | ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | test-explorer   | Explore       | Test files for usage patterns | Search `.claude/react/packages/*/src/__tests__/` for test files mentioning the topic. Extract actual usage examples WITH file paths and line numbers.              |
@@ -87,28 +34,16 @@ Spawn these agents IN PARALLEL using the Task tool. Each agent receives the skep
 | pr-researcher   | Explore       | PRs introducing/modifying API | Run `gh pr list -R facebook/react --search "<topic>" --state all --limit 20`. Read key PR descriptions and comments.                                               |
 | issue-hunter    | Explore       | Issues showing confusion      | Search issues in both `facebook/react` and `reactjs/react.dev` repos. Look for common questions and misunderstandings.                                             |
 | types-inspector | Explore       | Flow + TypeScript signatures  | Find Flow types in `.claude/react/packages/*/src/*.js` (look for `@flow` annotations). Find TS types in `.claude/react/packages/*/index.d.ts`. Note discrepancies. |
-=======
-| Agent | subagent_type | Focus | Instructions |
-|-------|---------------|-------|--------------|
-| test-explorer | Explore | Test files for usage patterns | Search `.claude/react/packages/*/src/__tests__/` for test files mentioning the topic. Extract actual usage examples WITH file paths and line numbers. |
-| source-explorer | Explore | Warnings/errors in source | Search `.claude/react/packages/*/src/` for console.error, console.warn, and error messages mentioning the topic. Document trigger conditions. |
-| git-historian | Explore | Commit messages | Run `git log --all --grep="<topic>" --oneline -50` in `.claude/react`. Read full commit messages for context. |
-| pr-researcher | Explore | PRs introducing/modifying API | Run `gh pr list -R facebook/react --search "<topic>" --state all --limit 20`. Read key PR descriptions and comments. |
-| issue-hunter | Explore | Issues showing confusion | Search issues in both `facebook/react` and `reactjs/react.dev` repos. Look for common questions and misunderstandings. |
-| types-inspector | Explore | Flow + TypeScript signatures | Find Flow types in `.claude/react/packages/*/src/*.js` (look for `@flow` annotations). Find TS types in `.claude/react/packages/*/index.d.ts`. Note discrepancies. |
->>>>>>> origin/master
+
+> > > > > > > origin/master
 
 ### Step 3: Agent Prompts
 
 Use these exact prompts when spawning agents:
 
 #### test-explorer
-<<<<<<< HEAD
 
 ````
-=======
-```
->>>>>>> origin/master
 You are researching React's <TOPIC>.
 
 CRITICAL: Do NOT rely on your prior knowledge about this API. Your training may contain outdated or incorrect patterns. Only report what you find in the source files.
@@ -128,34 +63,24 @@ Format your output as:
 ### Test: "<test description>"
 ```javascript
 <exact code from test>
-<<<<<<< HEAD
+
 ````
 
 **Behavior:** <what the test asserts>
 
-=======
-```
-**Behavior:** <what the test asserts>
->>>>>>> origin/master
 ```
 
 #### source-explorer
-```
-<<<<<<< HEAD
 
-=======
->>>>>>> origin/master
+```
+
 You are researching React's <TOPIC>.
 
 CRITICAL: Do NOT rely on your prior knowledge about this API. Only report what you find in the source files.
 
 Your task: Find warnings, errors, and implementation details for <TOPIC>.
 
-<<<<<<< HEAD
 1. Search .claude/react/packages/\*/src/ for:
-=======
-1. Search .claude/react/packages/*/src/ for:
->>>>>>> origin/master
    - console.error mentions of <topic>
    - console.warn mentions of <topic>
    - Error messages mentioning <topic>
@@ -166,7 +91,6 @@ Your task: Find warnings, errors, and implementation details for <TOPIC>.
    - The source file and line number
 
 Format your output as:
-<<<<<<< HEAD
 
 ## Warnings & Errors
 
@@ -176,22 +100,13 @@ Format your output as:
 
 ## Implementation Notes
 
-=======
-## Warnings & Errors
-| Message | Trigger Condition | Source |
-|---------|------------------|--------|
-| "<exact message>" | <condition> | <file:line> |
-
-## Implementation Notes
->>>>>>> origin/master
 <key details from source code>
 ```
 
 #### git-historian
-<<<<<<< HEAD
 
-=======
->>>>>>> origin/master
+> > > > > > > origin/master
+
 ```
 You are researching React's <TOPIC>.
 
@@ -216,10 +131,9 @@ Format your output as:
 ```
 
 #### pr-researcher
-<<<<<<< HEAD
 
-=======
->>>>>>> origin/master
+> > > > > > > origin/master
+
 ```
 You are researching React's <TOPIC>.
 
@@ -245,10 +159,9 @@ Format your output as:
 ```
 
 #### issue-hunter
-<<<<<<< HEAD
 
-=======
->>>>>>> origin/master
+> > > > > > > origin/master
+
 ```
 You are researching React's <TOPIC>.
 
@@ -273,12 +186,8 @@ Format your output as:
 ```
 
 #### types-inspector
-<<<<<<< HEAD
 
 ````
-=======
-```
->>>>>>> origin/master
 You are researching React's <TOPIC>.
 
 CRITICAL: Do NOT rely on your prior knowledge. Only report what you find in type definitions.
@@ -294,30 +203,23 @@ Format your output as:
 **File:** <path>
 ```flow
 <exact type definition>
-<<<<<<< HEAD
+
 ````
 
 ## TypeScript Types
 
 **File:** <path>
 
-=======
-```
-
-## TypeScript Types
-**File:** <path>
->>>>>>> origin/master
 ```typescript
 <exact type definition>
 ```
 
 ## Discrepancies
-<<<<<<< HEAD
 
-=======
->>>>>>> origin/master
-<any differences between Flow and TS definitions>
-```
+> > > > > > > origin/master
+> > > > > > > <any differences between Flow and TS definitions>
+
+````
 
 ### Step 4: Synthesize Results
 
@@ -376,12 +278,7 @@ Replace spaces in topic with hyphens (e.g., "suspense boundaries" → "suspense-
 ## Warnings & Errors
 
 | Message | Trigger Condition | Source File |
-<<<<<<< HEAD
-| ------- | ----------------- | ----------- |
-
-=======
 |---------|------------------|-------------|
->>>>>>> origin/master
 [From source-explorer agent]
 
 ## Common Confusion
@@ -395,26 +292,14 @@ Replace spaces in topic with hyphens (e.g., "suspense boundaries" → "suspense-
 ## Source Links
 
 ### Commits
-<<<<<<< HEAD
-
-- <hash>: <description>
-
-### Pull Requests
-
-- PR #<number>: <title> - <url>
-
-### Issues
-
-=======
 - <hash>: <description>
 
 ### Pull Requests
 - PR #<number>: <title> - <url>
 
 ### Issues
->>>>>>> origin/master
 - Issue #<number>: <title> - <url>
-```
+````
 
 ## Common Mistakes to Avoid
 

@@ -20,26 +20,16 @@ For SPA/MPA, nothing changes—options apply to the implicit `client` environmen
 ```ts
 export default defineConfig({
   build: { sourcemap: false },
-<<<<<<< HEAD
   optimizeDeps: { include: ["lib"] },
 });
-=======
-  optimizeDeps: { include: ['lib'] },
-})
->>>>>>> origin/master
 ```
 
 ## Multiple Environments
 
 ```ts
 export default defineConfig({
-<<<<<<< HEAD
   build: { sourcemap: false }, // Inherited by all environments
   optimizeDeps: { include: ["lib"] }, // Client only
-=======
-  build: { sourcemap: false },  // Inherited by all environments
-  optimizeDeps: { include: ['lib'] },  // Client only
->>>>>>> origin/master
   environments: {
     // SSR environment
     server: {},
@@ -48,11 +38,7 @@ export default defineConfig({
       resolve: { noExternal: true },
     },
   },
-<<<<<<< HEAD
 });
-=======
-})
->>>>>>> origin/master
 ```
 
 Environments inherit top-level config. Some options (like `optimizeDeps`) only apply to `client` by default.
@@ -61,21 +47,12 @@ Environments inherit top-level config. Some options (like `optimizeDeps`) only a
 
 ```ts
 interface EnvironmentOptions {
-<<<<<<< HEAD
   define?: Record<string, any>;
   resolve?: EnvironmentResolveOptions;
   optimizeDeps: DepOptimizationOptions;
   consumer?: "client" | "server";
   dev: DevOptions;
   build: BuildOptions;
-=======
-  define?: Record<string, any>
-  resolve?: EnvironmentResolveOptions
-  optimizeDeps: DepOptimizationOptions
-  consumer?: 'client' | 'server'
-  dev: DevOptions
-  build: BuildOptions
->>>>>>> origin/master
 }
 ```
 
@@ -84,26 +61,15 @@ interface EnvironmentOptions {
 Runtime providers can define custom environments:
 
 ```ts
-<<<<<<< HEAD
 import { customEnvironment } from "vite-environment-provider";
-=======
-import { customEnvironment } from 'vite-environment-provider'
->>>>>>> origin/master
 
 export default defineConfig({
   environments: {
     ssr: customEnvironment({
-<<<<<<< HEAD
       build: { outDir: "/dist/ssr" },
     }),
   },
 });
-=======
-      build: { outDir: '/dist/ssr' },
-    }),
-  },
-})
->>>>>>> origin/master
 ```
 
 Example: Cloudflare's Vite plugin runs code in `workerd` runtime during development.

@@ -18,20 +18,18 @@ Tailwind v4 supports official plugins using the `@plugin` directive in CSS (not 
 **When to use:** Displaying blog posts, documentation, or any HTML from Markdown/CMS.
 
 **Installation:**
-<<<<<<< HEAD
 
-=======
->>>>>>> origin/master
+> > > > > > > origin/master
+
 ```bash
 bun add -d @tailwindcss/typography
 # or: npm install -D @tailwindcss/typography
 ```
 
 **Configuration (v4 syntax):**
-<<<<<<< HEAD
 
-=======
->>>>>>> origin/master
+> > > > > > > origin/master
+
 ```css
 /* src/index.css */
 @import "tailwindcss";
@@ -39,7 +37,6 @@ bun add -d @tailwindcss/typography
 ```
 
 **Usage:**
-<<<<<<< HEAD
 
 ```html
 <article class="prose lg:prose-xl dark:prose-invert">{{ markdown_content }}</article>
@@ -47,15 +44,8 @@ bun add -d @tailwindcss/typography
 
 **Available classes:**
 
-=======
-```html
-<article class="prose lg:prose-xl dark:prose-invert">
-  {{ markdown_content }}
-</article>
-```
+> > > > > > > origin/master
 
-**Available classes:**
->>>>>>> origin/master
 - `prose` - Base typography styles
 - `prose-sm`, `prose-base`, `prose-lg`, `prose-xl`, `prose-2xl` - Size variants
 - `dark:prose-invert` - Dark mode styles
@@ -67,20 +57,18 @@ bun add -d @tailwindcss/typography
 **When to use:** Building custom forms without shadcn/ui components, or need consistent cross-browser form styling.
 
 **Installation:**
-<<<<<<< HEAD
 
-=======
->>>>>>> origin/master
+> > > > > > > origin/master
+
 ```bash
 bun add -d @tailwindcss/forms
 # or: npm install -D @tailwindcss/forms
 ```
 
 **Configuration (v4 syntax):**
-<<<<<<< HEAD
 
-=======
->>>>>>> origin/master
+> > > > > > > origin/master
+
 ```css
 /* src/index.css */
 @import "tailwindcss";
@@ -88,10 +76,9 @@ bun add -d @tailwindcss/forms
 ```
 
 **What it does:**
-<<<<<<< HEAD
 
-=======
->>>>>>> origin/master
+> > > > > > > origin/master
+
 - Resets browser default form styles
 - Makes form elements styleable with Tailwind utilities
 - Fixes cross-browser inconsistencies for inputs, selects, checkboxes, radios
@@ -107,29 +94,20 @@ These errors happen when using v3 syntax in v4 projects:
 ### Error 1: Using v3 config file syntax
 
 **❌ WRONG (v3 config file syntax):**
-<<<<<<< HEAD
 
 ```js
 // tailwind.config.js
 module.exports = {
   plugins: [require("@tailwindcss/typography")],
 };
-=======
-```js
-// tailwind.config.js
-module.exports = {
-  plugins: [require('@tailwindcss/typography')]
-}
->>>>>>> origin/master
 ```
 
 **Why it fails**: Tailwind v4 doesn't use `tailwind.config.js` for plugins.
 
 **✅ CORRECT (v4 @plugin directive):**
-<<<<<<< HEAD
 
-=======
->>>>>>> origin/master
+> > > > > > > origin/master
+
 ```css
 /* src/index.css */
 @import "tailwindcss";
@@ -141,23 +119,17 @@ module.exports = {
 ### Error 2: Using @import instead of @plugin
 
 **❌ WRONG (@import instead of @plugin):**
-<<<<<<< HEAD
 
 ```css
 @import "@tailwindcss/typography"; /* Doesn't work */
-=======
-```css
-@import "@tailwindcss/typography";  /* Doesn't work */
->>>>>>> origin/master
 ```
 
 **Why it fails**: Plugins must be loaded with `@plugin`, not `@import`.
 
 **✅ CORRECT:**
-<<<<<<< HEAD
 
-=======
->>>>>>> origin/master
+> > > > > > > origin/master
+
 ```css
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";

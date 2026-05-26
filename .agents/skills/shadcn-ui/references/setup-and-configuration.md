@@ -3,10 +3,9 @@
 ## What is shadcn/ui?
 
 shadcn/ui is **not** a traditional component library or npm package. Instead:
-<<<<<<< HEAD
 
-=======
->>>>>>> origin/master
+> > > > > > > origin/master
+
 - It's a **collection of reusable components** that you copy into your project
 - Components are **yours to customize** — you own the code
 - Built with **Radix UI** primitives for accessibility
@@ -102,17 +101,10 @@ npx shadcn@latest add --all           # all components
 module.exports = {
   darkMode: ["class"],
   content: [
-<<<<<<< HEAD
     "./pages/**/*.{ts,tsx}",
     "./components/**/*.{ts,tsx}",
     "./app/**/*.{ts,tsx}",
     "./src/**/*.{ts,tsx}",
-=======
-    './pages/**/*.{ts,tsx}',
-    './components/**/*.{ts,tsx}',
-    './app/**/*.{ts,tsx}',
-    './src/**/*.{ts,tsx}',
->>>>>>> origin/master
   ],
   prefix: "",
   theme: {
@@ -171,11 +163,7 @@ module.exports = {
     },
   },
   plugins: [require("tailwindcss-animate")],
-<<<<<<< HEAD
 };
-=======
-}
->>>>>>> origin/master
 ```
 
 ## CSS Variables (globals.css)

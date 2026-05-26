@@ -1,5 +1,3 @@
-import { URL } from "node:url";
-
 const ETSY_KEYSTRING = process.env.ETSY_KEYSTRING || "";
 const ETSY_SHOP_ID = process.env.ETSY_SHOP_ID || "";
 const ETSY_LISTINGS_LIMIT = Number.parseInt(process.env.ETSY_LISTINGS_LIMIT || "50", 10);

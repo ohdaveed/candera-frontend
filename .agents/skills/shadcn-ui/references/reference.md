@@ -7,11 +7,9 @@ The library encompasses four major categories: composable UI components (termina
 ## Core Components
 
 ### Terminal Component
-<<<<<<< HEAD
 
-=======
->>>>>>> origin/master
-Interactive terminal emulator with typing animations and command execution simulation for developer-focused interfaces.
+> > > > > > > origin/master
+> > > > > > > Interactive terminal emulator with typing animations and command execution simulation for developer-focused interfaces.
 
 ```tsx
 import { Terminal } from "@/components/ui/terminal"
@@ -24,11 +22,9 @@ export default function DemoTerminal() {
 ```
 
 ### Dock Component
-<<<<<<< HEAD
 
-=======
->>>>>>> origin/master
-macOS-style application dock with smooth magnification effects on hover, perfect for navigation menus.
+> > > > > > > origin/master
+> > > > > > > macOS-style application dock with smooth magnification effects on hover, perfect for navigation menus.
 
 ```tsx
 import { Dock, DockIcon } from "@/components/ui/dock"
@@ -42,11 +38,9 @@ export default function AppDock() {
 ```
 
 ### Credit Card Component
-<<<<<<< HEAD
 
-=======
->>>>>>> origin/master
-Interactive 3D credit card component with flip animations for payment forms and card displays.
+> > > > > > > origin/master
+> > > > > > > Interactive 3D credit card component with flip animations for payment forms and card displays.
 
 ```tsx
 import { CreditCard } from "@/components/ui/credit-card"
@@ -68,11 +62,9 @@ export default function PaymentForm() {
 ```
 
 ### Image Zoom Component
-<<<<<<< HEAD
 
-=======
->>>>>>> origin/master
-Zoomable image component with smooth modal transitions for image galleries and product displays.
+> > > > > > > origin/master
+> > > > > > > Zoomable image component with smooth modal transitions for image galleries and product displays.
 
 ```tsx
 import { ImageZoom } from "@/components/ui/image-zoom"
@@ -86,11 +78,9 @@ export default function ProductGallery() {
 ```
 
 ### QR Code Component
-<<<<<<< HEAD
 
-=======
->>>>>>> origin/master
-Generate and display customizable QR codes with styling options for links, contact information, and authentication.
+> > > > > > > origin/master
+> > > > > > > Generate and display customizable QR codes with styling options for links, contact information, and authentication.
 
 ```tsx
 import { QRCode } from "@/components/ui/qr-code"
@@ -109,11 +99,9 @@ Scan to visit shadcn.io
 ```
 
 ### Color Picker Component
-<<<<<<< HEAD
 
-=======
->>>>>>> origin/master
-Advanced color selection component supporting multiple color formats (HEX, RGB, HSL) with preview.
+> > > > > > > origin/master
+> > > > > > > Advanced color selection component supporting multiple color formats (HEX, RGB, HSL) with preview.
 
 ```tsx
 import { ColorPicker } from "@/components/ui/color-picker"
@@ -134,11 +122,9 @@ Selected: {color}
 ## Chart Components
 
 ### Bar Chart Component
-<<<<<<< HEAD
 
-=======
->>>>>>> origin/master
-Clean bar chart component for data comparison and categorical analysis using Recharts.
+> > > > > > > origin/master
+> > > > > > > Clean bar chart component for data comparison and categorical analysis using Recharts.
 
 ```tsx
 import { BarChart } from "@/components/ui/bar-chart"
@@ -162,11 +148,9 @@ yAxisWidth={60}
 ```
 
 ### Line Chart Component
-<<<<<<< HEAD
 
-=======
->>>>>>> origin/master
-Smooth line chart for visualizing trends and time-series data with multiple data series support.
+> > > > > > > origin/master
+> > > > > > > Smooth line chart for visualizing trends and time-series data with multiple data series support.
 
 ```tsx
 import { LineChart } from "@/components/ui/line-chart"
@@ -187,11 +171,9 @@ return (
 ```
 
 ### Pie Chart Component
-<<<<<<< HEAD
 
-=======
->>>>>>> origin/master
-Donut chart component for displaying proportional data and percentage distributions.
+> > > > > > > origin/master
+> > > > > > > Donut chart component for displaying proportional data and percentage distributions.
 
 ```tsx
 import { PieChart } from "@/components/ui/pie-chart"
@@ -212,11 +194,9 @@ return (
 ```
 
 ### Area Chart Component
-<<<<<<< HEAD
 
-=======
->>>>>>> origin/master
-Stacked area chart for visualizing volume changes over time with multiple data series.
+> > > > > > > origin/master
+> > > > > > > Stacked area chart for visualizing volume changes over time with multiple data series.
 
 ```tsx
 import { AreaChart } from "@/components/ui/area-chart"
@@ -237,11 +217,9 @@ return (
 ```
 
 ### Radar Chart Component
-<<<<<<< HEAD
 
-=======
->>>>>>> origin/master
-Multi-axis chart for comparing multiple variables across different categories simultaneously.
+> > > > > > > origin/master
+> > > > > > > Multi-axis chart for comparing multiple variables across different categories simultaneously.
 
 ```tsx
 import { RadarChart } from "@/components/ui/radar-chart"
@@ -262,11 +240,9 @@ return (
 ```
 
 ### Mixed Chart Component
-<<<<<<< HEAD
 
-=======
->>>>>>> origin/master
-Combined bar and line chart for displaying multiple data types with different visualization methods.
+> > > > > > > origin/master
+> > > > > > > Combined bar and line chart for displaying multiple data types with different visualization methods.
 
 ```tsx
 import { MixedChart } from "@/components/ui/mixed-chart"
@@ -289,11 +265,9 @@ return (
 ## Animation Components
 
 ### Magnetic Effect Component
-<<<<<<< HEAD
 
-=======
->>>>>>> origin/master
-Magnetic hover effect that smoothly follows cursor movement for interactive buttons and cards.
+> > > > > > > origin/master
+> > > > > > > Magnetic hover effect that smoothly follows cursor movement for interactive buttons and cards.
 
 ```tsx
 import { Magnetic } from "@/components/ui/magnetic"
@@ -308,11 +282,9 @@ Hover me
 ```
 
 ### Animated Cursor Component
-<<<<<<< HEAD
 
-=======
->>>>>>> origin/master
-Custom animated cursor with interactive effects and particle trails for immersive experiences.
+> > > > > > > origin/master
+> > > > > > > Custom animated cursor with interactive effects and particle trails for immersive experiences.
 
 ```tsx
 import { AnimatedCursor } from "@/components/ui/animated-cursor"
@@ -328,11 +300,9 @@ return (
 ```
 
 ### Apple Hello Effect Component
-<<<<<<< HEAD
 
-=======
->>>>>>> origin/master
-Recreation of Apple's iconic "hello" animation with multi-language text transitions.
+> > > > > > > origin/master
+> > > > > > > Recreation of Apple's iconic "hello" animation with multi-language text transitions.
 
 ```tsx
 import { AppleHello } from "@/components/ui/apple-hello"
@@ -353,11 +323,9 @@ return (
 ```
 
 ### Liquid Button Component
-<<<<<<< HEAD
 
-=======
->>>>>>> origin/master
-Button with fluid liquid animation effect on hover for engaging call-to-action elements.
+> > > > > > > origin/master
+> > > > > > > Button with fluid liquid animation effect on hover for engaging call-to-action elements.
 
 ```tsx
 import { LiquidButton } from "@/components/ui/liquid-button"
@@ -373,11 +341,9 @@ Get Started
 ```
 
 ### Rolling Text Component
-<<<<<<< HEAD
 
-=======
->>>>>>> origin/master
-Text animation that creates a rolling effect with smooth character transitions.
+> > > > > > > origin/master
+> > > > > > > Text animation that creates a rolling effect with smooth character transitions.
 
 ```tsx
 import { RollingText } from "@/components/ui/rolling-text"
@@ -390,11 +356,9 @@ return (
 ```
 
 ### Shimmering Text Component
-<<<<<<< HEAD
 
-=======
->>>>>>> origin/master
-Text with animated shimmer effect for attention-grabbing headings and highlights.
+> > > > > > > origin/master
+> > > > > > > Text with animated shimmer effect for attention-grabbing headings and highlights.
 
 ```tsx
 import { ShimmeringText } from "@/components/ui/shimmering-text"
@@ -409,11 +373,9 @@ return (
 ## React Hooks
 
 ### useBoolean Hook
-<<<<<<< HEAD
 
-=======
->>>>>>> origin/master
-Enhanced boolean state management with toggle, enable, and disable methods for cleaner component logic.
+> > > > > > > origin/master
+> > > > > > > Enhanced boolean state management with toggle, enable, and disable methods for cleaner component logic.
 
 ```tsx
 import { useBoolean } from "@/hooks/use-boolean"
@@ -450,11 +412,9 @@ Submit
 ```
 
 ### useCounter Hook
-<<<<<<< HEAD
 
-=======
->>>>>>> origin/master
-Counter hook with increment, decrement, reset, and set functionality for numeric state management.
+> > > > > > > origin/master
+> > > > > > > Counter hook with increment, decrement, reset, and set functionality for numeric state management.
 
 ```tsx
 import { useCounter } from "@/hooks/use-counter"
@@ -477,11 +437,9 @@ Reset
 ```
 
 ### useLocalStorage Hook
-<<<<<<< HEAD
 
-=======
->>>>>>> origin/master
-Persist state in browser localStorage with automatic serialization and deserialization.
+> > > > > > > origin/master
+> > > > > > > Persist state in browser localStorage with automatic serialization and deserialization.
 
 ```tsx
 import { useLocalStorage } from "@/hooks/use-local-storage"
@@ -510,11 +468,9 @@ Enable Notifications
 ```
 
 ### useDebounceValue Hook
-<<<<<<< HEAD
 
-=======
->>>>>>> origin/master
-Debounce values to prevent excessive updates and API calls during rapid user input.
+> > > > > > > origin/master
+> > > > > > > Debounce values to prevent excessive updates and API calls during rapid user input.
 
 ```tsx
 import { useDebounceValue } from "@/hooks/use-debounce-value"
@@ -551,11 +507,9 @@ API calls: {apiCalls}
 ```
 
 ### useHover Hook
-<<<<<<< HEAD
 
-=======
->>>>>>> origin/master
-Track hover state on elements with customizable enter and leave delays for tooltip and preview functionality.
+> > > > > > > origin/master
+> > > > > > > Track hover state on elements with customizable enter and leave delays for tooltip and preview functionality.
 
 ```tsx
 import { useHover } from "@/hooks/use-hover"
@@ -585,11 +539,9 @@ return (
 ```
 
 ### useCountdown Hook
-<<<<<<< HEAD
 
-=======
->>>>>>> origin/master
-Countdown timer with play, pause, reset controls and completion callbacks for time-limited features.
+> > > > > > > origin/master
+> > > > > > > Countdown timer with play, pause, reset controls and completion callbacks for time-limited features.
 
 ```tsx
 import { useCountdown } from "@/hooks/use-countdown"
@@ -622,11 +574,9 @@ Status: {countdown.isComplete ? "Expired" : countdown.isRunning ? "Active" : "Pa
 ## Installation and Usage
 
 ### CLI Installation
-<<<<<<< HEAD
 
-=======
->>>>>>> origin/master
-Install components directly into your project using the shadcn CLI for instant integration.
+> > > > > > > origin/master
+> > > > > > > Install components directly into your project using the shadcn CLI for instant integration.
 
 ```bash
 # Initialize shadcn in your project
@@ -645,15 +595,12 @@ npx shadcn@latest add use-boolean use-counter use-local-storage
 ```
 
 ### Project Configuration
-<<<<<<< HEAD
 
-=======
->>>>>>> origin/master
-Configure your project to work with shadcn.io components using TypeScript and Tailwind CSS.
+> > > > > > > origin/master
+> > > > > > > Configure your project to work with shadcn.io components using TypeScript and Tailwind CSS.
 
 ```typescript
 // tailwind.config.ts
-<<<<<<< HEAD
 import type { Config } from "tailwindcss";
 
 const config: Config = {
@@ -678,44 +625,12 @@ const config: Config = {
 };
 
 export default config;
-=======
-import type { Config } from "tailwindcss"
-
-const config: Config = {
-darkMode: ["class"],
-content: [
-"./pages/**/*.{ts,tsx}",
-"./components/**/*.{ts,tsx}",
-"./app/**/*.{ts,tsx}",
-],
-theme: {
-extend: {
-colors: {
-border: "hsl(var(--border))",
-input: "hsl(var(--input))",
-ring: "hsl(var(--ring))",
-background: "hsl(var(--background))",
-foreground: "hsl(var(--foreground))",
-primary: {
-DEFAULT: "hsl(var(--primary))",
-foreground: "hsl(var(--primary-foreground))",
-},
-},
-},
-},
-plugins: [require("tailwindcss-animate")],
-}
-
-export default config
->>>>>>> origin/master
 ```
 
 ## Summary
 
 The shadcn.io component library serves as a comprehensive toolkit for React developers building modern web applications with Next.js and TypeScript. The library's primary use cases include rapid prototyping of user interfaces, building data-rich dashboards with interactive charts, creating engaging user experiences with animations and effects, and implementing common UI patterns without writing boilerplate code. The copy-paste approach gives developers complete ownership of their components, allowing for deep customization while maintaining consistency with shadcn/ui design principles. Components are particularly well-suited for SaaS applications, admin panels, marketing websites, and e-commerce platforms that require professional, accessible UI elements.
 
-<<<<<<< HEAD
 Integration patterns center around composability and customization rather than rigid package dependencies. Developers can cherry-pick individual components using the CLI, modify them at the source level to match their design system, and combine them with existing shadcn/ui components for a cohesive interface. The library supports both light and dark themes through CSS variables, integrates seamlessly with Tailwind CSS utility classes, and follows React best practices for performance and accessibility. Custom hooks provide reusable logic patterns that complement the visual components, creating a complete ecosystem for building feature-rich applications. The TypeScript-first approach ensures type safety throughout the development process, while the Recharts integration for data visualization provides powerful charting capabilities without additional configuration overhead.
-=======
-Integration patterns center around composability and customization rather than rigid package dependencies. Developers can cherry-pick individual components using the CLI, modify them at the source level to match their design system, and combine them with existing shadcn/ui components for a cohesive interface. The library supports both light and dark themes through CSS variables, integrates seamlessly with Tailwind CSS utility classes, and follows React best practices for performance and accessibility. Custom hooks provide reusable logic patterns that complement the visual components, creating a complete ecosystem for building feature-rich applications. The TypeScript-first approach ensures type safety throughout the development process, while the Recharts integration for data visualization provides powerful charting capabilities without additional configuration overhead.
->>>>>>> origin/master
+
+> > > > > > > origin/master
