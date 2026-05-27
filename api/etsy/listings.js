@@ -1,3 +1,5 @@
+import { getAccessToken } from "./lib/token.js";
+
 const ETSY_KEYSTRING = process.env.ETSY_KEYSTRING || "";
 const ETSY_SHOP_ID = process.env.ETSY_SHOP_ID || "";
 const ETSY_LISTINGS_LIMIT = Number.parseInt(process.env.ETSY_LISTINGS_LIMIT || "0", 10);
@@ -42,17 +44,24 @@ async function fetchActiveEtsyListings() {
   const allListings = [];
   let offset = 0;
 
+  const accessToken = await getAccessToken().catch(() => null);
+  const authHeader = accessToken
+    ? { Authorization: `Bearer ${accessToken}` }
+    : { "x-api-key": ETSY_KEYSTRING };
+
   while (true) {
     const endpoint = new URL(
       `https://openapi.etsy.com/v3/application/shops/${ETSY_SHOP_ID}/listings/active`,
     );
-    endpoint.searchParams.set("limit", String(ETSY_PAGE_SIZE));
+    const limit =
+      ETSY_LISTINGS_LIMIT > 0
+        ? Math.min(ETSY_PAGE_SIZE, ETSY_LISTINGS_LIMIT - offset)
+        : ETSY_PAGE_SIZE;
+    endpoint.searchParams.set("limit", String(limit));
     endpoint.searchParams.set("offset", String(offset));
     endpoint.searchParams.set("includes", "Images");
 
-    const response = await fetch(endpoint, {
-      headers: { "x-api-key": ETSY_KEYSTRING },
-    });
+    const response = await fetch(endpoint, { headers: authHeader });
 
     if (!response.ok) {
       const body = await response.text().catch(() => "");
