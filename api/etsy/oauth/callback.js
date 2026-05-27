@@ -52,6 +52,12 @@ export default async function handler(req, res) {
   const keystring = process.env.ETSY_KEYSTRING;
   const redirectUri = process.env.ETSY_REDIRECT_URI;
 
+  if (!keystring || !redirectUri) {
+    res.statusCode = 500;
+    res.json({ error: "ETSY_KEYSTRING and ETSY_REDIRECT_URI must be set" });
+    return;
+  }
+
   const response = await fetch(TOKEN_URL, {
     method: "POST",
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
