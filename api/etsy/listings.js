@@ -46,9 +46,10 @@ async function fetchActiveEtsyListings() {
   let offset = 0;
 
   const accessToken = await getAccessToken().catch(() => null);
-  const authHeader = accessToken
-    ? { Authorization: `Bearer ${accessToken}` }
-    : { "x-api-key": ETSY_KEYSTRING };
+  const authHeader = {
+    "x-api-key": ETSY_KEYSTRING,
+    ...(accessToken ? { Authorization: `Bearer ${accessToken}` } : {}),
+  };
 
   while (true) {
     const endpoint = new URL(
