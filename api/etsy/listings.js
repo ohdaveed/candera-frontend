@@ -9,6 +9,7 @@ const CACHE_TTL_MS = 5 * 60 * 1000; // 5 minutes
 
 let _cachedListings = null;
 let _cacheExpiry = 0;
+let _pendingFetch = null;
 
 function normalizeListing(listing) {
   const image = listing?.Images?.[0] || listing?.images?.[0];
