@@ -3,10 +3,6 @@ import { createHash, randomBytes } from "node:crypto";
 const AUTH_URL = "https://www.etsy.com/oauth/connect";
 const COOKIE_MAX_AGE = 600; // 10 minutes
 
-function base64url(buf) {
-  return buf.toString("base64").replace(/\+/g, "-").replace(/\//g, "_").replace(/=/g, "");
-}
-
 export default function handler(req, res) {
   if (req.method !== "GET") {
     res.statusCode = 405;
@@ -24,9 +20,9 @@ export default function handler(req, res) {
     return;
   }
 
-  const codeVerifier = base64url(randomBytes(32));
-  const codeChallenge = base64url(createHash("sha256").update(codeVerifier).digest());
-  const state = base64url(randomBytes(16));
+  const codeVerifier = randomBytes(32).toString("base64url");
+  const codeChallenge = createHash("sha256").update(codeVerifier).digest("base64url");
+  const state = randomBytes(16).toString("base64url");
 
   const secure = process.env.NODE_ENV === "production" ? "; Secure" : "";
   res.setHeader(
