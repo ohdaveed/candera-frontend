@@ -32,7 +32,7 @@ const TESTIMONIALS = [
 ];
 
 export default function Home({ openQuiz }) {
-  const { products } = useProductSync();
+  const { products, noActiveListings } = useProductSync();
   const [formStatus, setFormStatus] = useState("");
 
   return (
@@ -117,6 +117,21 @@ export default function Home({ openQuiz }) {
               botanical clarity.
             </p>
           </div>
+
+          {noActiveListings && (
+            <div
+              role="status"
+              className="mb-10 border border-stone-200 bg-stone-50 px-5 py-4 text-left"
+            >
+              <p className="text-[10px] uppercase tracking-[0.25em] text-candera-warm font-bold mb-2">
+                Etsy is reachable
+              </p>
+              <p className="text-sm text-stone-600 font-light leading-relaxed">
+                Etsy returned no active listings at the moment. The products shown here are our
+                curated fallback set so you can still explore the collection.
+              </p>
+            </div>
+          )}
 
           <div className="grid md:grid-cols-3 gap-x-12 gap-y-24">
             {products.map((candle) => {

@@ -10,11 +10,14 @@
     "preview": "vp preview",
     "prepare": "vp config",
     "env:pass": "bash scripts/pass-env.sh",
+    "server": "node server.js",
     "test:e2e": "playwright test"
   },
   "dependencies": {
+    "@vercel/speed-insights": "^2.0.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "express": "^5.2.1",
     "framer-motion": "^12.38.0",
     "lucide-react": "^1.14.0",
     "react": "^19.2.5",

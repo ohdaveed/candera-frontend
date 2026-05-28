@@ -28,7 +28,7 @@ npm run dev       # start dev server (Vite HMR)
 npm run build     # production build → dist/
 npm run preview   # serve the production build locally
 npm run lint      # ESLint
-npm run server    # start the Node proxy server (Etsy)
+npm run server    # start the local Etsy OAuth helper server
 ```
 
 There is no test suite configured yet.
@@ -64,7 +64,12 @@ The app is structured into:
 - `src/pages/`: Route-level components (Home, Collection, Product, Ritual, Quiz, InnerCircle).
 - `src/components/`: Shared UI components (Nav, Footer, ScentQuiz).
 - `api/`: Serverless functions (e.g., `subscribe.js` for MailChimp).
-- `server.js`: A Node.js proxy server for Etsy API listings.
+- `server.js`: A local Express helper server for Etsy OAuth manual testing and API ping checks.
+
+Product sync behavior:
+
+- `src/hooks/useProductSync.js` exposes `noActiveListings` when Etsy responds successfully with zero active listings.
+- `src/pages/Home.jsx` and `src/pages/Collection.jsx` show a user-facing notice in that case and continue rendering fallback products.
 
 Styling is split between `src/index.css` (global/base styles) and `src/App.css` (component-scoped styles). Tailwind utility classes are used directly in JSX.
 

@@ -41,7 +41,12 @@ This workspace is optimized for AI agents with the following global skills insta
 - Backend/API:
   - `api/subscribe.js`: Handles newsletter subscriptions via **MailChimp API v3** (uses tags for list segmentation).
   - `api/etsy/listings.js`: Handles Etsy listing sync through the **Etsy Open API v3**.
+  - `api/etsy/oauth/authorize.js` and `api/etsy/oauth/callback.js`: Handle the Etsy OAuth 2.0 PKCE authorization-code flow and token exchange.
+  - `server.js`: Local Express helper for Etsy OAuth manual testing and API ping checks.
   - `vite.config.js`: Provides local Vite middleware for Vercel-style `/api/etsy/listings` and `/api/subscribe` routes.
+- Product sync UX:
+  - `src/hooks/useProductSync.js` now exposes `noActiveListings` when Etsy is reachable but returns an empty active-listings payload.
+  - `src/pages/Home.jsx` and `src/pages/Collection.jsx` render a clear status notice and continue showing curated fallback products.
 - Assets: `src/assets/` for imports; `public/` for static files (including `icons.svg` sprite).
 
 ## Work style
@@ -57,6 +62,7 @@ This workspace is optimized for AI agents with the following global skills insta
 - `npm run build` — create the production build.
 - `npm run lint` — run ESLint across the app.
 - `npm run preview` — preview the built app locally.
+- `npm run server` — run the local Express Etsy OAuth helper server on port 3003.
 
 ## Good references
 

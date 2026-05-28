@@ -20,6 +20,24 @@ export default function handler(req, res) {
     return;
   }
 
+  let redirectUrl;
+  try {
+    redirectUrl = new URL(redirectUri);
+  } catch {
+    res.statusCode = 500;
+    res.json({ error: "ETSY_REDIRECT_URI must be a valid URL" });
+    return;
+  }
+
+  const isLocalhost = redirectUrl.hostname === "localhost" || redirectUrl.hostname === "127.0.0.1";
+  if (redirectUrl.protocol !== "https:" && !isLocalhost) {
+    res.statusCode = 500;
+    res.json({
+      error: "ETSY_REDIRECT_URI must use https:// (except for localhost) and match the Etsy app redirect URI exactly",
+    });
+    return;
+  }
+
   const codeVerifier = randomBytes(32).toString("base64url");
   const codeChallenge = createHash("sha256").update(codeVerifier).digest("base64url");
   const state = randomBytes(16).toString("base64url");
@@ -33,7 +51,7 @@ export default function handler(req, res) {
   const url = new URL(AUTH_URL);
   url.searchParams.set("response_type", "code");
   url.searchParams.set("client_id", keystring);
-  url.searchParams.set("redirect_uri", redirectUri);
+  url.searchParams.set("redirect_uri", redirectUrl.toString());
   url.searchParams.set("scope", scopes);
   url.searchParams.set("state", state);
   url.searchParams.set("code_challenge", codeChallenge);

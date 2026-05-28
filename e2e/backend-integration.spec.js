@@ -10,6 +10,11 @@ const supabaseUrl = process.env.VITE_SUPABASE_URL;
 // eslint-disable-next-line no-undef
 const supabaseAnonKey = process.env.VITE_SUPABASE_ANON_KEY;
 
+// Set PLAYWRIGHT_SKIP_UI_TESTS=1 in .env to skip browser-dependent tests locally.
+// Ubuntu 26.04 is not yet supported by Playwright's browser binaries; CI runs these normally.
+// eslint-disable-next-line no-undef
+const browserTest = process.env.PLAYWRIGHT_SKIP_UI_TESTS === "1" ? test.skip : test;
+
 test.describe("Backend Integration", () => {
   test("Supabase REST API returns products", async ({ request }) => {
     const response = await request.get(`${supabaseUrl}/rest/v1/products?select=*`, {
@@ -30,12 +35,9 @@ test.describe("Backend Integration", () => {
     expect(seashell.name).toBe("Seashell Garden Glow");
   });
 
-  test("Frontend displays products from Supabase", async ({ page }) => {
-    // Navigate to the collection page (or home page where products are listed)
+  browserTest("Frontend displays products from Supabase", async ({ page }) => {
     await page.goto("/");
 
-    // Check for product names visible on the page
-    // Using a more flexible locator for the product name
     await expect(page.getByText("Seashell Garden Glow")).toBeVisible({ timeout: 10000 });
     await expect(page.getByText("Meadowlight Botanical")).toBeVisible();
     await expect(page.getByText("Crimson Noir")).toBeVisible();

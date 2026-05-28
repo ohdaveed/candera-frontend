@@ -16,6 +16,7 @@ const SENSORY_X_MULTIPLIER = 17;
 const SENSORY_Y_MULTIPLIER = 29;
 const SENSORY_COORDINATE_MAX = 100;
 const MAX_TAGLINE_LENGTH = 140;
+const NO_ACTIVE_LISTINGS_ERROR = "Product sync failed: no products returned";
 
 function toSlug(value) {
   return String(value ?? "")
@@ -174,7 +175,7 @@ export function useProductSync() {
           throw new Error("Product sync failed: invalid payload format");
         }
         if (syncedProducts.length === 0) {
-          throw new Error("Product sync failed: no products returned");
+          throw new Error(NO_ACTIVE_LISTINGS_ERROR);
         }
 
         setProducts(syncedProducts);
@@ -201,6 +202,7 @@ export function useProductSync() {
   );
 
   const getProductBySlug = useCallback((slug) => productMap[slug] ?? null, [productMap]);
+  const noActiveListings = error?.message === NO_ACTIVE_LISTINGS_ERROR;
 
   return {
     products,
@@ -208,5 +210,6 @@ export function useProductSync() {
     getProductBySlug,
     isLoading,
     error,
+    noActiveListings,
   };
 }
