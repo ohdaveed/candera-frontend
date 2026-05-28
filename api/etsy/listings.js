@@ -44,7 +44,9 @@ async function fetchActiveEtsyListings() {
 
   _pendingFetch = (async () => {
     if (!ETSY_KEYSTRING || !ETSY_SHOP_ID) {
-      throw new Error("Etsy configuration missing: ETSY_KEYSTRING and ETSY_SHOP_ID must be set");
+      throw new Error(
+        "Etsy configuration missing: set ETSY_KEYSTRING to your Etsy v3 app keystring and ETSY_SHOP_ID to your shop ID. Do not use ETSY_SHARED_SECRET or the legacy key:secret format here.",
+      );
     }
 
     const allListings = [];
