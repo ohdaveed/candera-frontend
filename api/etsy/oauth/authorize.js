@@ -53,7 +53,9 @@ export default function handler(req, res) {
 
   const url = new URL(AUTH_URL);
   url.searchParams.set("response_type", "code");
-  url.searchParams.set("client_id", keystring);
+  const rawKey = (keystring || "").trim();
+  const clientId = rawKey.includes(":") ? rawKey.split(":")[0].trim() : rawKey;
+  url.searchParams.set("client_id", clientId);
   url.searchParams.set("redirect_uri", redirectUrl.toString());
   url.searchParams.set("scope", scopes);
   url.searchParams.set("state", state);
