@@ -17,8 +17,7 @@ export default async function handler(req, res) {
     return;
   }
 
-  const host = req.headers.host ?? "localhost";
-  const url = new URL(req.url, `http://${host}`);
+  const url = new URL(req.url, "http://localhost");
   const code = url.searchParams.get("code");
   const state = url.searchParams.get("state");
   const oauthError = url.searchParams.get("error");
