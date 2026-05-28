@@ -31,7 +31,7 @@ npm run lint      # ESLint
 npm run server    # start the local Etsy OAuth helper server
 ```
 
-There is no test suite configured yet.
+Playwright e2e tests live in `e2e/`. Run with `npx playwright test` (UI tests are skipped locally by default via `SKIP_UI_TESTS`). Unit tests use Vitest; `src/hooks/useProductSync.test.js` covers the product sync hook.
 
 ## Agent Skills
 
@@ -63,8 +63,11 @@ The app is structured into:
 
 - `src/pages/`: Route-level components (Home, Collection, Product, Ritual, Quiz, InnerCircle).
 - `src/components/`: Shared UI components (Nav, Footer, ScentQuiz).
-- `api/`: Serverless functions (e.g., `subscribe.js` for MailChimp).
-- `server.js`: A local Express helper server for Etsy OAuth manual testing and API ping checks.
+- `api/subscribe.js`: MailChimp newsletter subscription.
+- `api/etsy/listings.js`: Etsy v3 listing sync (5-min cache, concurrent-refresh deduplication via `_pendingRefresh`).
+- `api/etsy/oauth/authorize.js` + `callback.js`: PKCE OAuth 2.0 flow; callback clears PKCE cookie only after all validation passes.
+- `api/etsy/lib/token.js`: Access-token refresh with deduplication and `|| 3600` expiry fallback.
+- `server.js`: Local Express helper for manual OAuth testing; access token stored in module variable, never placed in redirect URLs.
 
 Product sync behavior:
 

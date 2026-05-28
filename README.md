@@ -33,8 +33,11 @@ This project is configured for advanced AI agent collaboration with the followin
 - `src/pages/`: Route-level views (Home, Collection, Product, Ritual, Quiz, Inner Circle).
 - `src/components/`: Reusable UI components (Nav, Footer, Scent Quiz).
 - `api/subscribe.js`: Vercel-style API route for MailChimp subscriptions.
-- `api/etsy/listings.js`: Vercel-style API route for Etsy listing sync.
-- `server.js`: Local Express helper for Etsy OAuth manual testing and API ping checks.
+- `api/etsy/listings.js`: Vercel-style API route for Etsy listing sync (in-memory 5-min cache, concurrent-refresh deduplication).
+- `api/etsy/oauth/authorize.js`: Initiates the Etsy PKCE OAuth 2.0 consent flow.
+- `api/etsy/oauth/callback.js`: Exchanges the authorization code for tokens; stores PKCE cookie only after all validation passes.
+- `api/etsy/lib/token.js`: Manages access-token refresh with `_pendingRefresh` deduplication and a `|| 3600` expiry fallback.
+- `server.js`: Local Express helper for Etsy OAuth manual testing; access token is stored in a module variable and never exposed in redirect URLs.
 - `vite.config.js`: Includes a local Vite middleware shim for `/api/etsy/listings` and `/api/subscribe`.
 
 ## Etsy Backend Connection
@@ -49,8 +52,7 @@ If Etsy is reachable but returns zero active listings, `useProductSync` sets a `
    - `VITE_ETSY_BACKEND_API_KEY` only when a backend requires a simple API key header.
    - `VITE_ETSY_SHOP_URL` for fallback listing links.
 3. Set server-side variables for the Etsy route:
-   - `ETSY_KEYSTRING` for Etsy credentials. This can be either a combined `key:shared_secret` string or just the key.
-   - `ETSY_SHARED_SECRET` is optional and only needed if `ETSY_KEYSTRING` contains the key only.
+   - `ETSY_KEYSTRING`: your Etsy API key (bare keystring — Etsy v3 does not use a shared secret).
    - `ETSY_SHOP_ID`, `ETSY_LISTINGS_LIMIT`.
 
 ## Etsy OAuth 2.0 Setup
