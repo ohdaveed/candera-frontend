@@ -14,7 +14,7 @@ const TAG_STYLES = {
 };
 
 export default function Collection() {
-  const { products } = useProductSync();
+  const { products, noActiveListings } = useProductSync();
   const [activeTag, setActiveTag] = useState("all");
   const [sortBy, setSortBy] = useState("featured");
 
@@ -47,6 +47,21 @@ export default function Collection() {
         count={filteredProducts.length}
         total={products.length}
       />
+
+      {noActiveListings && (
+        <div
+          role="status"
+          className="mb-10 rounded-sm border border-candera-stone/60 bg-candera-vellum px-5 py-4"
+        >
+          <p className="text-[11px] uppercase tracking-[0.2em] text-candera-sage mb-2">
+            Etsy is connected
+          </p>
+          <p className="text-sm text-candera-obsidian leading-relaxed">
+            No active Etsy listings were returned right now. You are viewing our curated fallback
+            collection while we wait for the next live batch.
+          </p>
+        </div>
+      )}
 
       {filteredProducts.length === 0 ? (
         <div className="text-center py-24">

@@ -34,11 +34,14 @@ This project is configured for advanced AI agent collaboration with the followin
 - `src/components/`: Reusable UI components (Nav, Footer, Scent Quiz).
 - `api/subscribe.js`: Vercel-style API route for MailChimp subscriptions.
 - `api/etsy/listings.js`: Vercel-style API route for Etsy listing sync.
+- `server.js`: Local Express helper for Etsy OAuth manual testing and API ping checks.
 - `vite.config.js`: Includes a local Vite middleware shim for `/api/etsy/listings` and `/api/subscribe`.
 
 ## Etsy Backend Connection
 
 The storefront pulls live product data from `/api/etsy/listings` while keeping `src/data/products.json` as a fallback.
+
+If Etsy is reachable but returns zero active listings, `useProductSync` sets a `noActiveListings` flag. Home and Collection pages render a clear status notice and keep showing the curated fallback catalog.
 
 1. Create or update `.env`.
 2. Set frontend variables:
@@ -46,10 +49,26 @@ The storefront pulls live product data from `/api/etsy/listings` while keeping `
    - `VITE_ETSY_BACKEND_API_KEY` only when a backend requires a simple API key header.
    - `VITE_ETSY_SHOP_URL` for fallback listing links.
 3. Set server-side variables for the Etsy route:
-   - `ETSY_KEYSTRING` for the Etsy API key value sent in the `x-api-key` header.
+   - `ETSY_KEYSTRING` for Etsy credentials. This can be either a combined `key:shared_secret` string or just the key.
+   - `ETSY_SHARED_SECRET` is optional and only needed if `ETSY_KEYSTRING` contains the key only.
    - `ETSY_SHOP_ID`, `ETSY_LISTINGS_LIMIT`.
 
-`ETSY_SHARED_SECRET` is not currently used by the `/api/etsy/listings` backend route and should not be required for this setup.
+## Etsy OAuth 2.0 Setup
+
+The app includes a PKCE authorization-code flow for Etsy OAuth 2.0:
+
+1. Register an exact HTTPS redirect URI in the Etsy app settings.
+2. Set `ETSY_REDIRECT_URI` to that exact callback URL.
+3. Visit `/api/etsy/oauth/authorize` in a browser to start the consent flow.
+4. After Etsy redirects back to `/api/etsy/oauth/callback`, copy the returned `refresh_token` into `ETSY_REFRESH_TOKEN`.
+5. For manual local testing, run `npm run server` and open `http://localhost:3003` to generate a PKCE verifier/challenge and start the OAuth flow.
+
+Important details:
+
+- Etsy requires the redirect URI to use `https://` and match the registered string exactly.
+- `ETSY_SCOPES` defaults to `listings_r shops_r`, but you can expand it to include only the scopes your app actually needs.
+- The callback route exchanges the authorization code for an access token and refresh token using PKCE.
+- `api/etsy/lib/token.js` uses `ETSY_REFRESH_TOKEN` to refresh access tokens for backend requests.
 
 ## MailChimp Integration
 

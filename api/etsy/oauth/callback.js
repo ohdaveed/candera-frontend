@@ -21,6 +21,17 @@ export default async function handler(req, res) {
   const url = new URL(req.url, `http://${host}`);
   const code = url.searchParams.get("code");
   const state = url.searchParams.get("state");
+  const oauthError = url.searchParams.get("error");
+  const oauthErrorDescription = url.searchParams.get("error_description");
+
+  if (oauthError) {
+    res.statusCode = 400;
+    res.json({
+      error: oauthError,
+      error_description: oauthErrorDescription || "Etsy rejected the authorization request",
+    });
+    return;
+  }
 
   if (!code || !state) {
     res.statusCode = 400;
@@ -52,13 +63,36 @@ export default async function handler(req, res) {
   const keystring = process.env.ETSY_KEYSTRING;
   const redirectUri = process.env.ETSY_REDIRECT_URI;
 
+  if (!keystring || !redirectUri) {
+    res.statusCode = 500;
+    res.json({ error: "ETSY_KEYSTRING and ETSY_REDIRECT_URI must be set" });
+    return;
+  }
+
+  let redirectUrl;
+  try {
+    redirectUrl = new URL(redirectUri);
+  } catch {
+    res.statusCode = 500;
+    res.json({ error: "ETSY_REDIRECT_URI must be a valid URL" });
+    return;
+  }
+
+  if (redirectUrl.protocol !== "https:") {
+    res.statusCode = 500;
+    res.json({
+      error: "ETSY_REDIRECT_URI must use https:// and match the Etsy app redirect URI exactly",
+    });
+    return;
+  }
+
   const response = await fetch(TOKEN_URL, {
     method: "POST",
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
     body: new URLSearchParams({
       grant_type: "authorization_code",
       client_id: keystring,
-      redirect_uri: redirectUri,
+      redirect_uri: redirectUrl.toString(),
       code,
       code_verifier: codeVerifier,
     }),
@@ -75,6 +109,7 @@ export default async function handler(req, res) {
 
   res.statusCode = 200;
   res.setHeader("Content-Type", "application/json");
+  res.setHeader("Cache-Control", "no-store");
   res.end(
     JSON.stringify({
       access_token: tokens.access_token,
