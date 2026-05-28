@@ -29,10 +29,11 @@ export default function handler(req, res) {
     return;
   }
 
-  if (redirectUrl.protocol !== "https:") {
+  const isLocalhost = redirectUrl.hostname === "localhost" || redirectUrl.hostname === "127.0.0.1";
+  if (redirectUrl.protocol !== "https:" && !isLocalhost) {
     res.statusCode = 500;
     res.json({
-      error: "ETSY_REDIRECT_URI must use https:// and match the Etsy app redirect URI exactly",
+      error: "ETSY_REDIRECT_URI must use https:// (except for localhost) and match the Etsy app redirect URI exactly",
     });
     return;
   }
