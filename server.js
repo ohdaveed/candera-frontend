@@ -10,6 +10,7 @@ const app = express();
 
 let latestVerifier = "";
 let latestState = "";
+let latestAccessToken = "";
 
 function base64URLEncode(buffer) {
   return buffer.toString("base64").replace(/\+/g, "-").replace(/\//g, "_").replace(/=/g, "");
@@ -168,16 +169,16 @@ app.get("/oauth/redirect", async (req, res) => {
   }
 
   const tokenData = await response.json();
-  res.redirect(`/welcome?access_token=${encodeURIComponent(tokenData.access_token)}`);
+  latestAccessToken = tokenData.access_token;
+  res.redirect("/welcome");
 });
 
 app.get("/welcome", async (req, res) => {
-  const accessToken = req.query.access_token;
+  const accessToken = latestAccessToken;
   const clientID = process.env.ETSY_KEYSTRING || "";
-  const sharedSecret = process.env.ETSY_SHARED_SECRET || "";
 
   if (!accessToken) {
-    res.status(400).send("Missing access_token");
+    res.status(400).send("No active OAuth session — visit / to start the flow");
     return;
   }
 
@@ -189,7 +190,7 @@ app.get("/welcome", async (req, res) => {
   const userId = rawUserId;
   const response = await fetch(`${USER_URL}/${encodeURIComponent(userId)}`, {
     headers: {
-      "x-api-key": `${clientID}:${sharedSecret}`,
+      "x-api-key": clientID,
       Authorization: `Bearer ${accessToken}`,
     },
   });
