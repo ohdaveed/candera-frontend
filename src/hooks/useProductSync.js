@@ -38,7 +38,7 @@ function toPrice(value) {
   }
   if (value && typeof value.amount !== "undefined") {
     const amount = Number(value.amount);
-    const divisor = Number(value.divisor || 1);
+    const divisor = Number(value.divisor) || 100;
     if (Number.isFinite(amount) && Number.isFinite(divisor) && divisor > 0) {
       return asValidPrice(amount / divisor);
     }

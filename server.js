@@ -168,16 +168,16 @@ app.get("/oauth/redirect", async (req, res) => {
   }
 
   const tokenData = await response.json();
-  res.redirect(`/welcome?access_token=${encodeURIComponent(tokenData.access_token)}`);
+  res.setHeader("Set-Cookie", "access_token=" + tokenData.access_token + "; HttpOnly; SameSite=Lax; Path=/");
+  res.redirect("/welcome");
 });
 
 app.get("/welcome", async (req, res) => {
-  const accessToken = req.query.access_token;
+  const accessToken = latestAccessToken;
   const clientID = process.env.ETSY_KEYSTRING || "";
-  const sharedSecret = process.env.ETSY_SHARED_SECRET || "";
 
   if (!accessToken) {
-    res.status(400).send("Missing access_token");
+    res.status(400).send("No active OAuth session — visit / to start the flow");
     return;
   }
 
@@ -189,7 +189,7 @@ app.get("/welcome", async (req, res) => {
   const userId = rawUserId;
   const response = await fetch(`${USER_URL}/${encodeURIComponent(userId)}`, {
     headers: {
-      "x-api-key": `${clientID}:${sharedSecret}`,
+      "x-api-key": clientID,
       Authorization: `Bearer ${accessToken}`,
     },
   });
