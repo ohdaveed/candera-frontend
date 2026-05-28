@@ -10,7 +10,6 @@ const app = express();
 
 let latestVerifier = "";
 let latestState = "";
-let latestAccessToken = "";
 
 function base64URLEncode(buffer) {
   return buffer.toString("base64").replace(/\+/g, "-").replace(/\//g, "_").replace(/=/g, "");
