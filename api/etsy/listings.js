@@ -10,6 +10,7 @@ const CACHE_TTL_MS = 5 * 60 * 1000; // 5 minutes
 
 let _cachedListings = null;
 let _cacheExpiry = 0;
+let _pendingFetch = null;
 
 function resolveEtsyApiKey() {
   const raw = ETSY_KEYSTRING.trim();
@@ -47,61 +48,73 @@ async function fetchActiveEtsyListings() {
     return _cachedListings;
   }
 
-  const etsyApiKey = resolveEtsyApiKey();
-
-  if (!etsyApiKey || !ETSY_SHOP_ID) {
-    throw new Error(
-      "Etsy configuration missing: ETSY_KEYSTRING (optionally ETSY_SHARED_SECRET) and ETSY_SHOP_ID must be set",
-    );
+  if (_pendingFetch) {
+    return _pendingFetch;
   }
 
-  const allListings = [];
-  let offset = 0;
+  _pendingFetch = (async () => {
+    const etsyApiKey = resolveEtsyApiKey();
 
-  const accessToken = await getAccessToken().catch(() => null);
-  const authHeaders = {
-    "x-api-key": etsyApiKey,
-  };
-
-  if (accessToken) {
-    authHeaders.Authorization = `Bearer ${accessToken}`;
-  }
-
-  while (true) {
-    const endpoint = new URL(
-      `https://openapi.etsy.com/v3/application/shops/${ETSY_SHOP_ID}/listings/active`,
-    );
-    const limit =
-      ETSY_LISTINGS_LIMIT > 0
-        ? Math.min(ETSY_PAGE_SIZE, ETSY_LISTINGS_LIMIT - offset)
-        : ETSY_PAGE_SIZE;
-    endpoint.searchParams.set("limit", String(limit));
-    endpoint.searchParams.set("offset", String(offset));
-    endpoint.searchParams.set("includes", "Images");
-
-    const response = await fetch(endpoint, { headers: authHeaders });
-
-    if (!response.ok) {
-      const body = await response.text().catch(() => "");
-      throw new Error(`Etsy API request failed (${response.status}): ${body}`);
+    if (!etsyApiKey || !ETSY_SHOP_ID) {
+      throw new Error(
+        "Etsy configuration missing: ETSY_KEYSTRING (optionally ETSY_SHARED_SECRET) and ETSY_SHOP_ID must be set",
+      );
     }
 
-    const payload = await response.json();
-    const results = Array.isArray(payload?.results) ? payload.results : [];
-    allListings.push(...results);
+    const allListings = [];
+    let offset = 0;
 
-    const reachedCap = ETSY_LISTINGS_LIMIT > 0 && allListings.length >= ETSY_LISTINGS_LIMIT;
-    if (results.length < ETSY_PAGE_SIZE || reachedCap) break;
-    offset += ETSY_PAGE_SIZE;
+    const accessToken = await getAccessToken().catch(() => null);
+    const authHeaders = {
+      "x-api-key": etsyApiKey,
+    };
+
+    if (accessToken) {
+      authHeaders.Authorization = `Bearer ${accessToken}`;
+    }
+
+    while (true) {
+      const endpoint = new URL(
+        `https://openapi.etsy.com/v3/application/shops/${ETSY_SHOP_ID}/listings/active`,
+      );
+      const limit =
+        ETSY_LISTINGS_LIMIT > 0
+          ? Math.min(ETSY_PAGE_SIZE, ETSY_LISTINGS_LIMIT - offset)
+          : ETSY_PAGE_SIZE;
+      endpoint.searchParams.set("limit", String(limit));
+      endpoint.searchParams.set("offset", String(offset));
+      endpoint.searchParams.set("includes", "Images");
+
+      const response = await fetch(endpoint, { headers: authHeaders });
+
+      if (!response.ok) {
+        const body = await response.text().catch(() => "");
+        throw new Error(`Etsy API request failed (${response.status}): ${body}`);
+      }
+
+      const payload = await response.json();
+      const results = Array.isArray(payload?.results) ? payload.results : [];
+      allListings.push(...results);
+
+      const reachedCap = ETSY_LISTINGS_LIMIT > 0 && allListings.length >= ETSY_LISTINGS_LIMIT;
+      if (results.length < ETSY_PAGE_SIZE || reachedCap) break;
+      offset += ETSY_PAGE_SIZE;
+    }
+
+    const normalized = (
+      ETSY_LISTINGS_LIMIT > 0 ? allListings.slice(0, ETSY_LISTINGS_LIMIT) : allListings
+    ).map((listing) => normalizeListing(listing));
+
+    _cachedListings = normalized;
+    _cacheExpiry = Date.now() + CACHE_TTL_MS;
+    return normalized;
+  })();
+
+  try {
+    return await _pendingFetch;
+  } finally {
+    _pendingFetch = null;
   }
-
-  const normalized = (
-    ETSY_LISTINGS_LIMIT > 0 ? allListings.slice(0, ETSY_LISTINGS_LIMIT) : allListings
-  ).map((listing) => normalizeListing(listing));
-
-  _cachedListings = normalized;
-  _cacheExpiry = Date.now() + CACHE_TTL_MS;
-  return normalized;
 }
 
 export default async function handler(req, res) {
