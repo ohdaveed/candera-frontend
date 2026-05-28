@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
 import { Stack } from "@/components/ui/stack";
 
 const candleNames = {
@@ -8,6 +9,48 @@ const candleNames = {
   "crimson-noir": "Crimson Noir",
   "ever-after-glow": "Ever After Glow",
 };
+
+function SuccessConfirmation({ name, match }) {
+  const firstName = name?.trim().split(" ")[0] || null;
+  const candleName = match ? candleNames[match] : null;
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.7, ease: "easeOut" }}
+      className="text-center py-10"
+    >
+      <div className="flex items-center justify-center mb-8">
+        <div className="h-px w-10 bg-candera-stone/40" />
+        <div className="mx-3 w-1.5 h-1.5 rounded-full bg-candera-sage/60" />
+        <div className="mx-1 w-1 h-1 rounded-full bg-candera-sage/30" />
+        <div className="mx-3 w-1.5 h-1.5 rounded-full bg-candera-sage/60" />
+        <div className="h-px w-10 bg-candera-stone/40" />
+      </div>
+
+      <p className="font-display text-3xl text-candera-obsidian mb-5 leading-tight">
+        {firstName ? `Welcome, ${firstName}.` : "You're in."}
+      </p>
+
+      <p className="text-sm text-candera-obsidian/70 leading-relaxed mb-3 max-w-xs mx-auto">
+        Your request has been received. Before the next batch opens to the public, you'll hear from
+        us first.
+      </p>
+
+      <p className="text-xs text-candera-stone leading-relaxed max-w-xs mx-auto">
+        Watch for a quiet note from the studio — no noise, just your window.
+      </p>
+
+      {candleName && (
+        <p className="text-xs text-candera-sage italic mt-8">
+          Your ritual match — <span className="text-candera-obsidian not-italic">{candleName}</span>{" "}
+          — has been noted.
+        </p>
+      )}
+    </motion.div>
+  );
+}
 
 export default function InnerCircle() {
   const [searchParams] = useSearchParams();
@@ -59,49 +102,52 @@ export default function InnerCircle() {
           </p>
         </Stack>
 
-        {status === "success" ? (
-          <Stack className="text-center py-8 gap-3">
-            <p className="font-editorial text-2xl text-candera-obsidian">Request received.</p>
-            <p className="text-sm text-candera-sage">
-              We'll be in touch before the next batch drops.
-            </p>
-          </Stack>
-        ) : (
-          <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-            <Stack className="gap-1">
-              <label className="text-xs tracking-widest uppercase text-candera-sage">Name</label>
-              <input
-                type="text"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                required
-                placeholder="Your name"
-                className="bg-transparent border border-candera-stone px-4 py-3 text-sm text-candera-obsidian placeholder:text-candera-stone focus:outline-none focus:border-candera-obsidian transition-colors"
-              />
-            </Stack>
-            <Stack className="gap-1">
-              <label className="text-xs tracking-widest uppercase text-candera-sage">Email</label>
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-                placeholder="your@email.com"
-                className="bg-transparent border border-candera-stone px-4 py-3 text-sm text-candera-obsidian placeholder:text-candera-stone focus:outline-none focus:border-candera-obsidian transition-colors"
-              />
-            </Stack>
-            {status === "error" && (
-              <p className="text-xs text-red-500">Something went wrong. Please try again.</p>
-            )}
-            <button
-              type="submit"
-              disabled={status === "loading"}
-              className="mt-2 px-8 py-4 bg-candera-obsidian text-candera-vellum text-xs tracking-widest uppercase hover:bg-candera-obsidian/80 transition-colors disabled:opacity-50"
+        <AnimatePresence mode="wait">
+          {status === "success" ? (
+            <SuccessConfirmation key="success" name={name} match={match} />
+          ) : (
+            <motion.form
+              key="form"
+              onSubmit={handleSubmit}
+              className="flex flex-col gap-4"
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.25 }}
             >
-              {status === "loading" ? "Requesting..." : "Request Entry"}
-            </button>
-          </form>
-        )}
+              <Stack className="gap-1">
+                <label className="text-xs tracking-widest uppercase text-candera-sage">Name</label>
+                <input
+                  type="text"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  required
+                  placeholder="Your name"
+                  className="bg-transparent border border-candera-stone px-4 py-3 text-sm text-candera-obsidian placeholder:text-candera-stone focus:outline-none focus:border-candera-obsidian transition-colors"
+                />
+              </Stack>
+              <Stack className="gap-1">
+                <label className="text-xs tracking-widest uppercase text-candera-sage">Email</label>
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                  placeholder="your@email.com"
+                  className="bg-transparent border border-candera-stone px-4 py-3 text-sm text-candera-obsidian placeholder:text-candera-stone focus:outline-none focus:border-candera-obsidian transition-colors"
+                />
+              </Stack>
+              {status === "error" && (
+                <p className="text-xs text-red-500">Something went wrong. Please try again.</p>
+              )}
+              <button
+                type="submit"
+                disabled={status === "loading"}
+                className="mt-2 px-8 py-4 bg-candera-obsidian text-candera-vellum text-xs tracking-widest uppercase hover:bg-candera-obsidian/80 transition-colors disabled:opacity-50"
+              >
+                {status === "loading" ? "Requesting..." : "Request Entry"}
+              </button>
+            </motion.form>
+          )}
+        </AnimatePresence>
       </div>
     </main>
   );
