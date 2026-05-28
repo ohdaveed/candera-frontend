@@ -181,8 +181,13 @@ app.get("/welcome", async (req, res) => {
     return;
   }
 
-  const userId = String(accessToken).split(".")[0];
-  const response = await fetch(`${USER_URL}/${userId}`, {
+  const rawUserId = String(accessToken).split(".")[0];
+  if (!/^\d+$/.test(rawUserId)) {
+    res.status(400).send("Invalid access_token format");
+    return;
+  }
+  const userId = rawUserId;
+  const response = await fetch(`${USER_URL}/${encodeURIComponent(userId)}`, {
     headers: {
       "x-api-key": `${clientID}:${sharedSecret}`,
       Authorization: `Bearer ${accessToken}`,
