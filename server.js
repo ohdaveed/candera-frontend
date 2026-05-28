@@ -168,7 +168,7 @@ app.get("/oauth/redirect", async (req, res) => {
   }
 
   const tokenData = await response.json();
-  latestAccessToken = tokenData.access_token;
+  res.setHeader("Set-Cookie", "access_token=" + tokenData.access_token + "; HttpOnly; SameSite=Lax; Path=/");
   res.redirect("/welcome");
 });
 
