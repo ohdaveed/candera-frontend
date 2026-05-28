@@ -9,6 +9,8 @@ dotenv.config({ path: ".env" });
 // Vite plugin to handle Vercel serverless functions locally
 function vercelApiPlugin() {
   const apiRoutes = new Map([
+    ["/api/etsy/oauth/authorize", "/api/etsy/oauth/authorize.js"],
+    ["/api/etsy/oauth/callback", "/api/etsy/oauth/callback.js"],
     ["/api/etsy/listings", "/api/etsy/listings.js"],
     ["/api/subscribe", "/api/subscribe.js"],
   ]);
