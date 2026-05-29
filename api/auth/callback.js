@@ -1,8 +1,12 @@
 export default async function handler(req, res) {
-  const { code } = req.query;
+  const query =
+    req.query || Object.fromEntries(new URL(req.url, "http://localhost").searchParams.entries());
+  const { code } = query;
 
   if (!code) {
-    return res.status(400).send("Missing code");
+    res.statusCode = 400;
+    res.end("Missing code");
+    return;
   }
 
   const tokenRes = await fetch("https://github.com/login/oauth/access_token", {
@@ -15,30 +19,35 @@ export default async function handler(req, res) {
     }),
   });
 
+  if (!tokenRes.ok) {
+    res.statusCode = 500;
+    res.end("Failed to fetch access token from GitHub");
+    return;
+  }
+
   const { access_token, error } = await tokenRes.json();
 
   if (error || !access_token) {
-    return res.status(401).send(`OAuth error: ${error ?? "no token returned"}`);
+    res.statusCode = 401;
+    res.end(`OAuth error: ${error ?? "no token returned"}`);
+    return;
   }
 
-  // Decap CMS expects a postMessage in this exact format
   const payload = JSON.stringify({ token: access_token, provider: "github" });
   const message = `authorization:github:success:${payload}`;
 
   res.setHeader("Content-Type", "text/html");
-  res.send(`<!doctype html>
-<html>
-<body>
-<script>
+  res.end(`<!doctype html>
+<html><body><script>
 (function () {
-  const message = ${JSON.stringify(message)};
+  var message = ${JSON.stringify(message)};
+  var targetOrigin = window.location.origin;
   function receiveMessage(e) {
-    window.opener.postMessage(message, e.origin);
+    if (e.origin !== targetOrigin) return;
+    window.opener.postMessage(message, targetOrigin);
   }
   window.addEventListener("message", receiveMessage, false);
-  window.opener.postMessage("authorizing:github", "*");
+  window.opener.postMessage("authorizing:github", targetOrigin);
 })();
-</script>
-</body>
-</html>`);
+</script></body></html>`);
 }

@@ -4,5 +4,11 @@ export default function handler(req, res) {
     scope: "repo,user",
     state: Math.random().toString(36).slice(2),
   });
-  res.redirect(`https://github.com/login/oauth/authorize?${params}`);
+  const redirectUrl = `https://github.com/login/oauth/authorize?${params}`;
+  if (typeof res.redirect === "function") {
+    res.redirect(redirectUrl);
+  } else {
+    res.writeHead(307, { Location: redirectUrl });
+    res.end();
+  }
 }
