@@ -2,6 +2,8 @@ import { useParams, Link } from "react-router-dom";
 import { getImage } from "../data/productImages";
 import { useProductSync } from "../hooks/useProductSync";
 import RedirectButton from "../components/RedirectButton";
+import { Stack, Cluster } from "@/components/ui/stack";
+import { Container, Grid } from "@/components/ui/section";
 
 export default function Product() {
   const { slug } = useParams();
@@ -34,19 +36,19 @@ export default function Product() {
 
   return (
     <main className="pt-24 min-h-screen">
-      <div className="max-w-5xl mx-auto px-6 md:px-16 py-16 grid grid-cols-1 md:grid-cols-2 gap-16">
+      <Container className="max-w-5xl py-16 grid grid-cols-1 md:grid-cols-2 gap-16">
         {/* Image */}
-        <div className="aspect-square overflow-hidden">
+        <div className="aspect-square overflow-hidden bg-stone-100">
           <img src={img} alt={product.name} loading="lazy" className="w-full h-full object-cover" />
         </div>
 
         {/* Details */}
-        <div className="flex flex-col gap-6">
+        <Stack className="gap-6">
           <div>
             <span className="text-xs text-candera-sage tracking-widest">
               Vessel {product.vessel}
             </span>
-            <h1 className="font-serif text-4xl text-candera-obsidian mt-2 leading-tight">
+            <h1 className="font-display text-4xl text-candera-obsidian mt-2 leading-tight">
               {product.name}
             </h1>
             <p className="text-candera-sage-text text-sm mt-3 italic">{product.tagline}</p>
@@ -68,7 +70,7 @@ export default function Product() {
               <p className="text-xs tracking-widest uppercase text-candera-sage mb-3">
                 Scent Profile
               </p>
-              <dl className="grid grid-cols-3 gap-2 text-center">
+              <Grid className="grid-cols-3 gap-2 text-center">
                 {Object.entries(product.scent_profile).map(([tier, note]) => (
                   <div key={tier} className="border border-candera-stone/40 p-3">
                     <dt className="text-[10px] tracking-widest uppercase text-candera-sage mb-1">
@@ -77,7 +79,7 @@ export default function Product() {
                     <dd className="text-xs text-candera-obsidian">{note}</dd>
                   </div>
                 ))}
-              </dl>
+              </Grid>
             </div>
           )}
 
@@ -85,7 +87,7 @@ export default function Product() {
             <p className="text-xs tracking-widest uppercase text-candera-sage mb-3">
               Fragrance Notes
             </p>
-            <div className="flex flex-wrap gap-2">
+            <Cluster className="flex-wrap gap-2">
               {(product.notes ?? []).map((note) => (
                 <span
                   key={note}
@@ -94,19 +96,19 @@ export default function Product() {
                   {note}
                 </span>
               ))}
-            </div>
+            </Cluster>
           </div>
 
           {product.details?.length > 0 && (
             <div className="border-t border-candera-stone/40 pt-6">
               <p className="text-xs tracking-widest uppercase text-candera-sage mb-3">Details</p>
-              <ul className="flex flex-col gap-1">
+              <Stack className="gap-1">
                 {product.details.map((d) => (
                   <li key={d} className="text-xs text-candera-obsidian/70">
                     {d}
                   </li>
                 ))}
-              </ul>
+              </Stack>
               <p className="text-xs text-candera-sage mt-2">
                 Burn time: {product.metadata.burn_time} · Batch {product.metadata?.batch ?? "—"}
               </p>
@@ -114,18 +116,18 @@ export default function Product() {
           )}
 
           <div className="border-t border-candera-stone/40 pt-6">
-            <div className="flex items-center justify-between mb-4">
-              <span className="font-serif text-2xl text-candera-obsidian">
+            <Cluster className="justify-between mb-4">
+              <span className="font-display text-2xl text-candera-obsidian">
                 ${product.price.toFixed(2)}
               </span>
-            </div>
+            </Cluster>
             <RedirectButton
               url={product.etsy_link}
-              className="w-full py-4 bg-stone-900 text-white uppercase tracking-widest text-[10px] font-bold hover:bg-candera-warm transition-all shadow-sm"
+              className="w-full py-4 bg-stone-900 text-white uppercase tracking-widest text-[10px] font-bold hover:bg-candera-ember transition-all shadow-sm"
             />
           </div>
-        </div>
-      </div>
+        </Stack>
+      </Container>
 
       <div className="border-t border-candera-stone/40 px-6 md:px-16 py-8 text-center">
         <Link

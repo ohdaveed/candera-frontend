@@ -10,6 +10,7 @@ const app = express();
 
 let latestVerifier = "";
 let latestState = "";
+let latestAccessToken = "";
 
 function base64URLEncode(buffer) {
   return buffer.toString("base64").replace(/\+/g, "-").replace(/\//g, "_").replace(/=/g, "");
@@ -168,7 +169,11 @@ app.get("/oauth/redirect", async (req, res) => {
   }
 
   const tokenData = await response.json();
-  res.setHeader("Set-Cookie", "access_token=" + tokenData.access_token + "; HttpOnly; SameSite=Lax; Path=/");
+  latestAccessToken = tokenData.access_token || "";
+  res.setHeader(
+    "Set-Cookie",
+    "access_token=" + tokenData.access_token + "; HttpOnly; SameSite=Lax; Path=/",
+  );
   res.redirect("/welcome");
 });
 

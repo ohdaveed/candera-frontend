@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Editorial Vibe Cycle</title>
+    <style>
+      :root {
+        --lavender-washed: #e6e1f0;
+        --lavender-deep: #a797b7;
+        --vellum: #f5f2ed;
+        --obsidian: #1a1a1b;
+        --transition-speed: 0.5s;
+      }
+
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: "Inter", sans-serif;
+        transition:
+          background-color var(--transition-speed),
+          color var(--transition-speed);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+
+      /* Vibe 1: Minimalist & Airy */
+      body.minimalist {
+        background-color: #fdfbff;
+        color: #4a4a4a;
+      }
+      body.minimalist h1 {
+        font-family: "Playfair Display", serif;
+        font-weight: 300;
+        letter-spacing: 0.1em;
+        font-size: 4rem;
+      }
+      body.minimalist .lavender-box {
+        background-color: var(--lavender-washed);
+        opacity: 0.6;
+      }
+
+      /* Vibe 2: Bold & High-Contrast */
+      body.bold {
+        background-color: var(--obsidian);
+        color: var(--lavender-washed);
+      }
+      body.bold h1 {
+        font-family: "Playfair Display", serif;
+        font-weight: 900;
+        font-style: italic;
+        font-size: 5rem;
+        text-transform: uppercase;
+      }
+      body.bold .lavender-box {
+        background-color: var(--lavender-deep);
+        box-shadow: 20px 20px 0px rgba(230, 225, 240, 0.1);
+      }
+
+      /* Vibe 3: Artisanal & Textural */
+      body.artisanal {
+        background-color: #ebe8f0;
+        color: #3d3d3d;
+      }
+      body.artisanal h1 {
+        font-family: "Playfair Display", serif;
+        font-weight: 400;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        padding-bottom: 20px;
+      }
+      body.artisanal .lavender-box {
+        background-color: #d6d0e0;
+        border: 1px solid rgba(0, 0, 0, 0.05);
+        border-radius: 4px;
+      }
+
+      .container {
+        max-width: 800px;
+        text-align: center;
+        padding: 40px;
+      }
+
+      .lavender-box {
+        width: 200px;
+        height: 200px;
+        margin: 40px auto;
+        transition: all var(--transition-speed);
+      }
+
+      .controls {
+        position: fixed;
+        bottom: 40px;
+        display: flex;
+        gap: 20px;
+      }
+
+      button.cycle-btn {
+        background: none;
+        border: 2px solid currentColor;
+        color: inherit;
+        padding: 15px 30px;
+        font-family: inherit;
+        font-weight: bold;
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+        cursor: pointer;
+        transition: all 0.3s;
+        font-size: 12px;
+      }
+
+      button.cycle-btn:hover {
+        background: currentColor;
+        color: white;
+      }
+
+      body.bold button.cycle-btn:hover {
+        color: var(--obsidian);
+      }
+
+      .vibe-label {
+        position: fixed;
+        top: 40px;
+        left: 40px;
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.5em;
+        opacity: 0.5;
+      }
+    </style>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,900;1,400;1,900&family=Inter:wght@300;400;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="minimalist">
+    <div class="vibe-label" id="vibeName">Minimalist & Airy</div>
+
+    <div class="container">
+      <span style="font-size: 11px; text-transform: uppercase; letter-spacing: 0.3em"
+        >CANDERA · BATCH 014</span
+      >
+      <h1 id="mainTitle">Washed Lavender</h1>
+      <div class="lavender-box"></div>
+      <p
+        style="
+          font-size: 14px;
+          max-width: 400px;
+          margin: 0 auto;
+          line-height: 1.8;
+          font-weight: 300;
+        "
+      >
+        A ritual focused on the intersection of scent and stillness. Moving beyond the high desert,
+        embracing the editorial edge.
+      </p>
+    </div>
+
+    <div class="controls">
+      <button class="cycle-btn" onclick="cycleVibe()">Cycle Vibe</button>
+    </div>
+
+    <script>
+      const vibes = ["minimalist", "bold", "artisanal"];
+      const vibeNames = ["Minimalist & Airy", "Bold & High-Contrast", "Artisanal & Textural"];
+      let currentVibe = 0;
+
+      function cycleVibe() {
+        document.body.classList.remove(vibes[currentVibe]);
+        currentVibe = (currentVibe + 1) % vibes.length;
+        document.body.classList.add(vibes[currentVibe]);
+        document.getElementById("vibeName").innerText = vibeNames[currentVibe];
+      }
+    </script>
+  </body>
+</html>
