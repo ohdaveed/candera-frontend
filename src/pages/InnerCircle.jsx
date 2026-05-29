@@ -11,8 +11,8 @@ const candleNames = {
 };
 
 function SuccessConfirmation({ name, match }) {
-  const firstName = name?.trim().split(" ")[0] || null;
-  const candleName = match ? candleNames[match] : null;
+  const firstName = name?.trim()?.split(" ")[0] || null;
+  const candleName = (match && candleNames[match]) || null;
 
   return (
     <motion.div
