@@ -1,6 +1,0 @@
-{
-  "targetUrl": "http://localhost:5174",
-  "files": ["index.html"],
-  "insertAfter": "</body>",
-  "commentSyntax": "html"
-}
