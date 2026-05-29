@@ -16,7 +16,17 @@ const SENSORY_X_MULTIPLIER = 17;
 const SENSORY_Y_MULTIPLIER = 29;
 const SENSORY_COORDINATE_MAX = 100;
 const MAX_TAGLINE_LENGTH = 140;
-const NO_ACTIVE_LISTINGS_ERROR = "Product sync failed: no products returned";
+
+export const CATALOG_STATUS = {
+  LOADING: "loading",
+  LIVE: "live",
+  FALLBACK: "fallback",
+  ERROR: "error",
+};
+
+export const FALLBACK_REASONS = {
+  NO_ACTIVE_LISTINGS: "no-active-listings",
+};
 
 function toSlug(value) {
   return String(value ?? "")
@@ -138,17 +148,70 @@ function normalizeProductsPayload(payload) {
   return list.map((item, index) => toProductShape(item, index));
 }
 
+export async function fetchStudioCatalog({ endpoint = productsApiUrl, signal, headers } = {}) {
+  try {
+    const response = await fetch(endpoint, {
+      signal,
+      headers,
+    });
+
+    if (!response.ok) {
+      throw new Error(`Product sync failed with ${response.status}`);
+    }
+
+    const payload = await response.json();
+    const syncedProducts = normalizeProductsPayload(payload);
+
+    if (!syncedProducts) {
+      throw new Error("Product sync failed: invalid payload format");
+    }
+
+    if (syncedProducts.length === 0) {
+      return {
+        items: fallbackProducts,
+        status: CATALOG_STATUS.FALLBACK,
+        error: null,
+        fallbackReason: FALLBACK_REASONS.NO_ACTIVE_LISTINGS,
+      };
+    }
+
+    return {
+      items: syncedProducts,
+      status: CATALOG_STATUS.LIVE,
+      error: null,
+      fallbackReason: null,
+    };
+  } catch (err) {
+    if (err.name === "AbortError") throw err;
+
+    console.warn("Product sync failed, using fallback data.", err);
+    return {
+      items: fallbackProducts,
+      status: CATALOG_STATUS.ERROR,
+      error: err,
+      fallbackReason: null,
+    };
+  }
+}
+
 export function useProductSync() {
-  const [products, setProducts] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [catalog, setCatalog] = useState({
+    products: [],
+    status: CATALOG_STATUS.LOADING,
+    error: null,
+    fallbackReason: null,
+  });
 
   useEffect(() => {
     const controller = new AbortController();
 
     async function fetchProducts() {
-      setIsLoading(true);
-      setError(null);
+      setCatalog((current) => ({
+        ...current,
+        status: CATALOG_STATUS.LOADING,
+        error: null,
+        fallbackReason: null,
+      }));
 
       try {
         const isSupabase = productsApiUrl.includes("supabase.co");
@@ -159,35 +222,26 @@ export function useProductSync() {
             }
           : undefined;
 
-        const response = await fetch(productsApiUrl, {
+        const result = await fetchStudioCatalog({
+          endpoint: productsApiUrl,
           signal: controller.signal,
           headers,
         });
 
-        if (!response.ok) {
-          throw new Error(`Product sync failed with ${response.status}`);
-        }
-
-        const payload = await response.json();
-        const syncedProducts = normalizeProductsPayload(payload);
-
-        if (!syncedProducts) {
-          throw new Error("Product sync failed: invalid payload format");
-        }
-        if (syncedProducts.length === 0) {
-          throw new Error(NO_ACTIVE_LISTINGS_ERROR);
-        }
-
-        setProducts(syncedProducts);
+        setCatalog({
+          products: result.items,
+          status: result.status,
+          error: result.error,
+          fallbackReason: result.fallbackReason,
+        });
       } catch (err) {
         if (err.name === "AbortError") return;
-        console.warn("Product sync failed, using fallback data.", err);
-        setProducts(fallbackProducts);
-        setError(err);
-      } finally {
-        if (!controller.signal.aborted) {
-          setIsLoading(false);
-        }
+        setCatalog({
+          products: fallbackProducts,
+          status: CATALOG_STATUS.ERROR,
+          error: err,
+          fallbackReason: null,
+        });
       }
     }
 
@@ -196,20 +250,26 @@ export function useProductSync() {
     return () => controller.abort();
   }, []);
 
+  const products = catalog.products;
   const productMap = useMemo(
     () => Object.fromEntries(products.map((product) => [product.slug, product])),
     [products],
   );
 
   const getProductBySlug = useCallback((slug) => productMap[slug] ?? null, [productMap]);
-  const noActiveListings = error?.message === NO_ACTIVE_LISTINGS_ERROR;
+  const isLoading = catalog.status === CATALOG_STATUS.LOADING;
+  const noActiveListings =
+    catalog.status === CATALOG_STATUS.FALLBACK &&
+    catalog.fallbackReason === FALLBACK_REASONS.NO_ACTIVE_LISTINGS;
 
   return {
     products,
     productMap,
     getProductBySlug,
     isLoading,
-    error,
+    error: catalog.error,
+    catalogStatus: catalog.status,
+    fallbackReason: catalog.fallbackReason,
     noActiveListings,
   };
 }

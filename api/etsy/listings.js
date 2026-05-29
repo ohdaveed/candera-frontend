@@ -1,6 +1,7 @@
 import { getAccessToken } from "./lib/token.js";
 
 const ETSY_KEYSTRING = (process.env.ETSY_KEYSTRING || "").trim();
+const ETSY_SHARED_SECRET = (process.env.ETSY_SHARED_SECRET || "").trim();
 const ETSY_SHOP_ID = process.env.ETSY_SHOP_ID || "";
 const ETSY_LISTINGS_LIMIT = Number.parseInt(process.env.ETSY_LISTINGS_LIMIT || "0", 10);
 
@@ -43,9 +44,9 @@ async function fetchActiveEtsyListings() {
   }
 
   _pendingFetch = (async () => {
-    if (!ETSY_KEYSTRING || !ETSY_SHOP_ID) {
+    if (!ETSY_KEYSTRING || !ETSY_SHARED_SECRET || !ETSY_SHOP_ID) {
       throw new Error(
-        "Etsy configuration missing: set ETSY_KEYSTRING to your Etsy v3 app keystring and ETSY_SHOP_ID to your shop ID. Do not use ETSY_SHARED_SECRET or the legacy key:secret format here.",
+        "Etsy configuration missing: ensure ETSY_KEYSTRING, ETSY_SHARED_SECRET, and ETSY_SHOP_ID are set in your environment.",
       );
     }
 
@@ -54,7 +55,7 @@ async function fetchActiveEtsyListings() {
 
     const accessToken = await getAccessToken().catch(() => null);
     const authHeaders = {
-      "x-api-key": ETSY_KEYSTRING,
+      "x-api-key": `${ETSY_KEYSTRING}:${ETSY_SHARED_SECRET}`,
     };
 
     if (accessToken) {

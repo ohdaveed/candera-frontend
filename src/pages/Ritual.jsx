@@ -1,14 +1,16 @@
+import { Stack } from "@/components/ui/stack";
+
 export default function Ritual() {
   return (
     <main className="pt-24 px-6 max-w-2xl mx-auto py-24">
       <p className="text-xs tracking-[0.3em] uppercase text-candera-sage mb-6">The Philosophy</p>
-      <h1 className="font-serif text-4xl md:text-5xl text-candera-obsidian mb-12 leading-tight">
+      <h1 className="font-display text-4xl md:text-5xl text-candera-obsidian mb-12 leading-tight">
         Scent is not decoration.
         <br />
         <em>It is practice.</em>
       </h1>
 
-      <div className="flex flex-col gap-6 text-sm text-candera-obsidian/80 leading-relaxed mb-16">
+      <Stack className="gap-6 text-sm text-candera-obsidian/80 leading-relaxed mb-16">
         <p>
           A ritual is not a routine. A routine is performed on autopilot. A ritual requires your
           presence — a deliberate act that marks a transition, creates a container, or signals to
@@ -22,15 +24,15 @@ export default function Ritual() {
         </p>
         <p>
           We design each fragrance around a moment rather than a mood. Not "relaxing," but the
-          particular quality of light at 6pm in the desert when everything goes amber. Not "fresh,"
-          but the first breath of coastal air when you step off the highway and the ocean is
-          suddenly present.
+          particular quality of light at 6pm during a sensory revolution when everything goes amber.
+          Not "fresh," but the first breath of coastal air when you step off the highway and the
+          ocean is suddenly present.
         </p>
-      </div>
+      </Stack>
 
       <div className="border-t border-candera-stone/40 pt-12 mb-16">
         <p className="text-xs tracking-[0.3em] uppercase text-candera-sage mb-8">Candle Care</p>
-        <div className="flex flex-col gap-6">
+        <Stack className="gap-6">
           {[
             {
               title: "First burn",
@@ -49,19 +51,19 @@ export default function Ritual() {
               body: "The dried botanicals adorning each vessel are decorative. Remove them before lighting if they sit near the wick. Store them — many collectors keep them after the candle is spent.",
             },
           ].map((item) => (
-            <div key={item.title} className="border-l-2 border-candera-stone pl-6">
-              <p className="text-xs tracking-widest uppercase text-candera-obsidian mb-2">
+            <Stack key={item.title} className="border-l-2 border-candera-stone pl-6 gap-2">
+              <p className="text-xs tracking-widest uppercase text-candera-obsidian">
                 {item.title}
               </p>
               <p className="text-sm text-candera-obsidian/70 leading-relaxed">{item.body}</p>
-            </div>
+            </Stack>
           ))}
-        </div>
+        </Stack>
       </div>
 
       <div className="border-t border-candera-stone/40 pt-12">
         <p className="text-xs tracking-[0.3em] uppercase text-candera-sage mb-4">Wax & Materials</p>
-        <div className="flex flex-col gap-3 text-sm text-candera-obsidian/80 leading-relaxed">
+        <Stack className="gap-3 text-sm text-candera-obsidian/80 leading-relaxed">
           <p>
             Every Candera candle is made from a proprietary blend of natural soy wax and beeswax.
             Soy burns clean and slow. Beeswax adds structure, a natural honey undertone, and a
@@ -72,7 +74,7 @@ export default function Ritual() {
             The result is a scent throw that is present without being aggressive, complex without
             being busy.
           </p>
-        </div>
+        </Stack>
       </div>
     </main>
   );

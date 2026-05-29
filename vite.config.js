@@ -1,8 +1,10 @@
 import { defineConfig } from "vite-plus";
 import { Buffer } from "node:buffer";
+import { cwd } from "node:process";
 import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 import dotenv from "dotenv";
+import path from "path";
 
 dotenv.config({ path: ".env" });
 
@@ -71,6 +73,11 @@ function vercelApiPlugin() {
 }
 
 export default defineConfig({
+  resolve: {
+    alias: {
+      "@": path.resolve(cwd(), "./src"),
+    },
+  },
   staged: {
     "*": "vp check --fix",
   },
@@ -83,7 +90,7 @@ export default defineConfig({
     env: {
       builtin: true,
     },
-    ignorePatterns: ["dist"],
+    ignorePatterns: ["dist", ".agents", ".superpowers", "test-results"],
     overrides: [
       {
         files: ["api/**/*.js", "server.js"],

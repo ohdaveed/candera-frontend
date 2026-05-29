@@ -13,7 +13,8 @@ const supabaseAnonKey = process.env.VITE_SUPABASE_ANON_KEY;
 // Set PLAYWRIGHT_SKIP_UI_TESTS=1 in .env to skip browser-dependent tests locally.
 // Ubuntu 26.04 is not yet supported by Playwright's browser binaries; CI runs these normally.
 // eslint-disable-next-line no-undef
-const browserTest = process.env.PLAYWRIGHT_SKIP_UI_TESTS === "1" ? test.skip : test;
+const skipBrowserTests = process.env.PLAYWRIGHT_SKIP_UI_TESTS === "1";
+const browserTest = (...args) => (skipBrowserTests ? test.skip(...args) : test(...args));
 
 test.describe("Backend Integration", () => {
   test("Supabase REST API returns products", async ({ request }) => {

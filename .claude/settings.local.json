@@ -36,7 +36,18 @@
       "Bash(node -e \"const l = require\\('./node_modules/lucide-react/dist/cjs/lucide-react.js'\\); const keys = Object.keys\\(l\\).filter\\(k => /gram|twitter|linked|social/i.test\\(k\\)\\); console.log\\(keys.slice\\(0,20\\).join\\(', '\\)\\)\")",
       "mcp__chrome-devtools__take_snapshot",
       "mcp__chrome-devtools__click",
-      "mcp__Claude_Preview__preview_start"
+      "mcp__Claude_Preview__preview_start",
+      "Bash(host canderacandles.com)",
+      "Bash(getent hosts *)",
+      "Bash(curl -sv --max-time 5 https://canderacandles.com)",
+      "Bash(vercel domains *)",
+      "Bash(vercel inspect *)",
+      "Bash(curl -sI --max-time 10 https://www.canderacandles.com)",
+      "Bash(vercel env *)",
+      "Bash(python3 -c \"import sys,json; d=json.load\\(sys.stdin\\); print\\('created:', d.get\\('key'\\), d.get\\('target'\\)\\)\")",
+      "Bash(python3 -c \"import json; print\\(json.load\\(open\\('/home/ohdaveed/.local/share/com.vercel.cli/auth.json'\\)\\)['token']\\)\")",
+      "Bash(curl -s -X POST https://api.vercel.com/v10/projects/prj_MZUYAuPYwSC4gdyICDRnrf6RGAFx/env?teamId=team_gW4NsF9F7vYQ7i9sQeF4RkWu -H 'Authorization: Bearer __TRACKED_VAR__' -H 'Content-Type: application/json' -d '{\"key\":\"ETSY_HELPER_REDIRECT_URI\",\"value\":\"https://canderacandles.com/api/etsy/helper/redirect\",\"type\":\"encrypted\",\"target\":[\"preview\"]}')",
+      "Bash(python3 -m json.tool)"
     ]
   },
   "enableAllProjectMcpServers": true,

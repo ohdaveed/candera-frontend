@@ -42,21 +42,21 @@ export default function RedirectButton({ url, className = "", children }) {
         className,
       )}
       aria-label={
-        isRedirecting ? "Opening Etsy" : !url ? "Etsy listing unavailable" : "View on Etsy"
+        isRedirecting ? "Opening Etsy" : !url ? "Etsy listing unavailable" : "View on our Etsy Shop"
       }
     >
       {isRedirecting ? (
-        <span className="text-candera-warm italic animate-pulse text-[10px] uppercase tracking-widest">
+        <span className="text-candera-ember italic animate-pulse text-[10px] uppercase tracking-widest">
           Preparing your vessel...
         </span>
       ) : !url ? (
         <span className="text-[10px] uppercase tracking-widest">Etsy listing unavailable</span>
       ) : (
         <>
-          {children ?? "View on Etsy Shop"}
+          {children ?? "View on our Etsy Shop"}
           <ExternalLink
             size={11}
-            className="opacity-0 group-hover:opacity-100 transition-all group-hover:translate-x-0.5"
+            className="opacity-80 transition-all group-hover:translate-x-0.5 group-hover:opacity-100"
           />
         </>
       )}
