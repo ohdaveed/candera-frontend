@@ -1,0 +1,51 @@
+{
+  "methodologyTag": "The Methodology",
+  "methodologyHeadline": "16 Hours of Intention.",
+  "methodologyDescription": "In a world that demands speed, we choose a sensory revolution. Our pure products are cultivated through a series of slow, deliberate rituals that ensure the highest fragrance throw and the cleanest burn.",
+  "methodologyImageAlt": "Wax melting process in the Candera studio",
+  "methodologySteps": [
+    {
+      "step": "01",
+      "title": "Botanical Sourcing",
+      "description": "We partner with sustainable apiaries and soy farms in the Midwest to ensure our base is 100% biodegradable and phthalate-free."
+    },
+    {
+      "step": "02",
+      "title": "Precision Infusion",
+      "description": "Our oils are blended at precisely 185°F to ensure the fragrance molecules bond perfectly with the wax matrix for a consistent scent."
+    },
+    {
+      "step": "03",
+      "title": "The Hand Pour",
+      "description": "Every vessel is pre-heated and hand-poured in micro-batches to prevent air pockets and ensure a perfectly level surface."
+    },
+    {
+      "step": "04",
+      "title": "Curing Silence",
+      "description": "Finished candles sit in a temperature-controlled dark room for two full weeks to \"cure,\" allowing the scent to reach its peak complexity."
+    }
+  ],
+  "founderTag": "Behind the Vessel",
+  "founderHeadline": "Meet the Maker",
+  "founderImageUrl": "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=800",
+  "founderImageAlt": "Clara Thorne, Founder of Candera",
+  "founderStory1": "\"Candera began as a personal necessity. Working from the studio, I found that the mass-produced candles in my home were causing headaches and burning far too quickly. I wanted something that echoed the silence of the canyon.\"",
+  "founderStory2": "With a background in botanical chemistry and a passion for minimalist design, two years were spent perfecting the formula. Today, every single candle that leaves the studio is personally inspected.",
+  "founderRole": "Founder & Lead Maker",
+  "faqHeadline": "Care & Logistics",
+  "faqSubheading": "Common inquiries for the intentional collector.",
+  "faq": [
+    {
+      "question": "How do I maximize my candle's lifespan?",
+      "answer": "Always trim the wick to 1/4 inch before lighting. On your first burn, allow the wax to melt across the entire surface to prevent 'tunneling.'"
+    },
+    {
+      "question": "Are the vessels reusable?",
+      "answer": "Yes. Once 1/2 inch of wax remains, pour boiling water into the vessel to lift the remaining wax. The stoneware is food-safe and perfect for plants or storage."
+    },
+    {
+      "question": "Why are batches limited?",
+      "answer": "Quality control is paramount. By pouring in small micro-batches, we ensure the fragrance oil is perfectly distributed and the wicks are centered manually."
+    }
+  ]
+}

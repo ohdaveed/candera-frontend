@@ -15,6 +15,8 @@ function vercelApiPlugin() {
     ["/api/etsy/oauth/callback", "/api/etsy/oauth/callback.js"],
     ["/api/etsy/listings", "/api/etsy/listings.js"],
     ["/api/subscribe", "/api/subscribe.js"],
+    ["/api/auth/callback", "/api/auth/callback.js"],
+    ["/api/auth", "/api/auth/index.js"],
   ]);
 
   async function readJsonBody(req) {

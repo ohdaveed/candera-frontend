@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { Camera, MessageSquare, Globe, ExternalLink } from "lucide-react";
 import { Stack, Cluster } from "@/components/ui/stack";
 import { Grid } from "@/components/ui/section";
+import site from "../../content/site.json";
 
 export default function Footer() {
   return (
@@ -13,31 +14,25 @@ export default function Footer() {
             to="/"
             className="text-3xl font-display font-bold tracking-tighter text-stone-900 hover:opacity-70 transition-opacity"
           >
-            CANDERA
+            {site.brandName}
           </Link>
           <p className="text-stone-500 max-w-sm text-sm leading-relaxed font-light italic">
-            Cultivating intentional living through scent and micro-batch artisanry. Based in the
-            studio, shared everywhere.
+            {site.footerTagline}
           </p>
           <Cluster className="gap-6 text-stone-400">
             <a
-              href="https://www.instagram.com/canderacandles"
+              href={site.instagramUrl}
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Instagram"
             >
               <Camera size={20} className="hover:text-stone-900 transition-colors" />
             </a>
-            <a
-              href="https://www.etsy.com/shop/CanderaCandles"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Etsy shop"
-            >
+            <a href={site.etsyUrl} target="_blank" rel="noopener noreferrer" aria-label="Etsy shop">
               <MessageSquare size={20} className="hover:text-stone-900 transition-colors" />
             </a>
             <a
-              href="https://candera.co"
+              href={site.websiteUrl}
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Website"
@@ -70,7 +65,7 @@ export default function Footer() {
             </li>
             <li>
               <a
-                href="https://www.etsy.com/shop/CanderaCandles"
+                href={site.etsyUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:text-candera-ember transition-colors flex items-center gap-1"
@@ -100,7 +95,9 @@ export default function Footer() {
 
       {/* Bottom bar */}
       <div className="max-w-7xl mx-auto mt-24 pt-8 border-t border-stone-100 flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] text-stone-400 font-bold uppercase tracking-widest">
-        <p>© 2024 Candera Studio. All rights reserved.</p>
+        <p>
+          © {site.copyrightYear} {site.copyrightName}. All rights reserved.
+        </p>
         <Cluster className="gap-8">
           <span>Privacy Policy</span>
           <span>Terms of Service</span>

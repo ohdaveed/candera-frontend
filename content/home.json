@@ -1,0 +1,31 @@
+{
+  "heroTag": "Hand-Poured in the Studio",
+  "heroHeadline": "An invitation to slow down.",
+  "heroSubheading": "Limited Release: Batch 014 now curing in the studio.",
+  "collectionTag": "The Current Batch",
+  "collectionHeadline": "Rooted in Earth, Released in Air.",
+  "collectionDescription": "Each vessel is part of a numbered micro-batch, hand-labeled and inspected for peak botanical clarity.",
+  "innerCircleHeadline": "Join the Inner Circle",
+  "innerCircleDescription": "Our batches often sell out in days. Join our list to receive early access to new scent drops and personal ritual invitations.",
+  "testimonialsTag": "Voices of the Inner Circle",
+  "testimonials": [
+    {
+      "quote": "The scent profile is unlike anything mass-produced. It fills the room without overwhelming the senses.",
+      "author": "Elena R.",
+      "location": "Los Angeles",
+      "badge": "Verified Ritualist"
+    },
+    {
+      "quote": "I reuse the stoneware vessels for my succulents. They are truly objects of art, even after the burn.",
+      "author": "James T.",
+      "location": "Austin",
+      "badge": "Repeat Collector"
+    },
+    {
+      "quote": "A ritual I look forward to every evening. This is the soul of my living room.",
+      "author": "Sarah L.",
+      "location": "Brooklyn",
+      "badge": "Verified Ritualist"
+    }
+  ]
+}
