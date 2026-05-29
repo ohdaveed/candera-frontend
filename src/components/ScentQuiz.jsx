@@ -1,12 +1,14 @@
 import { useState } from "react";
-import { X, Sparkles, CheckCircle2, ChevronRight } from "lucide-react";
+import { Sparkles, CheckCircle2, ChevronRight } from "lucide-react";
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
+import { Stack } from "@/components/ui/stack";
 
 const QUESTIONS = [
   {
     question: "Where do you find your deepest sense of calm?",
     options: [
       "An ancient, sun-dappled forest",
-      "A crisp, high-altitude desert",
+      "A crisp, high-altitude sanctuary",
       "A hidden, dew-covered garden",
       "A cozy study by the fire",
     ],
@@ -63,30 +65,21 @@ export default function ScentQuiz({ isOpen, onClose }) {
     setSubmitted(true);
   }
 
-  function handleClose() {
-    onClose();
-  }
-
   return (
-    <div className="fixed inset-0 z-[200] flex items-center justify-center bg-stone-900/60 backdrop-blur-md p-4">
-      <div
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="scent-quiz-title"
-        className="bg-[#FDFBF7] w-full max-w-xl p-8 md:p-12 relative overflow-hidden shadow-2xl border border-stone-200"
+    <Dialog
+      open={isOpen}
+      onOpenChange={(open) => {
+        if (!open) onClose();
+      }}
+    >
+      <DialogContent
+        className="bg-[#FDFBF7] p-8 md:p-12 max-w-xl sm:max-w-xl gap-0 border-stone-200"
+        showCloseButton
       >
-        <button
-          onClick={handleClose}
-          aria-label="Close quiz"
-          className="absolute top-6 right-6 text-stone-400 hover:text-stone-900 transition-colors"
-        >
-          <X size={24} />
-        </button>
-
         {/* Progress bar */}
         <div className="absolute top-0 left-0 w-full h-1 bg-stone-100">
           <div
-            className="h-full bg-candera-warm transition-all duration-700 ease-in-out"
+            className="h-full bg-candera-ember transition-all duration-700 ease-in-out"
             style={{ width: `${progress}%` }}
           />
         </div>
@@ -94,43 +87,43 @@ export default function ScentQuiz({ isOpen, onClose }) {
         {!submitted ? (
           <div>
             {step < total ? (
-              <div className="space-y-8">
-                <div className="space-y-2">
-                  <span className="text-[10px] uppercase tracking-widest text-candera-warm font-bold">
+              <Stack className="gap-8">
+                <Stack className="gap-2">
+                  <span className="text-[10px] uppercase tracking-widest text-candera-ember font-bold">
                     Ritual Inquiry {step + 1} of {total}
                   </span>
-                  <h3 id="scent-quiz-title" className="text-3xl font-serif leading-tight">
+                  <DialogTitle className="text-3xl font-display leading-tight !text-left !normal-case">
                     {QUESTIONS[step].question}
-                  </h3>
-                </div>
-                <div className="grid gap-3">
+                  </DialogTitle>
+                </Stack>
+                <Stack className="gap-3">
                   {QUESTIONS[step].options.map((option, idx) => (
                     <button
                       key={idx}
                       onClick={handleNext}
-                      className="text-left p-5 border border-stone-200 hover:border-candera-warm hover:bg-candera-warm/20 transition-all group flex justify-between items-center"
+                      className="text-left p-5 border border-stone-200 hover:border-candera-ember hover:bg-candera-ember/20 transition-all group flex justify-between items-center"
                     >
                       <span className="text-stone-700 font-light italic">{option}</span>
                       <ChevronRight
                         size={16}
-                        className="opacity-0 group-hover:opacity-100 transition-opacity text-candera-warm"
+                        className="opacity-0 group-hover:opacity-100 transition-opacity text-candera-ember"
                       />
                     </button>
                   ))}
-                </div>
-              </div>
+                </Stack>
+              </Stack>
             ) : (
-              <div className="space-y-8 text-center">
-                <div className="space-y-4">
-                  <Sparkles className="mx-auto text-candera-warm" size={32} strokeWidth={1} />
-                  <h3 className="text-3xl font-serif leading-tight">
+              <Stack className="gap-8 text-center">
+                <Stack className="gap-4">
+                  <Sparkles className="mx-auto text-candera-ember" size={32} strokeWidth={1} />
+                  <DialogTitle className="text-3xl font-display leading-tight !text-center !normal-case">
                     Your Sensory Profile is Ready.
-                  </h3>
+                  </DialogTitle>
                   <p className="text-stone-500 font-light text-sm">
                     Join the Inner Circle to unlock your matched scent and receive early access to
                     the next batch.
                   </p>
-                </div>
+                </Stack>
                 <form onSubmit={handleSubmit} className="space-y-4">
                   <label htmlFor="scent-quiz-email" className="sr-only">
                     Email address
@@ -146,32 +139,34 @@ export default function ScentQuiz({ isOpen, onClose }) {
                   />
                   <button
                     type="submit"
-                    className="w-full bg-stone-900 text-white py-4 uppercase tracking-widest text-[11px] font-bold hover:bg-candera-warm transition-colors"
+                    className="w-full bg-stone-900 text-white py-4 uppercase tracking-widest text-[11px] font-bold hover:bg-candera-ember transition-colors"
                   >
                     Reveal My Match
                   </button>
                 </form>
-              </div>
+              </Stack>
             )}
           </div>
         ) : (
-          <div className="text-center py-12 space-y-6">
-            <CheckCircle2 className="mx-auto text-candera-warm" size={48} strokeWidth={1} />
-            <div className="space-y-2">
-              <h3 className="text-3xl font-serif">Welcome to the Inner Circle.</h3>
+          <Stack className="text-center py-12 gap-6">
+            <CheckCircle2 className="mx-auto text-candera-ember" size={48} strokeWidth={1} />
+            <Stack className="gap-2">
+              <DialogTitle className="text-3xl font-display !text-center !normal-case">
+                Welcome to the Inner Circle.
+              </DialogTitle>
               <p className="text-stone-500 font-light max-w-sm mx-auto">
                 Check your inbox for your exclusive access code.
               </p>
-            </div>
+            </Stack>
             <button
-              onClick={handleClose}
-              className="border-b-2 border-stone-900 pb-1 text-[11px] uppercase tracking-widest font-bold hover:text-candera-warm hover:border-candera-warm transition-colors"
+              onClick={onClose}
+              className="border-b-2 border-stone-900 pb-1 text-[11px] uppercase tracking-widest font-bold hover:text-candera-ember hover:border-candera-ember transition-colors"
             >
               Explore the Collection
             </button>
-          </div>
+          </Stack>
         )}
-      </div>
-    </div>
+      </DialogContent>
+    </Dialog>
   );
 }

@@ -1,4 +1,5 @@
 import { cn } from "../lib/utils";
+import { Cluster } from "@/components/ui/stack";
 
 const SORT_OPTIONS = [
   { value: "featured", label: "Featured" },
@@ -18,14 +19,14 @@ export default function FilterBar({
 }) {
   return (
     <div className="mb-12">
-      <div className="flex flex-wrap items-center justify-between gap-4">
-        <div className="flex flex-wrap gap-2">
+      <Cluster className="flex-col items-stretch justify-between gap-4 sm:flex-row sm:items-center">
+        <Cluster className="flex-wrap gap-2">
           <button
             type="button"
             onClick={() => onTagChange("all")}
             aria-pressed={activeTag === "all"}
             className={cn(
-              "text-[10px] uppercase tracking-widest px-4 py-2 border transition-colors duration-200",
+              "min-h-10 text-[10px] uppercase tracking-widest px-4 py-2 border transition-colors duration-200",
               activeTag === "all"
                 ? "bg-candera-obsidian text-white border-candera-obsidian"
                 : "border-candera-stone text-candera-sage hover:border-candera-obsidian hover:text-candera-obsidian",
@@ -40,23 +41,22 @@ export default function FilterBar({
               onClick={() => onTagChange(tag)}
               aria-pressed={activeTag === tag}
               className={cn(
-                "text-[10px] uppercase tracking-widest px-4 py-2 border transition-colors duration-200",
+                "min-h-10 text-[10px] uppercase tracking-widest px-4 py-2 border transition-colors duration-200",
                 activeTag === tag
-                  ? "bg-candera-warm text-white border-candera-warm"
-                  : "border-candera-stone text-candera-sage hover:border-candera-warm hover:text-candera-warm",
+                  ? "bg-candera-ember text-white border-candera-ember"
+                  : "border-candera-stone text-candera-sage hover:border-candera-ember hover:text-candera-ember",
               )}
             >
               {tag}
             </button>
           ))}
-        </div>
+        </Cluster>
 
         <select
           aria-label="Sort products"
           value={sortBy}
           onChange={(e) => onSortChange(e.target.value)}
-          className="text-[10px] uppercase tracking-widest bg-transparent border border-candera-stone
-            text-candera-sage px-4 py-2 appearance-none cursor-pointer
+          className="min-h-10 w-full bg-transparent px-4 py-2 text-[10px] uppercase tracking-widest text-candera-sage sm:w-auto border border-candera-stone appearance-none cursor-pointer
             hover:border-candera-obsidian hover:text-candera-obsidian transition-colors duration-200
             focus:outline-none"
         >
@@ -70,7 +70,7 @@ export default function FilterBar({
             </option>
           ))}
         </select>
-      </div>
+      </Cluster>
 
       <p className="text-[10px] uppercase tracking-widest text-candera-sage mt-4">
         Showing {count} of {total} candle{count !== 1 ? "s" : ""}

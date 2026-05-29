@@ -3,10 +3,6 @@ import { createHash, randomBytes } from "node:crypto";
 const AUTH_URL = "https://www.etsy.com/oauth/connect";
 const COOKIE_MAX_AGE = 600; // 10 minutes
 
-function base64url(buf) {
-  return buf.toString("base64").replace(/\+/g, "-").replace(/\//g, "_").replace(/=/g, "");
-}
-
 export default function handler(req, res) {
   if (req.method !== "GET") {
     res.statusCode = 405;
@@ -14,8 +10,8 @@ export default function handler(req, res) {
     return;
   }
 
-  const keystring = process.env.ETSY_KEYSTRING;
-  const redirectUri = process.env.ETSY_REDIRECT_URI;
+  const keystring = (process.env.ETSY_KEYSTRING || "").trim();
+  const redirectUri = (process.env.ETSY_REDIRECT_URI || "").trim();
   const scopes = process.env.ETSY_SCOPES || "listings_r shops_r";
 
   if (!keystring || !redirectUri) {
@@ -33,17 +29,19 @@ export default function handler(req, res) {
     return;
   }
 
-  if (redirectUrl.protocol !== "https:") {
+  const isLocalhost = redirectUrl.hostname === "localhost" || redirectUrl.hostname === "127.0.0.1";
+  if (redirectUrl.protocol !== "https:" && !isLocalhost) {
     res.statusCode = 500;
     res.json({
-      error: "ETSY_REDIRECT_URI must use https:// and match the Etsy app redirect URI exactly",
+      error:
+        "ETSY_REDIRECT_URI must use https:// (except for localhost) and match the Etsy app redirect URI exactly",
     });
     return;
   }
 
-  const codeVerifier = base64url(randomBytes(32));
-  const codeChallenge = base64url(createHash("sha256").update(codeVerifier).digest());
-  const state = base64url(randomBytes(16));
+  const codeVerifier = randomBytes(32).toString("base64url");
+  const codeChallenge = createHash("sha256").update(codeVerifier).digest("base64url");
+  const state = randomBytes(16).toString("base64url");
 
   const secure = process.env.NODE_ENV === "production" ? "; Secure" : "";
   res.setHeader(
@@ -51,10 +49,11 @@ export default function handler(req, res) {
     `etsy_pkce=${codeVerifier}|${state}; HttpOnly${secure}; SameSite=Lax; Max-Age=${COOKIE_MAX_AGE}; Path=/`,
   );
 
+  // Extract client_id if keystring contains a secret
+  const clientId = keystring.includes(":") ? keystring.split(":")[0].trim() : keystring;
+
   const url = new URL(AUTH_URL);
   url.searchParams.set("response_type", "code");
-  const rawKey = (keystring || "").trim();
-  const clientId = rawKey.includes(":") ? rawKey.split(":")[0].trim() : rawKey;
   url.searchParams.set("client_id", clientId);
   url.searchParams.set("redirect_uri", redirectUrl.toString());
   url.searchParams.set("scope", scopes);

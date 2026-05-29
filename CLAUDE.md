@@ -29,9 +29,12 @@ npm run build     # production build → dist/
 npm run preview   # serve the production build locally
 npm run lint      # ESLint
 npm run server    # start the local Etsy OAuth helper server
+
+## Etsy OAuth helper (Vercel)
+# Visit /api/etsy/helper after deploying (set ETSY_HELPER_REDIRECT_URI first)
 ```
 
-There is no test suite configured yet.
+Playwright e2e tests live in `e2e/`. Run with `npx playwright test` (UI tests are skipped locally by default via `SKIP_UI_TESTS`). Unit tests use Vitest; `src/hooks/useProductSync.test.js` covers the product sync hook.
 
 ## Agent Skills
 
@@ -63,7 +66,11 @@ The app is structured into:
 
 - `src/pages/`: Route-level components (Home, Collection, Product, Ritual, Quiz, InnerCircle).
 - `src/components/`: Shared UI components (Nav, Footer, ScentQuiz).
-- `api/`: Serverless functions (e.g., `subscribe.js` for MailChimp).
+- `api/subscribe.js`: MailChimp newsletter subscription.
+- `api/etsy/listings.js`: Etsy v3 listing sync (5-min cache, concurrent-refresh deduplication via `_pendingRefresh`; requires `ETSY_KEYSTRING:ETSY_SHARED_SECRET` in `x-api-key` header). Includes `noActiveListings` handling.
+- `api/etsy/oauth/authorize.js` + `callback.js`: PKCE OAuth 2.0 flow; callback clears PKCE cookie only after all validation passes.
+- `api/etsy/helper/index.js` + `ping.js` + `redirect.js` + `welcome.js`: Vercel-hosted manual OAuth helper (replaces the old `server.js`). Requires `ETSY_HELPER_REDIRECT_URI` env var pointing to `https://<domain>/api/etsy/helper/redirect`. PKCE state stored in `etsy_helper_pkce` cookie; access token stored in `etsy_helper_token` cookie (5-min TTL) for the welcome page.
+- `api/etsy/lib/token.js`: Access-token refresh with deduplication and `|| 3600` expiry fallback.
 - `server.js`: A local Express helper server for Etsy OAuth manual testing and API ping checks.
 
 Product sync behavior:

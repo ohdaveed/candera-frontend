@@ -17,7 +17,8 @@ export default async function handler(req, res) {
     return;
   }
 
-  const url = new URL(req.url, "http://localhost");
+  const host = req.headers.host ?? "localhost";
+  const url = new URL(req.url, `http://${host}`);
   const code = url.searchParams.get("code");
   const state = url.searchParams.get("state");
   const oauthError = url.searchParams.get("error");
@@ -55,10 +56,6 @@ export default async function handler(req, res) {
     return;
   }
 
-  // Clear the PKCE cookie
-  const secure = process.env.NODE_ENV === "production" ? "; Secure" : "";
-  res.setHeader("Set-Cookie", `etsy_pkce=; HttpOnly${secure}; SameSite=Lax; Max-Age=0; Path=/`);
-
   const keystring = process.env.ETSY_KEYSTRING;
   const redirectUri = process.env.ETSY_REDIRECT_URI;
 
@@ -77,13 +74,19 @@ export default async function handler(req, res) {
     return;
   }
 
-  if (redirectUrl.protocol !== "https:") {
+  const isLocalhost = redirectUrl.hostname === "localhost" || redirectUrl.hostname === "127.0.0.1";
+  if (redirectUrl.protocol !== "https:" && !isLocalhost) {
     res.statusCode = 500;
     res.json({
-      error: "ETSY_REDIRECT_URI must use https:// and match the Etsy app redirect URI exactly",
+      error:
+        "ETSY_REDIRECT_URI must use https:// (except for localhost) and match the Etsy app redirect URI exactly",
     });
     return;
   }
+
+  // Clear the PKCE cookie only after all config validation has passed
+  const secure = process.env.NODE_ENV === "production" ? "; Secure" : "";
+  res.setHeader("Set-Cookie", `etsy_pkce=; HttpOnly${secure}; SameSite=Lax; Max-Age=0; Path=/`);
 
   const response = await fetch(TOKEN_URL, {
     method: "POST",

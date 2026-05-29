@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { Cluster } from "@/components/ui/stack";
 
 export default function SensoryMap({ products = [] }) {
   const [hovered, setHovered] = useState(null);
@@ -35,8 +36,6 @@ export default function SensoryMap({ products = [] }) {
         <div className="absolute inset-12 pointer-events-none">
           {plottableProducts.map((product) => {
             const { x, y } = product.sensory;
-            // x: 0=Bright(bottom) → 100=Moody(top); y: 0=Floral(right) → 100=Earthy(left)
-            // CSS top=0 is the top edge (Moody), so invert x; left=0 is left edge (Earthy), so invert y
             const left = `${100 - y}%`;
             const top = `${100 - x}%`;
 
@@ -61,7 +60,7 @@ export default function SensoryMap({ products = [] }) {
                 />
                 {hovered === product.slug && (
                   <div className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 whitespace-nowrap bg-candera-obsidian text-candera-vellum text-[10px] tracking-wider px-2 py-1 pointer-events-none">
-                    <span className="font-serif">{product.name}</span>
+                    <span className="font-editorial">{product.name}</span>
                     <span className="block text-candera-lavender">
                       {product.metadata?.mood ?? "Uncharted"}
                     </span>
@@ -74,7 +73,7 @@ export default function SensoryMap({ products = [] }) {
       </div>
 
       {/* Legend */}
-      <div className="mt-6 flex flex-wrap gap-4 justify-center">
+      <Cluster className="mt-6 flex-wrap gap-4 justify-center">
         {plottableProducts.map((product) => (
           <Link
             key={product.slug}
@@ -95,7 +94,7 @@ export default function SensoryMap({ products = [] }) {
             </span>
           </Link>
         ))}
-      </div>
+      </Cluster>
     </div>
   );
 }

@@ -1,5 +1,15 @@
-import { describe, it, expect } from "vitest";
-import { extractMetadata, toProductShape } from "./useProductSync";
+import { afterEach, describe, it, expect, vi } from "vitest";
+import {
+  CATALOG_STATUS,
+  FALLBACK_REASONS,
+  extractMetadata,
+  fetchStudioCatalog,
+  toProductShape,
+} from "./useProductSync";
+
+afterEach(() => {
+  vi.restoreAllMocks();
+});
 
 describe("useProductSync parsing logic", () => {
   describe("extractMetadata", () => {
@@ -69,6 +79,58 @@ describe("useProductSync parsing logic", () => {
       expect(product.scent_profile.top).toBe("Sea Salt");
       expect(product.sensory).toEqual({ x: 10, y: 20 });
       expect(product.tag).toBe("Bestseller");
+    });
+  });
+
+  describe("fetchStudioCatalog", () => {
+    it("returns live status for valid Etsy payloads", async () => {
+      vi.spyOn(globalThis, "fetch").mockResolvedValue({
+        ok: true,
+        json: async () => ({
+          results: [
+            {
+              listing_id: "12345",
+              title: "Ocean Breeze Candle",
+              description: "Fresh and airy.",
+              price: { amount: 3800, divisor: 100 },
+              tags: ["Coastal"],
+            },
+          ],
+        }),
+      });
+
+      const result = await fetchStudioCatalog({ endpoint: "/api/etsy/listings" });
+
+      expect(result.status).toBe(CATALOG_STATUS.LIVE);
+      expect(result.items).toHaveLength(1);
+      expect(result.error).toBeNull();
+    });
+
+    it("returns fallback status when Etsy returns no active listings", async () => {
+      vi.spyOn(globalThis, "fetch").mockResolvedValue({
+        ok: true,
+        json: async () => ({ results: [] }),
+      });
+
+      const result = await fetchStudioCatalog({ endpoint: "/api/etsy/listings" });
+
+      expect(result.status).toBe(CATALOG_STATUS.FALLBACK);
+      expect(result.fallbackReason).toBe(FALLBACK_REASONS.NO_ACTIVE_LISTINGS);
+      expect(result.error).toBeNull();
+      expect(result.items.length).toBeGreaterThan(0);
+    });
+
+    it("returns error status with fallback products for unreachable APIs", async () => {
+      vi.spyOn(globalThis, "fetch").mockResolvedValue({
+        ok: false,
+        status: 503,
+      });
+
+      const result = await fetchStudioCatalog({ endpoint: "/api/etsy/listings" });
+
+      expect(result.status).toBe(CATALOG_STATUS.ERROR);
+      expect(result.error.message).toBe("Product sync failed with 503");
+      expect(result.items.length).toBeGreaterThan(0);
     });
   });
 });

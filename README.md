@@ -31,17 +31,45 @@ This project is configured for advanced AI agent collaboration with the followin
 
 - `src/App.jsx`: Main entry point and routing configuration.
 - `src/pages/`: Route-level views (Home, Collection, Product, Ritual, Quiz, Inner Circle).
-- `src/components/`: Reusable UI components (Nav, Footer, Scent Quiz).
+- `src/components/`: Shared UI components (Nav, Footer, Scent Quiz).
+- `src/components/catalog/`: Catalog presentation components, including `ProductGrid` and `FragranceProfileCard`.
+- `src/components/forms/NewsletterSubscribe.jsx`: Inner Circle email form state and validation surface.
+- `src/modules/exhibitSync/`: Isolated multi-panel exhibit synchronization module served at `/exhibit-sync`.
 - `api/subscribe.js`: Vercel-style API route for MailChimp subscriptions.
-- `api/etsy/listings.js`: Vercel-style API route for Etsy listing sync.
-- `server.js`: Local Express helper for Etsy OAuth manual testing and API ping checks.
+- `api/etsy/listings.js`: Vercel-style API route for Etsy listing sync (in-memory 5-min cache, concurrent-refresh deduplication).
+- `api/etsy/oauth/authorize.js`: Initiates the Etsy PKCE OAuth 2.0 consent flow.
+- `api/etsy/oauth/callback.js`: Exchanges the authorization code for tokens; stores PKCE cookie only after all validation passes.
+- `api/etsy/lib/token.js`: Manages access-token refresh with `_pendingRefresh` deduplication and a `|| 3600` expiry fallback.
+- `server.js`: Local Express helper for Etsy OAuth manual testing; access token is stored in a module variable and never exposed in redirect URLs.
 - `vite.config.js`: Includes a local Vite middleware shim for `/api/etsy/listings` and `/api/subscribe`.
+- Vite+ lint is scoped away from build output, test artifacts, and local agent tooling folders (`.agents/`, `.superpowers/`) so validation reports application issues.
+
+## UI Layout Notes
+
+- Home and Collection use restrained editorial spacing with responsive clamps for hero-scale type.
+- The Home hero uses the `.hero-heading` utility in `src/index.css` for fluid type sizing and stable line-height.
+- Shared `Section` spacing is defined in `src/components/ui/section.jsx`; prefer those primitives before adding page-local padding systems.
+- Product grids use stable aspect ratios, consistent card gutters, and mobile-safe CTA/tap target sizing.
+- Etsy CTAs are labeled as external actions with visible external-link icons via `RedirectButton`.
+
+## Exhibit Synchronization Module
+
+The `/exhibit-sync` route provides a three-panel indexing workflow for uploaded document/image records.
+
+- `footprintWorker.js` runs file footprint parsing in a Web Worker so binary scans do not block the UI thread.
+- `footprintParser.js` detects PDF page counts from `/Count` or `/Type /Page` markers and counts TIFF IFD frames; unknown files default to one page.
+- `store.js` uses normalized `{ items, itemOrder }` state and derives Master, Viewer, and Index Map panel data from one selector.
+- `sequence.js` sorts records chronologically, generates bijective exhibit codes (`Exhibit A`, `Exhibit Z`, `Exhibit AA`), and assigns zero-padded page ranges.
+- Timestamp, page-footprint, insertion, purge, and clear mutations cascade through the derived selector immediately.
+- The Master panel accepts dragged files as well as file-picker uploads, and worker-level failures convert active parse jobs into reviewable error rows with a one-page fallback.
 
 ## Etsy Backend Connection
 
 The storefront pulls live product data from `/api/etsy/listings` while keeping `src/data/products.json` as a fallback.
 
-If Etsy is reachable but returns zero active listings, `useProductSync` sets a `noActiveListings` flag. Home and Collection pages render a clear status notice and keep showing the curated fallback catalog.
+`useProductSync` exposes an explicit catalog lifecycle through `catalogStatus`: `loading`, `live`, `fallback`, or `error`. The lower-level `fetchStudioCatalog()` wrapper returns `{ items, status, error, fallbackReason }` so live Etsy payloads, empty-listing fallback, and hard errors stay distinct.
+
+If Etsy is reachable but returns zero active listings, `useProductSync` sets `catalogStatus` to `fallback` with `fallbackReason: "no-active-listings"` and exposes a `noActiveListings` convenience flag. Home and Collection pages render a clear status notice and keep showing the curated fallback catalog.
 
 1. Create or update `.env`.
 2. Set frontend variables:
@@ -49,8 +77,8 @@ If Etsy is reachable but returns zero active listings, `useProductSync` sets a `
    - `VITE_ETSY_BACKEND_API_KEY` only when a backend requires a simple API key header.
    - `VITE_ETSY_SHOP_URL` for fallback listing links.
 3. Set server-side variables for the Etsy route:
-   - `ETSY_KEYSTRING` for Etsy credentials. This can be either a combined `key:shared_secret` string or just the key.
-   - `ETSY_SHARED_SECRET` is optional and only needed if `ETSY_KEYSTRING` contains the key only.
+   - `ETSY_KEYSTRING`: your Etsy API key (keystring).
+   - `ETSY_SHARED_SECRET`: your Etsy app's shared secret (required for the `x-api-key` header in v3).
    - `ETSY_SHOP_ID`, `ETSY_LISTINGS_LIMIT`.
 
 ## Etsy OAuth 2.0 Setup
