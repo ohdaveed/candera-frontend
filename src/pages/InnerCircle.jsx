@@ -113,9 +113,15 @@ export default function InnerCircle() {
               exit={{ opacity: 0, y: -8 }}
               transition={{ duration: 0.25 }}
             >
-              <Stack className="gap-1">
-                <label className="text-xs tracking-widest uppercase text-candera-sage">Name</label>
+              <div className="flex flex-col gap-1">
+                <label
+                  htmlFor="inner-circle-name"
+                  className="text-xs tracking-widest uppercase text-candera-sage"
+                >
+                  Name
+                </label>
                 <input
+                  id="inner-circle-name"
                   type="text"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
@@ -123,10 +129,16 @@ export default function InnerCircle() {
                   placeholder="Your name"
                   className="bg-transparent border border-candera-stone px-4 py-3 text-sm text-candera-obsidian placeholder:text-candera-stone focus:outline-none focus:border-candera-obsidian transition-colors"
                 />
-              </Stack>
-              <Stack className="gap-1">
-                <label className="text-xs tracking-widest uppercase text-candera-sage">Email</label>
+              </div>
+              <div className="flex flex-col gap-1">
+                <label
+                  htmlFor="inner-circle-email"
+                  className="text-xs tracking-widest uppercase text-candera-sage"
+                >
+                  Email
+                </label>
                 <input
+                  id="inner-circle-email"
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
@@ -134,7 +146,8 @@ export default function InnerCircle() {
                   placeholder="your@email.com"
                   className="bg-transparent border border-candera-stone px-4 py-3 text-sm text-candera-obsidian placeholder:text-candera-stone focus:outline-none focus:border-candera-obsidian transition-colors"
                 />
-              </Stack>
+              </div>
+
               {status === "error" && (
                 <p className="text-xs text-red-500">Something went wrong. Please try again.</p>
               )}
