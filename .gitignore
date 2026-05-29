@@ -36,3 +36,8 @@ Thumbs.db
 
 # Impeccable
 .impeccable/
+
+# Added by ggshield
+.cache_ggshield
+
+tina/__generated__
