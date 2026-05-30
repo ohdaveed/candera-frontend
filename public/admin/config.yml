@@ -1,0 +1,124 @@
+backend:
+  name: github
+  repo: ohdaveed/candera-frontend
+  branch: master
+  base_url: https://candera-frontend.vercel.app
+  auth_endpoint: /api/auth
+
+media_folder: public/images
+public_folder: /images
+
+collections:
+  - name: home
+    label: Home Page
+    files:
+      - name: home
+        label: Home Page
+        file: content/home.json
+        fields:
+          - {
+              label: "Hero Tag",
+              name: heroTag,
+              widget: string,
+              hint: "Small text above headline, e.g. 'Hand-Poured in the Studio'",
+            }
+          - { label: "Hero Headline", name: heroHeadline, widget: string }
+          - {
+              label: "Hero Subheading (batch info)",
+              name: heroSubheading,
+              widget: string,
+              hint: "e.g. 'Limited Release: Batch 015 now curing in the studio.'",
+            }
+          - { label: "Collection Tag", name: collectionTag, widget: string }
+          - { label: "Collection Headline", name: collectionHeadline, widget: string }
+          - { label: "Collection Description", name: collectionDescription, widget: text }
+          - { label: "Inner Circle Headline", name: innerCircleHeadline, widget: string }
+          - { label: "Inner Circle Description", name: innerCircleDescription, widget: text }
+          - { label: "Testimonials Tag", name: testimonialsTag, widget: string }
+          - name: testimonials
+            label: Testimonials
+            widget: list
+            fields:
+              - { label: Quote, name: quote, widget: text }
+              - { label: "Author Name", name: author, widget: string }
+              - { label: Location, name: location, widget: string }
+              - { label: "Badge (e.g. Verified Ritualist)", name: badge, widget: string }
+
+  - name: about
+    label: About Page
+    files:
+      - name: about
+        label: About Page
+        file: content/about.json
+        fields:
+          - { label: "Methodology Tag", name: methodologyTag, widget: string }
+          - { label: "Methodology Headline", name: methodologyHeadline, widget: string }
+          - { label: "Methodology Description", name: methodologyDescription, widget: text }
+          - { label: "Methodology Image Alt Text", name: methodologyImageAlt, widget: string }
+          - name: methodologySteps
+            label: "4-Step Process"
+            widget: list
+            fields:
+              - { label: "Step Number (e.g. 01)", name: step, widget: string }
+              - { label: Title, name: title, widget: string }
+              - { label: Description, name: description, widget: text }
+          - { label: "Founder Tag", name: founderTag, widget: string }
+          - { label: "Founder Headline", name: founderHeadline, widget: string }
+          - { label: "Founder Photo", name: founderImageUrl, widget: image }
+          - { label: "Founder Photo Alt Text", name: founderImageAlt, widget: string }
+          - { label: "Founder Story – Paragraph 1", name: founderStory1, widget: text }
+          - { label: "Founder Story – Paragraph 2", name: founderStory2, widget: text }
+          - { label: "Founder Role / Title", name: founderRole, widget: string }
+          - { label: "FAQ Headline", name: faqHeadline, widget: string }
+          - { label: "FAQ Subheading", name: faqSubheading, widget: string }
+          - name: faq
+            label: FAQ Items
+            widget: list
+            fields:
+              - { label: Question, name: question, widget: string }
+              - { label: Answer, name: answer, widget: text }
+
+  - name: ritual
+    label: Ritual Page
+    files:
+      - name: ritual
+        label: Ritual Page
+        file: content/ritual.json
+        fields:
+          - { label: "Philosophy Tag", name: philosophyTag, widget: string }
+          - { label: "Philosophy Headline", name: philosophyHeadline, widget: string }
+          - {
+              label: "Philosophy Paragraphs",
+              name: philosophyParagraphs,
+              widget: list,
+              field: { label: Paragraph, widget: text },
+            }
+          - { label: "Candle Care Tag", name: careTipsTag, widget: string }
+          - name: careTips
+            label: "Candle Care Tips"
+            widget: list
+            fields:
+              - { label: Title, name: title, widget: string }
+              - { label: Body, name: body, widget: text }
+          - { label: "Materials Tag", name: materialsTag, widget: string }
+          - {
+              label: "Materials Paragraphs",
+              name: materialsParagraphs,
+              widget: list,
+              field: { label: Paragraph, widget: text },
+            }
+
+  - name: site
+    label: Site Settings
+    files:
+      - name: site
+        label: Site Settings
+        file: content/site.json
+        fields:
+          - { label: "Brand Name", name: brandName, widget: string }
+          - { label: "Footer Tagline", name: footerTagline, widget: text }
+          - { label: "Instagram URL", name: instagramUrl, widget: string }
+          - { label: "Etsy Shop URL", name: etsyUrl, widget: string }
+          - { label: "Website URL", name: websiteUrl, widget: string }
+          - { label: "Copyright Year", name: copyrightYear, widget: string }
+          - { label: "Copyright Name", name: copyrightName, widget: string }
