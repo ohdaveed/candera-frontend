@@ -4,7 +4,7 @@ export default function handler(req, res) {
   const state = crypto.randomUUID();
   const params = new URLSearchParams({
     client_id: process.env.GITHUB_OAUTH_CLIENT_ID,
-    scope: "repo,user",
+    scope: "repo user",
     state,
   });
   const redirectUrl = `https://github.com/login/oauth/authorize?${params}`;
