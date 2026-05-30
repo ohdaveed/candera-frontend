@@ -78,7 +78,7 @@ export default defineConfig({
   resolve: {
     alias: {
       "@": path.resolve(cwd(), "./src"),
-    "@content": path.resolve(cwd(), "./content"),
+      "@content": path.resolve(cwd(), "./content"),
     },
   },
   staged: {
