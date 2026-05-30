@@ -7,7 +7,7 @@ import { NewsletterSubscribe } from "../components/forms/NewsletterSubscribe";
 import { Stack, Cluster } from "@/components/ui/stack";
 import { Section, Container, Grid } from "@/components/ui/section";
 import { Overlay } from "@/components/ui/overlay";
-import home from "../../content/home.json";
+import home from "@content/home.json";
 
 const heroImg = "/images/minimalist-airy-home.png";
 

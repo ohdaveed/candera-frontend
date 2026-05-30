@@ -1,5 +1,5 @@
 import { Stack } from "@/components/ui/stack";
-import ritual from "../../content/ritual.json";
+import ritual from "@content/ritual.json";
 
 export default function Ritual() {
   return (

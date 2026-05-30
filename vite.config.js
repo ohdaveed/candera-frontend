@@ -78,6 +78,7 @@ export default defineConfig({
   resolve: {
     alias: {
       "@": path.resolve(cwd(), "./src"),
+    "@content": path.resolve(cwd(), "./content"),
     },
   },
   staged: {
@@ -91,6 +92,7 @@ export default defineConfig({
     },
     env: {
       builtin: true,
+      node: true,
     },
     ignorePatterns: ["dist", ".agents", ".superpowers", "test-results"],
     overrides: [
@@ -162,6 +164,16 @@ export default defineConfig({
         },
         env: {
           node: true,
+        },
+      },
+      {
+        files: ["src/tests/*.test.js"],
+        rules: {
+          "no-undef": "error",
+        },
+        env: {
+          node: true,
+          builtin: true,
         },
       },
       {
@@ -247,6 +259,9 @@ export default defineConfig({
       typeAware: true,
       typeCheck: true,
     },
+  },
+  test: {
+    include: ["api/**/*.test.js", "content/**/*.test.js", "src/**/*.test.js"],
   },
   plugins: [react(), tailwindcss(), vercelApiPlugin()],
 });

@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { Camera, MessageSquare, Globe, ExternalLink } from "lucide-react";
 import { Stack, Cluster } from "@/components/ui/stack";
 import { Grid } from "@/components/ui/section";
-import site from "../../content/site.json";
+import site from "@content/site.json";
 
 export default function Footer() {
   return (

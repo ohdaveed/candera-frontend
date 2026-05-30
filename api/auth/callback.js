@@ -1,7 +1,24 @@
+function parseCookies(header) {
+  return Object.fromEntries(
+    (header ?? "").split(";").map((c) => {
+      const eq = c.indexOf("=");
+      return eq === -1 ? [c.trim(), ""] : [c.slice(0, eq).trim(), c.slice(eq + 1).trim()];
+    }),
+  );
+}
+
 export default async function handler(req, res) {
   const query =
     req.query || Object.fromEntries(new URL(req.url, "http://localhost").searchParams.entries());
-  const { code } = query;
+  const { code, state } = query;
+  const cookies = parseCookies(req.headers?.cookie);
+  const expectedState = cookies._csrf_state;
+
+  if (!expectedState || state !== expectedState) {
+    res.statusCode = 403;
+    res.end("Invalid state parameter — possible CSRF attack");
+    return;
+  }
 
   if (!code) {
     res.statusCode = 400;

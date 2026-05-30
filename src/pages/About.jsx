@@ -1,6 +1,6 @@
 import { Stack, Cluster } from "@/components/ui/stack";
 import { Section, Container, Grid } from "@/components/ui/section";
-import about from "../../content/about.json";
+import about from "@content/about.json";
 
 export default function About() {
   return (
