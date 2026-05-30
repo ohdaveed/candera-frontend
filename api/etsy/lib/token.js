@@ -13,9 +13,12 @@ export async function getAccessToken() {
   // Deduplicate concurrent refresh calls (important in the Express/server.js context)
   if (_pendingRefresh) return _pendingRefresh;
 
-  const keystring = process.env.ETSY_KEYSTRING;
-  const refreshToken = process.env.ETSY_REFRESH_TOKEN;
+  const keystring = (process.env.ETSY_KEYSTRING || "").trim();
+  const refreshToken = (process.env.ETSY_REFRESH_TOKEN || "").trim();
   if (!keystring || !refreshToken) return null;
+
+  // Extract client_id if keystring contains a secret
+  const clientId = keystring.includes(":") ? keystring.split(":")[0].trim() : keystring;
 
   _pendingRefresh = (async () => {
     const response = await fetch(TOKEN_URL, {
@@ -23,7 +26,7 @@ export async function getAccessToken() {
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
       body: new URLSearchParams({
         grant_type: "refresh_token",
-        client_id: keystring,
+        client_id: clientId,
         refresh_token: refreshToken,
       }),
     });
