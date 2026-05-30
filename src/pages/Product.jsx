@@ -1,9 +1,8 @@
 import { useParams, Link } from "react-router-dom";
-import { getImage } from "../data/productImages";
-import { useProductSync } from "../hooks/useProductSync";
-import RedirectButton from "../components/RedirectButton";
-import { Stack, Cluster } from "@/components/ui/stack";
-import { Container, Grid } from "@/components/ui/section";
+import { getImage } from "@/data/productImages";
+import { useProductSync } from "@/hooks/useProductSync";
+import RedirectButton from "@/components/RedirectButton";
+import { Stack, Cluster, Container, Grid } from "@/components/ui";
 
 export default function Product() {
   const { slug } = useParams();

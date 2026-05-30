@@ -1,10 +1,9 @@
 import { useState } from "react";
 import { Clock3, Eye, FileText, Hash, ListOrdered, Trash2, Upload } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Container, Grid, Section } from "@/components/ui/section";
-import { Cluster, Stack } from "@/components/ui/stack";
+import {
+  Button, Input, Card, CardContent, CardDescription, CardHeader, CardTitle,
+  Container, Grid, Section, Cluster, Stack,
+} from "@/components/ui";
 import { PARSE_STATUS } from "./store";
 import { useExhibitSync } from "./useExhibitSync";
 

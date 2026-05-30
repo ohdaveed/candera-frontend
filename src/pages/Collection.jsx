@@ -1,13 +1,12 @@
 import { useState, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
-import { getImage } from "../data/productImages";
-import { useProductSync } from "../hooks/useProductSync";
-import SensoryMap from "../components/SensoryMap";
-import FilterBar from "../components/FilterBar";
-import { cn } from "../lib/utils";
-import { Stack, Cluster } from "@/components/ui/stack";
-import { Grid } from "@/components/ui/section";
+import { getImage } from "@/data/productImages";
+import { useProductSync } from "@/hooks/useProductSync";
+import SensoryMap from "@/components/SensoryMap";
+import FilterBar from "@/components/FilterBar";
+import { cn } from "@/lib/utils";
+import { Stack, Cluster, Grid } from "@/components/ui";
 
 const TAG_STYLES = {
   "Limited Batch": "bg-candera-ember text-white",

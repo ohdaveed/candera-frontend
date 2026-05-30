@@ -31,9 +31,14 @@ Thumbs.db
 
 # Build
 .cache
+.cache_ggshield
 
 # Gemini
 .gemini/
+GEMINI.md
 
 # Impeccable
 .impeccable/
+
+# Lockfiles
+bun.lock

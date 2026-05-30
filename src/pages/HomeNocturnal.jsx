@@ -2,15 +2,11 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Star, Mail, BadgeCheck } from "lucide-react";
 import { motion } from "framer-motion";
-import { getImage } from "../data/productImages";
-import { useProductSync } from "../hooks/useProductSync";
-import RedirectButton from "../components/RedirectButton";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import HeroNocturnal from "../components/HeroNocturnal";
-import { Stack, Cluster } from "@/components/ui/stack";
-import { Section, Container, Grid } from "@/components/ui/section";
-import { Overlay } from "@/components/ui/overlay";
+import { getImage } from "@/data/productImages";
+import { useProductSync } from "@/hooks/useProductSync";
+import RedirectButton from "@/components/RedirectButton";
+import { Button, Badge, Stack, Cluster, Section, Container, Grid, Overlay } from "@/components/ui";
+import HeroNocturnal from "@/components/HeroNocturnal";
 
 const TESTIMONIALS = [
   {

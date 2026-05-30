@@ -1,9 +1,8 @@
 import { Link } from "react-router-dom";
-import { getImage } from "../../data/productImages";
-import RedirectButton from "../RedirectButton";
+import { getImage } from "@/data/productImages";
+import RedirectButton from "@/components/RedirectButton";
 import { FragranceProfileCard } from "./FragranceProfileCard";
-import { Cluster, Stack } from "@/components/ui/stack";
-import { Grid } from "@/components/ui/section";
+import { Cluster, Stack, Grid } from "@/components/ui";
 
 function ProductCard({ candle }) {
   const price = Number(candle?.price);

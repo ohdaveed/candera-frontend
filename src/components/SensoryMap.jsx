@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Cluster } from "@/components/ui/stack";
+import { Cluster } from "@/components/ui";
 
 export default function SensoryMap({ products = [] }) {
   const [hovered, setHovered] = useState(null);

@@ -1,9 +1,6 @@
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Stack } from "@/components/ui/stack";
-import { Grid } from "@/components/ui/section";
-import { Overlay } from "@/components/ui/overlay";
+import { Button, Stack, Grid, Overlay } from "@/components/ui";
 
 export default function HeroNocturnal({ openQuiz }) {
   return (

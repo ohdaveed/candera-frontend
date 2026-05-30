@@ -1,5 +1,5 @@
 import { cn } from "../lib/utils";
-import { Cluster } from "@/components/ui/stack";
+import { Cluster } from "@/components/ui";
 
 const SORT_OPTIONS = [
   { value: "featured", label: "Featured" },

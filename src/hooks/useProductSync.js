@@ -130,7 +130,6 @@ export function toProductShape(listing, index) {
       batch: vessel,
     },
     etsy_id: String(listing?.listing_id ?? ""),
-    image: listing?.image_url ?? null,
     etsy_link: listing?.url ?? etsyShopUrl,
     tag: tags.includes("Bestseller") ? "Bestseller" : tags.includes("New") ? "New Release" : null,
     atmosphere: tags[1] ?? "Handcrafted",
