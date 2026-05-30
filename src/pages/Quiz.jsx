@@ -76,6 +76,11 @@ export default function Quiz() {
       return;
     }
     setEmailError("");
+    fetch("/api/subscribe", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email: trimmed, match: resultSlug }),
+    }).catch(() => {});
     setDone(true);
   }
 

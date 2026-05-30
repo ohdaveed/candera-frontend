@@ -9,6 +9,9 @@ const candleNames = {
   "ever-after-glow": "Ever After Glow",
 };
 
+const inputClass =
+  "bg-transparent border border-candera-stone px-4 py-3 text-sm text-candera-obsidian placeholder:text-candera-stone focus:outline-none focus:border-candera-obsidian transition-colors";
+
 export default function InnerCircle() {
   const [searchParams] = useSearchParams();
   const match = searchParams.get("match");
@@ -67,27 +70,39 @@ export default function InnerCircle() {
             </p>
           </Stack>
         ) : (
-          <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+          <Stack as="form" onSubmit={handleSubmit} className="gap-4">
             <Stack className="gap-1">
-              <label className="text-xs tracking-widest uppercase text-candera-sage">Name</label>
+              <label
+                htmlFor="ic-name"
+                className="text-xs tracking-widest uppercase text-candera-sage"
+              >
+                Name
+              </label>
               <input
+                id="ic-name"
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 required
                 placeholder="Your name"
-                className="bg-transparent border border-candera-stone px-4 py-3 text-sm text-candera-obsidian placeholder:text-candera-stone focus:outline-none focus:border-candera-obsidian transition-colors"
+                className={inputClass}
               />
             </Stack>
             <Stack className="gap-1">
-              <label className="text-xs tracking-widest uppercase text-candera-sage">Email</label>
+              <label
+                htmlFor="ic-email"
+                className="text-xs tracking-widest uppercase text-candera-sage"
+              >
+                Email
+              </label>
               <input
+                id="ic-email"
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
                 placeholder="your@email.com"
-                className="bg-transparent border border-candera-stone px-4 py-3 text-sm text-candera-obsidian placeholder:text-candera-stone focus:outline-none focus:border-candera-obsidian transition-colors"
+                className={inputClass}
               />
             </Stack>
             {status === "error" && (
@@ -100,7 +115,7 @@ export default function InnerCircle() {
             >
               {status === "loading" ? "Requesting..." : "Request Entry"}
             </button>
-          </form>
+          </Stack>
         )}
       </div>
     </main>

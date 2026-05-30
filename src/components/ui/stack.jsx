@@ -1,10 +1,10 @@
 import { cn } from "@/lib/utils";
 
-export function Stack({ className, children, ...props }) {
+export function Stack({ as: Component = "div", className, children, ...props }) {
   return (
-    <div className={cn("flex flex-col", className)} {...props}>
+    <Component className={cn("flex flex-col", className)} {...props}>
       {children}
-    </div>
+    </Component>
   );
 }
 

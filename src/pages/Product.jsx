@@ -3,7 +3,7 @@ import { getImage } from "../data/productImages";
 import { useProductSync } from "../hooks/useProductSync";
 import RedirectButton from "../components/RedirectButton";
 import { Stack, Cluster } from "@/components/ui/stack";
-import { Container, Grid } from "@/components/ui/section";
+import { Grid } from "@/components/ui/section";
 
 export default function Product() {
   const { slug } = useParams();
@@ -36,7 +36,7 @@ export default function Product() {
 
   return (
     <main className="pt-24 min-h-screen">
-      <Container className="max-w-5xl py-16 grid-cols-1 md:grid-cols-2 gap-16">
+      <Grid className="mx-auto max-w-5xl py-16 grid-cols-1 md:grid-cols-2 gap-16">
         {/* Image */}
         <div className="aspect-square overflow-hidden">
           <img src={img} alt={product.name} loading="lazy" className="w-full h-full object-cover" />
@@ -102,7 +102,7 @@ export default function Product() {
           {product.details?.length > 0 && (
             <div className="border-t border-candera-stone/40 pt-6">
               <p className="text-xs tracking-widest uppercase text-candera-sage mb-3">Details</p>
-              <Stack className="gap-1">
+              <Stack as="ul" className="gap-1 list-none">
                 {product.details.map((d) => (
                   <li key={d} className="text-xs text-candera-obsidian/70">
                     {d}
@@ -127,7 +127,7 @@ export default function Product() {
             />
           </div>
         </Stack>
-      </Container>
+      </Grid>
 
       <div className="border-t border-candera-stone/40 px-6 md:px-16 py-8 text-center">
         <Link
