@@ -1,5 +1,4 @@
-import { Stack, Cluster } from "@/components/ui/stack";
-import { Section, Container, Grid } from "@/components/ui/section";
+import { Stack, Cluster, Section, Container, Grid } from "@/components/ui";
 
 export default function About() {
   return (

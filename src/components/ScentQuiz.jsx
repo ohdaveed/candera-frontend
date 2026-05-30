@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Sparkles, CheckCircle2, ChevronRight } from "lucide-react";
-import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
-import { Stack } from "@/components/ui/stack";
+import { Dialog, DialogContent, DialogTitle, Stack } from "@/components/ui";
 
 const QUESTIONS = [
   {

@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { getImage } from "../data/productImages";
-import { useProductSync } from "../hooks/useProductSync";
-import { Stack, Cluster } from "@/components/ui/stack";
+import { getImage } from "@/data/productImages";
+import { useProductSync } from "@/hooks/useProductSync";
+import { Stack, Cluster } from "@/components/ui";
 
 const questions = [
   {
