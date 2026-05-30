@@ -17,7 +17,6 @@
   "dependencies": {
     "@vercel/analytics": "^2.0.1",
     "@vercel/speed-insights": "^2.0.0",
-    "ai": "^6.0.193",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "framer-motion": "^12.38.0",
@@ -41,7 +40,6 @@
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
     "tailwindcss": "^4.3.0",
-    "tsx": "^4.22.3",
     "typescript": "^6.0.3",
     "vite": "npm:@voidzero-dev/vite-plus-core@latest",
     "vite-plus": "latest"
