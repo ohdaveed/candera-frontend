@@ -1,6 +1,5 @@
 import { Clock } from "lucide-react";
-import { Grid } from "@/components/ui/section";
-import { Cluster, Stack } from "@/components/ui/stack";
+import { Grid, Cluster, Stack } from "@/components/ui";
 
 const PROFILE_LABELS = [
   ["top", "Top"],

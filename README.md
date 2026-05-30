@@ -31,7 +31,7 @@ This project is configured for advanced AI agent collaboration with the followin
 
 - `src/App.jsx`: Main entry point and routing configuration.
 - `src/pages/`: Route-level views (Home, Collection, Product, Ritual, Quiz, Inner Circle).
-- `src/components/`: Reusable UI components (Nav, Footer, Scent Quiz).
+- `src/components/`: Shared UI components (Nav, Footer, Scent Quiz).
 - `src/components/catalog/`: Catalog presentation components, including `ProductGrid` and `FragranceProfileCard`.
 - `src/components/forms/NewsletterSubscribe.jsx`: Inner Circle email form state and validation surface.
 - `src/modules/exhibitSync/`: Isolated multi-panel exhibit synchronization module served at `/exhibit-sync`.

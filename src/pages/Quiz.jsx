@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { getImage } from "../data/productImages";
-import { useProductSync } from "../hooks/useProductSync";
-import { Stack, Cluster } from "@/components/ui/stack";
+import { getImage } from "@/data/productImages";
+import { useProductSync } from "@/hooks/useProductSync";
+import { Stack, Cluster } from "@/components/ui";
 
 const questions = [
   {
@@ -76,11 +76,6 @@ export default function Quiz() {
       return;
     }
     setEmailError("");
-    fetch("/api/subscribe", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email: trimmed, match: resultSlug }),
-    }).catch(() => {});
     setDone(true);
   }
 

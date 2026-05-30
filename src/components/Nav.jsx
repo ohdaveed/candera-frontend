@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { NavLink, Link, useLocation } from "react-router-dom";
 import { Menu, X, ShoppingBag, Sparkles } from "lucide-react";
-import { Cluster } from "@/components/ui/stack";
+import { Cluster } from "@/components/ui";
 
 export default function Nav({ openQuiz }) {
   const [scrolled, setScrolled] = useState(false);

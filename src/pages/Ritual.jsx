@@ -1,4 +1,4 @@
-import { Stack } from "@/components/ui/stack";
+import { Stack } from "@/components/ui";
 
 export default function Ritual() {
   return (

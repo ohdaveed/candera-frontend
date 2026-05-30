@@ -1,12 +1,10 @@
 import { ArrowRight, Star, Mail, BadgeCheck } from "lucide-react";
 import { motion } from "framer-motion";
-import { getImage } from "../data/productImages";
-import { useProductSync } from "../hooks/useProductSync";
-import { ProductGrid } from "../components/catalog/ProductGrid";
-import { NewsletterSubscribe } from "../components/forms/NewsletterSubscribe";
-import { Stack, Cluster } from "@/components/ui/stack";
-import { Section, Container, Grid } from "@/components/ui/section";
-import { Overlay } from "@/components/ui/overlay";
+import { getImage } from "@/data/productImages";
+import { useProductSync } from "@/hooks/useProductSync";
+import { ProductGrid } from "@/components/catalog/ProductGrid";
+import { NewsletterSubscribe } from "@/components/forms/NewsletterSubscribe";
+import { Stack, Cluster, Section, Container, Grid, Overlay } from "@/components/ui";
 
 const heroImg = "/images/minimalist-airy-home.png";
 

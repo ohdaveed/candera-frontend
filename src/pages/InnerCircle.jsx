@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import { Stack } from "@/components/ui/stack";
+import { Stack } from "@/components/ui";
 
 const candleNames = {
   "seashell-garden-glow": "Seashell Garden Glow",
@@ -63,23 +63,17 @@ export default function InnerCircle() {
         </Stack>
 
         {status === "success" ? (
-          <Stack className="text-center py-8 gap-3">
-            <p className="font-editorial text-2xl text-candera-obsidian">Request received.</p>
+          <div className="text-center py-8">
+            <p className="font-serif text-2xl text-candera-obsidian mb-3">Request received.</p>
             <p className="text-sm text-candera-sage">
               We'll be in touch before the next batch drops.
             </p>
-          </Stack>
+          </div>
         ) : (
-          <Stack as="form" onSubmit={handleSubmit} className="gap-4">
-            <Stack className="gap-1">
-              <label
-                htmlFor="ic-name"
-                className="text-xs tracking-widest uppercase text-candera-sage"
-              >
-                Name
-              </label>
+          <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+            <div className="flex flex-col gap-1">
+              <label className="text-xs tracking-widest uppercase text-candera-sage">Name</label>
               <input
-                id="ic-name"
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
@@ -87,16 +81,10 @@ export default function InnerCircle() {
                 placeholder="Your name"
                 className={inputClass}
               />
-            </Stack>
-            <Stack className="gap-1">
-              <label
-                htmlFor="ic-email"
-                className="text-xs tracking-widest uppercase text-candera-sage"
-              >
-                Email
-              </label>
+            </div>
+            <div className="flex flex-col gap-1">
+              <label className="text-xs tracking-widest uppercase text-candera-sage">Email</label>
               <input
-                id="ic-email"
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -104,7 +92,7 @@ export default function InnerCircle() {
                 placeholder="your@email.com"
                 className={inputClass}
               />
-            </Stack>
+            </div>
             {status === "error" && (
               <p className="text-xs text-red-500">Something went wrong. Please try again.</p>
             )}
@@ -115,7 +103,7 @@ export default function InnerCircle() {
             >
               {status === "loading" ? "Requesting..." : "Request Entry"}
             </button>
-          </Stack>
+          </form>
         )}
       </div>
     </main>

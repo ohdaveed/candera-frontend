@@ -2,15 +2,11 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Star, Mail, BadgeCheck } from "lucide-react";
 import { motion } from "framer-motion";
-import { getImage } from "../data/productImages";
-import { useProductSync } from "../hooks/useProductSync";
-import RedirectButton from "../components/RedirectButton";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import HeroNocturnal from "../components/HeroNocturnal";
-import { Stack, Cluster } from "@/components/ui/stack";
-import { Section, Container, Grid } from "@/components/ui/section";
-import { Overlay } from "@/components/ui/overlay";
+import { getImage } from "@/data/productImages";
+import { useProductSync } from "@/hooks/useProductSync";
+import RedirectButton from "@/components/RedirectButton";
+import { Button, Badge, Stack, Cluster, Section, Container, Grid, Overlay } from "@/components/ui";
+import HeroNocturnal from "@/components/HeroNocturnal";
 
 const TESTIMONIALS = [
   {
@@ -37,7 +33,6 @@ const TESTIMONIALS = [
 
 export default function HomeNocturnal({ openQuiz }) {
   const { products } = useProductSync();
-  const [email, setEmail] = useState("");
   const [formStatus, setFormStatus] = useState("");
 
   return (
@@ -76,7 +71,7 @@ export default function HomeNocturnal({ openQuiz }) {
                 <Stack key={candle.slug} className={`gap-12 ${isOffset ? "md:pt-32" : ""}`}>
                   <Link
                     to={`/collection/${candle.slug}`}
-                    className="group block relative aspect-[4/5] overflow-hidden bg-stone-900 shadow-2xl"
+                    className="block relative aspect-[4/5] overflow-hidden bg-stone-900 shadow-2xl"
                   >
                     <img
                       src={getImage(candle.slug)}
@@ -84,13 +79,11 @@ export default function HomeNocturnal({ openQuiz }) {
                       loading="lazy"
                       className="w-full h-full object-cover grayscale brightness-75 group-hover:grayscale-0 group-hover:brightness-100 transition-all duration-[2s] group-hover:scale-105"
                     />
-                    {candle.tag && (
-                      <Stack className="absolute top-8 left-8 gap-2">
-                        <Badge className="bg-candera-lavender text-candera-obsidian px-4 py-1 text-[9px] uppercase tracking-widest font-bold shadow-xl border-none rounded-none">
-                          {candle.tag}
-                        </Badge>
-                      </Stack>
-                    )}
+                    <Stack className="absolute top-8 left-8 gap-2">
+                      <Badge className="bg-candera-lavender text-candera-obsidian px-4 py-1 text-[9px] uppercase tracking-widest font-bold shadow-xl border-none rounded-none">
+                        {candle.tag}
+                      </Badge>
+                    </Stack>
                   </Link>
 
                   <Stack className="gap-10 px-4">
@@ -196,30 +189,14 @@ export default function HomeNocturnal({ openQuiz }) {
           </Stack>
           <form
             className="flex flex-col md:flex-row gap-8 max-w-xl mx-auto"
-            onSubmit={async (e) => {
+            onSubmit={(e) => {
               e.preventDefault();
-              try {
-                const res = await fetch("/api/subscribe", {
-                  method: "POST",
-                  headers: { "Content-Type": "application/json" },
-                  body: JSON.stringify({ email }),
-                });
-                if (!res.ok) throw new Error();
-                setFormStatus("You're on the list. Watch your inbox.");
-              } catch {
-                setFormStatus("Something went wrong. Please try again.");
-              }
+              setFormStatus("You're on the list. Watch your inbox.");
             }}
           >
-            <label htmlFor="nocturnal-email" className="sr-only">
-              Email address
-            </label>
             <input
-              id="nocturnal-email"
               type="email"
               required
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
               placeholder="ritual@email.com"
               className="flex-1 bg-transparent border-b border-candera-lavender/20 py-4 text-candera-vellum outline-none focus:border-candera-lavender transition-colors placeholder:text-stone-800 font-editorial italic text-xl"
             />

@@ -4,7 +4,7 @@ _Created by /design-consultation · Approved mockup: Variant C · 2026-05-10_
 
 ## Product Context
 
-- **What this is:** A luxury botanical candle storefront — hand-poured, micro-batch, sensory revolution
+- **What this is:** A luxury botanical candle storefront — hand-poured, micro-batch, high desert origin, sensory revolution
 - **Who it's for:** The spiritual/ritual buyer who treats scent as a practice, not decoration (Otherland, Boy Smells territory)
 - **Space/industry:** Premium DTC home goods / wellness / botanical
 - **Project type:** Headless e-commerce storefront (React + Vite)
@@ -19,7 +19,7 @@ _Created by /design-consultation · Approved mockup: Variant C · 2026-05-10_
 
 ## Color
 
-**Approach:** Restrained — palette tells the same story as the product. Botanical clarity, not spa.
+**Approach:** Restrained — palette tells the same story as the product. Botanical clarity and high desert stillness, not spa.
 
 | Token              | Hex       | Usage                                                                           |
 | ------------------ | --------- | ------------------------------------------------------------------------------- |
@@ -30,7 +30,7 @@ _Created by /design-consultation · Approved mockup: Variant C · 2026-05-10_
 | `candera-sage`     | `#7A8174` | Secondary text, muted labels — field-dried                                      |
 | `candera-stone`    | `#C8BAA6` | Borders, dividers — desaturated and mineral                                     |
 | `candera-ash`      | `#E2DDD6` | Quiet UI moments, section breaks                                                |
-| `candera-ember`    | `#D67B62` | Warm accent — Inner Circle CTAs, ritual moments.                                |
+| `candera-ember`    | `#D67B62` | Warm accent — Inner Circle CTAs, hover states, ritual moments.                  |
 
 **Dark mode strategy:** Invert: obsidian as background surface, vellum as text, lavender and ember accents stay.
 
@@ -39,6 +39,7 @@ _Created by /design-consultation · Approved mockup: Variant C · 2026-05-10_
 ```css
 @theme {
   --color-candera-vellum: #f5f2ed;
+  --color-candera-field: #d8d5cc;
   --color-candera-lavender: #9b8c9f;
   --color-candera-obsidian: #141412;
   --color-candera-sage: #7a8174;
@@ -144,9 +145,9 @@ Nearly-square throughout. No bubble-radius.
 
 ## Decisions Log
 
-| Date       | Decision                                | Rationale                                                                                                                                   |
-| ---------- | --------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
-| 2026-05-10 | Initial design system created           | /design-consultation, approved Variant C (sage-olive two-panel editorial direction)                                                         |
-| 2026-05-10 | Replaced Inter with DM Sans             | Inter is the "I gave up on typography" signal. DM Sans has the same readability with more warmth and no SaaS baggage.                       |
-| 2026-05-10 | Replaced Playfair Display with Fraunces | Fraunces has the optical-size variable axis that makes it feel pressed at hero scale. Playfair Display is the generic luxury default.       |
-| 2026-05-10 | Dropped lavender, added field + ember   | Lavender doesn't fit the vision. Field (#D8D5CC) is the sage-panel from the approved mockup. Ember (#D67B62) is the warm terracotta accent. |
+| Date       | Decision                                | Rationale                                                                                                                               |
+| ---------- | --------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+| 2026-05-10 | Initial design system created           | /design-consultation, approved Variant C (sage-olive two-panel editorial direction)                                                     |
+| 2026-05-10 | Replaced Inter with DM Sans             | Inter is the "I gave up on typography" signal. DM Sans has the same readability with more warmth and no SaaS baggage.                   |
+| 2026-05-10 | Replaced Playfair Display with Fraunces | Fraunces has the optical-size variable axis that makes it feel pressed at hero scale. Playfair Display is the generic luxury default.   |
+| 2026-05-10 | Added field, lavender + ember           | Field (#D8D5CC) is the sage-panel from approved mockup. Lavender (#9B8C9F) is the brand accent. Ember (#D67B62) is the warm terracotta. |

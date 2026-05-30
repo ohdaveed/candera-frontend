@@ -33,4 +33,9 @@ Thumbs.db
 
 # Gemini
 .gemini/
-.env*
+
+# Impeccable
+.impeccable/
+
+# Lockfiles
+bun.lock
