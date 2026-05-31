@@ -1,4 +1,5 @@
 import { createHash, randomBytes } from "node:crypto";
+import { resolveClientId } from "../config.js";
 
 const AUTH_URL = "https://www.etsy.com/oauth/connect";
 const COOKIE_MAX_AGE = 600;
@@ -39,7 +40,7 @@ export default function handler(req, res) {
     `etsy_helper_pkce=${codeVerifier}|${state}; HttpOnly${secure}; SameSite=Lax; Max-Age=${COOKIE_MAX_AGE}; Path=/`,
   );
 
-  const clientId = keystring.includes(":") ? keystring.split(":")[0].trim() : keystring;
+  const clientId = resolveClientId(keystring);
 
   const url = new URL(AUTH_URL);
   url.searchParams.set("response_type", "code");

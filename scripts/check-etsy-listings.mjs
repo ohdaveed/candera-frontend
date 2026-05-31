@@ -1,5 +1,6 @@
 import dotenv from "dotenv";
 import { getAccessToken } from "../api/etsy/lib/token.js";
+import { buildXApiKey } from "../api/etsy/config.js";
 
 dotenv.config({ path: ".env" });
 
@@ -7,7 +8,7 @@ void (async () => {
   const SHOP_ID = process.env.ETSY_SHOP_ID;
   console.log("SHOP_ID:", SHOP_ID);
   const KEY = (process.env.ETSY_KEYSTRING || "").trim();
-  const CLIENT_ID = KEY.includes(":") ? KEY.split(":")[0] : KEY;
+  const xApiKey = buildXApiKey(KEY);
   if (!SHOP_ID || !KEY) {
     console.error("Missing ETSY_SHOP_ID or ETSY_KEYSTRING in .env");
     process.exit(1);
@@ -15,8 +16,11 @@ void (async () => {
 
   try {
     const token = await getAccessToken();
-    const headers = { "x-api-key": CLIENT_ID };
-    console.log("Using client id:", CLIENT_ID);
+    const headers = { "x-api-key": xApiKey };
+    console.log(
+      "Calling Etsy with x-api-key mode:",
+      xApiKey.includes(":") ? "key:secret" : "key-only",
+    );
     console.log("Token present:", !!token, token ? `len=${token.length}` : "");
     if (token) headers.Authorization = `Bearer ${token}`;
 
@@ -47,9 +51,9 @@ void (async () => {
 void (async () => {
   const SHOP_ID = process.env.ETSY_SHOP_ID;
   const KEY = (process.env.ETSY_KEYSTRING || "").trim();
-  const CLIENT_ID = KEY.includes(":") ? KEY.split(":")[0] : KEY;
   const token = await getAccessToken().catch(() => null);
-  const headers = { "x-api-key": CLIENT_ID };
+  const xApiKey2 = buildXApiKey(KEY);
+  const headers = { "x-api-key": xApiKey2 };
   if (token) headers.Authorization = `Bearer ${token}`;
   const API_BASE = (process.env.ETSY_API_BASE || "https://openapi.etsy.com").replace(/\/$/, "");
   const shopUrl = `${API_BASE}/v3/application/shops/${SHOP_ID}`;

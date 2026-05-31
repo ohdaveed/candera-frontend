@@ -1,5 +1,6 @@
 import dotenv from "dotenv";
 import { getAccessToken } from "../api/etsy/lib/token.js";
+import { buildXApiKey } from "../api/etsy/config.js";
 
 dotenv.config({ path: ".env" });
 
@@ -10,9 +11,7 @@ void (async () => {
     process.exit(1);
   }
   const KEY = (process.env.ETSY_KEYSTRING || "").trim();
-  const SHARED = (process.env.ETSY_SHARED_SECRET || "").trim();
-  const CLIENT_ID = KEY.includes(":") ? KEY.split(":")[0] : KEY;
-  const xApiKey = KEY.includes(":") ? KEY : SHARED ? `${CLIENT_ID}:${SHARED}` : CLIENT_ID;
+  const xApiKey = buildXApiKey(KEY);
   const token = await getAccessToken().catch(() => null);
   const headers = { "x-api-key": xApiKey };
   if (token) headers.Authorization = `Bearer ${token}`;

@@ -1,5 +1,6 @@
 import dotenv from "dotenv";
 import { getAccessToken } from "../api/etsy/lib/token.js";
+import { buildXApiKey } from "../api/etsy/config.js";
 
 dotenv.config({ path: ".env" });
 
@@ -12,8 +13,8 @@ void (async () => {
     process.exit(1);
   }
 
-  // Build x-api-key: prefer rawKey if it already contains secret, otherwise append shared secret if present
-  const xApiKey = rawKey.includes(":") ? rawKey : shared ? `${rawKey}:${shared}` : rawKey;
+  // Build x-api-key using centralized helper
+  const xApiKey = buildXApiKey(rawKey);
 
   try {
     const token = await getAccessToken().catch(() => null);
