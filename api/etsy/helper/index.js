@@ -19,7 +19,7 @@ export default function handler(req, res) {
     return;
   }
 
-  const keystring = process.env.ETSY_KEYSTRING;
+  const keystring = (process.env.ETSY_KEYSTRING || "").trim();
   const redirectUri = process.env.ETSY_HELPER_REDIRECT_URI;
   const scopes = process.env.ETSY_SCOPES || "email_r listings_r shops_r";
 
@@ -39,9 +39,11 @@ export default function handler(req, res) {
     `etsy_helper_pkce=${codeVerifier}|${state}; HttpOnly${secure}; SameSite=Lax; Max-Age=${COOKIE_MAX_AGE}; Path=/`,
   );
 
+  const clientId = keystring.includes(":") ? keystring.split(":")[0].trim() : keystring;
+
   const url = new URL(AUTH_URL);
   url.searchParams.set("response_type", "code");
-  url.searchParams.set("client_id", keystring);
+  url.searchParams.set("client_id", clientId);
   url.searchParams.set("redirect_uri", redirectUri);
   url.searchParams.set("scope", scopes);
   url.searchParams.set("state", state);

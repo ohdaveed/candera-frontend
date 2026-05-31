@@ -56,8 +56,8 @@ export default async function handler(req, res) {
     return;
   }
 
-  const keystring = process.env.ETSY_KEYSTRING;
-  const redirectUri = process.env.ETSY_REDIRECT_URI;
+  const keystring = (process.env.ETSY_KEYSTRING || "").trim();
+  const redirectUri = (process.env.ETSY_REDIRECT_URI || "").trim();
 
   if (!keystring || !redirectUri) {
     res.statusCode = 500;
@@ -88,12 +88,14 @@ export default async function handler(req, res) {
   const secure = process.env.NODE_ENV === "production" ? "; Secure" : "";
   res.setHeader("Set-Cookie", `etsy_pkce=; HttpOnly${secure}; SameSite=Lax; Max-Age=0; Path=/`);
 
+  const clientId = keystring.includes(":") ? keystring.split(":")[0].trim() : keystring;
+
   const response = await fetch(TOKEN_URL, {
     method: "POST",
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
     body: new URLSearchParams({
       grant_type: "authorization_code",
-      client_id: keystring,
+      client_id: clientId,
       redirect_uri: redirectUrl.toString(),
       code,
       code_verifier: codeVerifier,

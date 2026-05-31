@@ -51,7 +51,7 @@ export default async function handler(req, res) {
     return;
   }
 
-  const keystring = process.env.ETSY_KEYSTRING;
+  const keystring = (process.env.ETSY_KEYSTRING || "").trim();
   const redirectUri = process.env.ETSY_HELPER_REDIRECT_URI;
 
   if (!keystring || !redirectUri) {
@@ -66,12 +66,14 @@ export default async function handler(req, res) {
     `etsy_helper_pkce=; HttpOnly${secure}; SameSite=Lax; Max-Age=0; Path=/`,
   ]);
 
+  const clientId = keystring.includes(":") ? keystring.split(":")[0].trim() : keystring;
+
   const response = await fetch(TOKEN_URL, {
     method: "POST",
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
     body: new URLSearchParams({
       grant_type: "authorization_code",
-      client_id: keystring,
+      client_id: clientId,
       redirect_uri: redirectUri,
       code,
       code_verifier: codeVerifier,
