@@ -1,3 +1,5 @@
+import { buildXApiKey } from "../config.js";
+
 const PING_URL = "https://api.etsy.com/v3/application/openapi-ping";
 
 export default async function handler(req, res) {
@@ -7,18 +9,19 @@ export default async function handler(req, res) {
     return;
   }
 
-  const keystring = process.env.ETSY_KEYSTRING;
-  const sharedSecret = process.env.ETSY_SHARED_SECRET;
+  const keystring = process.env.ETSY_KEYSTRING || "";
+  const xApiKey = buildXApiKey(keystring);
 
-  if (!keystring || !sharedSecret) {
+  if (!xApiKey || !xApiKey.includes(":")) {
     res.statusCode = 500;
-    res.json({ error: "ETSY_KEYSTRING and ETSY_SHARED_SECRET must be set" });
+    res.json({
+      error:
+        "ETSY_KEYSTRING must include the shared secret or set ETSY_SHARED_SECRET in environment",
+    });
     return;
   }
 
-  const response = await fetch(PING_URL, {
-    headers: { "x-api-key": `${keystring}:${sharedSecret}` },
-  });
+  const response = await fetch(PING_URL, { headers: { "x-api-key": xApiKey } });
 
   if (!response.ok) {
     const body = await response.text().catch(() => "");

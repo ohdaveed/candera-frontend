@@ -1,5 +1,5 @@
 import { getAccessToken, getLastTokenInfo } from "./lib/token.js";
-import { apiUrl } from "./config.js";
+import { apiUrl, buildXApiKey } from "./config.js";
 
 function maskKey(keystring, shared) {
   const clientId = keystring
@@ -30,12 +30,8 @@ export default async function handler(req, res) {
 
   const keyInfo = maskKey(keystring, shared);
 
-  // Build x-api-key header value without ever echoing the shared secret back
-  const xApiKey = keyInfo.hasSecretInKey
-    ? keystring
-    : keyInfo.hasShared
-      ? `${keyInfo.clientId}:${shared}`
-      : keyInfo.clientId;
+  // Build x-api-key header value using centralized helper
+  const xApiKey = buildXApiKey(keystring);
 
   let token;
   try {

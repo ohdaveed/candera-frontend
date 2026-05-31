@@ -1,3 +1,5 @@
+import { buildXApiKey } from "../config.js";
+
 const USER_URL = "https://api.etsy.com/v3/application/users";
 
 function parseCookies(header) {
@@ -43,9 +45,10 @@ export default async function handler(req, res) {
   }
 
   const keystring = process.env.ETSY_KEYSTRING;
+  const xApiKey = buildXApiKey(keystring || "");
   const response = await fetch(`${USER_URL}/${encodeURIComponent(rawUserId)}`, {
     headers: {
-      "x-api-key": keystring,
+      "x-api-key": xApiKey,
       Authorization: `Bearer ${accessToken}`,
     },
   });
