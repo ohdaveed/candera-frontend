@@ -60,7 +60,14 @@ async function fetchActiveEtsyListings() {
 
   _pendingFetch = (async () => {
     const etsyApiKey = resolveEtsyApiKey();
-
+    // If the resolved API key doesn't contain the shared secret and no
+    // ETSY_SHARED_SECRET is configured, warn early — some Etsy endpoints
+    // require the full `key:secret` in the `x-api-key` header.
+    if (!etsyApiKey.includes(":") && !ETSY_SHARED_SECRET) {
+      console.warn(
+        "[etsy-proxy] Warning: ETSY_SHARED_SECRET is missing — some Etsy endpoints require the shared secret in the x-api-key header. Set ETSY_KEYSTRING to 'key:secret' or provide ETSY_SHARED_SECRET.",
+      );
+    }
     if (!etsyApiKey || !ETSY_SHOP_ID) {
       throw new Error(
         "Etsy configuration missing: ensure ETSY_KEYSTRING (optionally ETSY_SHARED_SECRET) and ETSY_SHOP_ID are set in your environment.",
@@ -125,6 +132,12 @@ async function fetchActiveEtsyListings() {
 
       if (!response.ok) {
         const body = await response.text().catch(() => "");
+        // Detect common Etsy 403 message and provide actionable guidance
+        if (response.status === 403 && /Shared secret is required/i.test(body)) {
+          throw new Error(
+            `Etsy API 403: Shared secret required in x-api-key header. Ensure ETSY_KEYSTRING includes ":<secret>" or set ETSY_SHARED_SECRET in your environment. Response: ${body}`,
+          );
+        }
         throw new Error(`Etsy API request failed (${response.status}): ${body}`);
       }
 
