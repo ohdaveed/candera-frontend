@@ -41,3 +41,4 @@ Thumbs.db
 .cache_ggshield
 
 tina/__generated__
+.env*
