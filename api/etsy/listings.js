@@ -22,7 +22,12 @@ function resolveEtsyApiKey() {
 }
 
 function normalizeListing(listing) {
-  const image = listing?.Images?.[0] || listing?.images?.[0];
+  const image =
+    listing?.Images?.[0] ||
+    listing?.images?.[0] ||
+    listing?.image ||
+    listing?.primary_image ||
+    null;
   const price = listing?.price;
   const amount = Number(price?.amount ?? 0);
   const divisor = Number(price?.divisor ?? 100);
@@ -38,8 +43,9 @@ function normalizeListing(listing) {
       currency_code: price?.currency_code || "USD",
     },
     tags: Array.isArray(listing?.tags) ? listing.tags : [],
-    image_url: image?.url_570xN || image?.url_fullxfull || null,
-    url: listing?.url || null,
+    image_url:
+      image?.url_570xN || image?.url_fullxfull || image?.url_75x75 || image?.url_full || null,
+    url: listing?.url || listing?.listing_url || listing?.listing_url_full || null,
   };
 }
 
@@ -73,6 +79,36 @@ async function fetchActiveEtsyListings() {
       authHeaders.Authorization = `Bearer ${accessToken}`;
     }
 
+    // Helper: fetch with simple retry/backoff for transient errors (429 + network failures)
+    async function fetchWithRetries(resource, opts = {}) {
+      const maxAttempts = 3;
+      let attempt = 0;
+      let lastError = null;
+
+      while (attempt < maxAttempts) {
+        attempt += 1;
+        try {
+          const res = await fetch(resource, opts);
+
+          if (res.status === 429) {
+            const ra = res.headers.get("retry-after");
+            const waitMs = ra ? Number(ra) * 1000 : 1000 * attempt;
+            console.warn(`[etsy-proxy] rate limited (429), retrying after ${waitMs}ms`);
+            await new Promise((r) => setTimeout(r, waitMs));
+            continue;
+          }
+
+          return res;
+        } catch (err) {
+          lastError = err;
+          const backoff = 250 * Math.pow(2, attempt - 1);
+          await new Promise((r) => setTimeout(r, backoff));
+        }
+      }
+
+      throw lastError || new Error("Failed to fetch resource after retries");
+    }
+
     while (true) {
       const endpoint = new URL(
         `https://openapi.etsy.com/v3/application/shops/${ETSY_SHOP_ID}/listings/active`,
@@ -85,7 +121,7 @@ async function fetchActiveEtsyListings() {
       endpoint.searchParams.set("offset", String(offset));
       endpoint.searchParams.set("includes", "Images");
 
-      const response = await fetch(endpoint, { headers: authHeaders });
+      const response = await fetchWithRetries(endpoint, { headers: authHeaders });
 
       if (!response.ok) {
         const body = await response.text().catch(() => "");

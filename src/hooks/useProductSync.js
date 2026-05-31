@@ -114,7 +114,10 @@ export function toProductShape(listing, index) {
     name,
     vessel,
     price: toPrice(listing?.price),
-    tagline: listing?.tagline ?? fallbackTagline,
+    tagline:
+      listing?.tagline && String(listing.tagline).trim().length > 0
+        ? listing.tagline
+        : fallbackTagline,
     description,
     scent_profile,
     notes: tags.length > 0 ? tags : ["Botanical blend"],
