@@ -72,11 +72,11 @@ export default function ScentQuiz({ isOpen, onClose }) {
       }}
     >
       <DialogContent
-        className="bg-[#FDFBF7] p-8 md:p-12 max-w-xl sm:max-w-xl gap-0 border-stone-200"
+        className="bg-candera-vellum p-8 md:p-12 max-w-xl sm:max-w-xl gap-0 border-candera-stone/40"
         showCloseButton
       >
         {/* Progress bar */}
-        <div className="absolute top-0 left-0 w-full h-1 bg-stone-100">
+        <div className="absolute top-0 left-0 w-full h-1 bg-candera-ash">
           <div
             className="h-full bg-candera-ember transition-all duration-700 ease-in-out"
             style={{ width: `${progress}%` }}
@@ -100,9 +100,9 @@ export default function ScentQuiz({ isOpen, onClose }) {
                     <button
                       key={idx}
                       onClick={handleNext}
-                      className="text-left p-5 border border-stone-200 hover:border-candera-ember hover:bg-candera-ember/20 transition-all group flex justify-between items-center"
+                      className="text-left p-5 border border-candera-stone/40 hover:border-candera-ember hover:bg-candera-ember/10 transition-all group flex justify-between items-center"
                     >
-                      <span className="text-stone-700 font-light italic">{option}</span>
+                      <span className="text-candera-obsidian font-light italic">{option}</span>
                       <ChevronRight
                         size={16}
                         className="opacity-0 group-hover:opacity-100 transition-opacity text-candera-ember"
@@ -118,7 +118,7 @@ export default function ScentQuiz({ isOpen, onClose }) {
                   <DialogTitle className="text-3xl font-display leading-tight !text-center !normal-case">
                     Your Sensory Profile is Ready.
                   </DialogTitle>
-                  <p className="text-stone-500 font-light text-sm">
+                  <p className="text-candera-sage font-light text-sm">
                     Join the Inner Circle to unlock your matched scent and receive early access to
                     the next batch.
                   </p>
@@ -132,13 +132,13 @@ export default function ScentQuiz({ isOpen, onClose }) {
                     type="email"
                     required
                     placeholder="ritual@example.com"
-                    className="w-full bg-transparent border-b border-stone-300 py-3 text-center focus:border-stone-900 outline-none placeholder:text-stone-300 font-light"
+                    className="w-full bg-transparent border-b border-candera-stone py-3 text-center focus:border-candera-obsidian outline-none placeholder:text-candera-stone font-light"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                   />
                   <button
                     type="submit"
-                    className="w-full bg-stone-900 text-white py-4 uppercase tracking-widest text-[11px] font-bold hover:bg-candera-ember transition-colors"
+                    className="w-full bg-candera-obsidian text-candera-vellum py-4 uppercase tracking-widest text-[11px] font-bold hover:bg-candera-ember transition-colors"
                   >
                     Reveal My Match
                   </button>
@@ -153,13 +153,13 @@ export default function ScentQuiz({ isOpen, onClose }) {
               <DialogTitle className="text-3xl font-display !text-center !normal-case">
                 Welcome to the Inner Circle.
               </DialogTitle>
-              <p className="text-stone-500 font-light max-w-sm mx-auto">
+              <p className="text-candera-sage font-light max-w-sm mx-auto">
                 Check your inbox for your exclusive access code.
               </p>
             </Stack>
             <button
               onClick={onClose}
-              className="border-b-2 border-stone-900 pb-1 text-[11px] uppercase tracking-widest font-bold hover:text-candera-ember hover:border-candera-ember transition-colors"
+              className="border-b-2 border-candera-obsidian pb-1 text-[11px] uppercase tracking-widest font-bold hover:text-candera-ember hover:border-candera-ember transition-colors"
             >
               Explore the Collection
             </button>

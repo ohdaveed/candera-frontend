@@ -26,11 +26,11 @@ export default function Nav({ openQuiz }) {
   const transparent = isHome && !scrolled;
   const linkBase = `transition-colors text-[11px] uppercase tracking-[0.2em] font-semibold py-3`;
 
-  let linkColor = "text-stone-500 hover:text-stone-900";
+  let linkColor = "text-candera-sage hover:text-candera-obsidian";
   if (transparent) {
     linkColor = isNocturnal
       ? "text-candera-lavender/60 hover:text-candera-lavender"
-      : "text-stone-300 hover:text-white";
+      : "text-candera-vellum/70 hover:text-white";
   } else if (isNocturnal) {
     linkColor = "text-candera-lavender/80 hover:text-candera-lavender";
   }
@@ -39,9 +39,9 @@ export default function Nav({ openQuiz }) {
     ? "bg-transparent py-8"
     : isNocturnal
       ? "bg-candera-obsidian/95 border-b border-candera-lavender/10 py-4 shadow-2xl backdrop-blur-md"
-      : "bg-white/95 backdrop-blur-md py-4 shadow-sm border-b border-stone-100";
+      : "bg-candera-vellum/95 backdrop-blur-md py-4 shadow-sm border-b border-candera-stone/30";
 
-  const logoColor = transparent || isNocturnal ? "text-white" : "text-stone-900";
+  const logoColor = transparent || isNocturnal ? "text-white" : "text-candera-obsidian";
 
   return (
     <>
@@ -52,7 +52,7 @@ export default function Nav({ openQuiz }) {
             <NavLink
               to="/collection"
               className={({ isActive }) =>
-                `${linkBase} ${linkColor} ${isActive && !transparent ? (isNocturnal ? "text-candera-lavender! border-b border-candera-lavender pb-1" : "text-stone-900! border-b border-stone-900 pb-1") : ""}`
+                `${linkBase} ${linkColor} ${isActive && !transparent ? (isNocturnal ? "text-candera-lavender! border-b border-candera-lavender pb-1" : "text-candera-obsidian! border-b border-candera-obsidian pb-1") : ""}`
               }
             >
               Collection
@@ -60,7 +60,7 @@ export default function Nav({ openQuiz }) {
             <NavLink
               to="/about"
               className={({ isActive }) =>
-                `${linkBase} ${linkColor} ${isActive && !transparent ? (isNocturnal ? "text-candera-lavender! border-b border-candera-lavender pb-1" : "text-stone-900! border-b border-stone-900 pb-1") : ""}`
+                `${linkBase} ${linkColor} ${isActive && !transparent ? (isNocturnal ? "text-candera-lavender! border-b border-candera-lavender pb-1" : "text-candera-obsidian! border-b border-candera-obsidian pb-1") : ""}`
               }
             >
               The Craft
@@ -102,7 +102,7 @@ export default function Nav({ openQuiz }) {
             >
               <Link
                 to="/collection"
-                className={`${isNocturnal ? "bg-candera-lavender text-candera-obsidian" : "bg-stone-900 text-white"} text-[10px] px-6 py-3 uppercase tracking-widest hover:bg-candera-ember transition-colors font-bold`}
+                className={`${isNocturnal ? "bg-candera-lavender text-candera-obsidian" : "bg-candera-obsidian text-candera-vellum"} text-[10px] px-6 py-3 uppercase tracking-widest hover:bg-candera-ember transition-colors font-bold`}
               >
                 Shop The Batch
               </Link>
@@ -110,7 +110,7 @@ export default function Nav({ openQuiz }) {
             <Link
               to="/collection"
               aria-label="Shop the collection"
-              className={`relative p-3.5 ${transparent ? (isNocturnal ? "text-candera-lavender/60 hover:text-candera-lavender" : "text-stone-300 hover:text-white") : isNocturnal ? "text-candera-lavender/80 hover:text-candera-lavender" : "text-stone-500 hover:text-stone-900"} transition-colors`}
+              className={`relative p-3.5 ${transparent ? (isNocturnal ? "text-candera-lavender/60 hover:text-candera-lavender" : "text-candera-vellum/70 hover:text-white") : isNocturnal ? "text-candera-lavender/80 hover:text-candera-lavender" : "text-candera-sage hover:text-candera-obsidian"} transition-colors`}
             >
               <ShoppingBag size={20} strokeWidth={1.5} />
             </Link>
@@ -121,24 +121,24 @@ export default function Nav({ openQuiz }) {
       {/* Mobile fullscreen menu */}
       {mobileOpen && (
         <div
-          className={`fixed inset-0 z-[200] p-8 ${isNocturnal ? "bg-candera-obsidian" : "bg-white"}`}
+          className={`fixed inset-0 z-[200] p-8 ${isNocturnal ? "bg-candera-obsidian" : "bg-candera-vellum"}`}
         >
           <Cluster className="justify-between mb-16">
             <span
-              className={`font-display text-2xl font-bold tracking-tighter ${isNocturnal ? "text-candera-vellum" : "text-stone-900"}`}
+              className={`font-display text-2xl font-bold tracking-tighter ${isNocturnal ? "text-candera-vellum" : "text-candera-obsidian"}`}
             >
               CANDERA
             </span>
             <button
               onClick={() => setMobileOpen(false)}
               aria-label="Close menu"
-              className={isNocturnal ? "text-candera-vellum" : "text-stone-900"}
+              className={isNocturnal ? "text-candera-vellum" : "text-candera-obsidian"}
             >
               <X size={24} />
             </button>
           </Cluster>
           <nav
-            className={`flex flex-col gap-10 text-3xl font-display italic ${isNocturnal ? "text-candera-lavender" : "text-stone-800"}`}
+            className={`flex flex-col gap-10 text-3xl font-display italic ${isNocturnal ? "text-candera-lavender" : "text-candera-obsidian"}`}
           >
             <Link to="/collection" onClick={() => setMobileOpen(false)}>
               The Batch
