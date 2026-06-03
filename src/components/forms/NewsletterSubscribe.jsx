@@ -22,7 +22,7 @@ export function NewsletterSubscribe() {
 
   if (status === "success") {
     return (
-      <p role="status" className="text-xs text-stone-400">
+      <p role="status" className="text-xs text-candera-stone">
         You're on the list. Watch your inbox.
       </p>
     );
@@ -43,12 +43,12 @@ export function NewsletterSubscribe() {
           autoComplete="email"
           required
           placeholder="ritual@email.com"
-          className="min-h-12 flex-1 border-b border-stone-700 bg-transparent py-3 font-light italic text-stone-100 outline-none transition-colors placeholder:text-stone-600 focus:border-candera-ember"
+          className="min-h-12 flex-1 border-b border-candera-lavender/30 bg-transparent py-3 font-light italic text-candera-vellum outline-none transition-colors placeholder:text-candera-lavender/40 focus:border-candera-ember"
         />
         <button
           type="submit"
           disabled={status === "loading"}
-          className="min-h-12 bg-white px-8 py-4 text-[11px] font-bold uppercase tracking-widest text-stone-900 shadow-xl transition-colors hover:bg-candera-ember/10 disabled:opacity-50"
+          className="min-h-12 bg-candera-vellum px-8 py-4 text-[11px] font-bold uppercase tracking-widest text-candera-obsidian shadow-xl transition-colors hover:bg-candera-ember/10 disabled:opacity-50"
         >
           {status === "loading" ? "Requesting…" : "Request Entry"}
         </button>

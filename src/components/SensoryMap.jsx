@@ -89,7 +89,7 @@ export default function SensoryMap({ products = [] }) {
                 hovered === product.slug ? "bg-candera-obsidian" : "bg-candera-lavender"
               }`}
             />
-            <span className="text-xs text-candera-sage-text group-hover:text-candera-obsidian transition-colors">
+            <span className="text-xs text-candera-sage group-hover:text-candera-obsidian transition-colors">
               {product.name}
             </span>
           </Link>

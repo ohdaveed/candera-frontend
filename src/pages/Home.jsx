@@ -26,7 +26,7 @@ export default function Home({ openQuiz }) {
             className="h-full w-full scale-105 object-cover"
             style={{ filter: "brightness(0.62)" }}
           />
-          <Overlay className="bg-stone-950/30" />
+          <Overlay className="bg-candera-obsidian/30" />
         </Overlay>
 
         <Container className="relative z-10 max-w-5xl space-y-8 px-5 pt-24 text-center text-white sm:px-6 md:pt-28">
@@ -34,14 +34,14 @@ export default function Home({ openQuiz }) {
             initial={{ opacity: 0, y: -12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1 }}
-            className="block text-[11px] uppercase tracking-[0.32em] text-stone-300 sm:tracking-[0.48em] md:text-[12px]"
+            className="block text-[11px] uppercase tracking-[0.32em] text-candera-vellum/70 sm:tracking-[0.48em] md:text-[12px]"
           >
             {home.heroTag}
           </motion.span>
 
           <Stack className="gap-4">
             <h1 className="hero-heading font-display italic">{home.heroHeadline}</h1>
-            <p className="mx-auto max-w-xl text-sm font-light italic leading-7 tracking-wide text-stone-300 md:text-base">
+            <p className="mx-auto max-w-xl text-sm font-light italic leading-7 tracking-wide text-candera-vellum/70 md:text-base">
               {home.heroSubheading}
             </p>
           </Stack>
@@ -51,13 +51,13 @@ export default function Home({ openQuiz }) {
               onClick={() =>
                 document.getElementById("collection").scrollIntoView({ behavior: "smooth" })
               }
-              className="flex min-h-14 w-full items-center justify-center gap-3 bg-white px-8 py-4 text-[11px] font-bold uppercase tracking-[0.18em] text-stone-900 shadow-xl transition-all hover:bg-stone-100 sm:w-auto sm:px-10"
+              className="flex min-h-14 w-full items-center justify-center gap-3 bg-candera-vellum px-8 py-4 text-[11px] font-bold uppercase tracking-[0.18em] text-candera-obsidian shadow-xl transition-all hover:bg-candera-ash sm:w-auto sm:px-10"
             >
               Explore the Collection <ArrowRight size={14} />
             </button>
             <button
               onClick={openQuiz}
-              className="min-h-11 px-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-stone-200 transition-colors hover:text-white sm:border-b sm:border-stone-400"
+              className="min-h-11 px-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-candera-vellum/80 transition-colors hover:text-white sm:border-b sm:border-candera-stone/60"
             >
               Take the Scent Quiz
             </button>
@@ -66,7 +66,7 @@ export default function Home({ openQuiz }) {
       </header>
 
       {/* ── Collection ── */}
-      <Section id="collection" className="bg-white">
+      <Section id="collection" className="bg-candera-vellum">
         <Container>
           <Cluster className="mb-14 flex-col items-start justify-between gap-8 md:mb-16 md:flex-row md:items-end">
             <Stack className="max-w-2xl gap-4">
@@ -77,7 +77,7 @@ export default function Home({ openQuiz }) {
                 {home.collectionHeadline}
               </h2>
             </Stack>
-            <p className="max-w-md pb-1 text-sm font-light italic leading-7 text-stone-500 md:max-w-xs">
+            <p className="max-w-md pb-1 text-sm font-light italic leading-7 text-candera-sage md:max-w-xs">
               {home.collectionDescription}
             </p>
           </Cluster>
@@ -85,12 +85,12 @@ export default function Home({ openQuiz }) {
           {noActiveListings && (
             <div
               role="status"
-              className="mb-10 border border-stone-200 bg-stone-50 px-5 py-4 text-left"
+              className="mb-10 border border-candera-stone/40 bg-candera-ash px-5 py-4 text-left"
             >
               <p className="text-[10px] uppercase tracking-[0.25em] text-candera-ember font-bold mb-2">
                 Etsy is reachable
               </p>
-              <p className="text-sm text-stone-600 font-light leading-relaxed">
+              <p className="text-sm text-candera-obsidian/70 font-light leading-relaxed">
                 Etsy returned no active listings at the moment. The products shown here are our
                 curated fallback set so you can still explore the collection.
               </p>
@@ -98,7 +98,7 @@ export default function Home({ openQuiz }) {
           )}
 
           {catalogStatus === "loading" && (
-            <p role="status" className="mb-8 text-sm font-light italic text-stone-500">
+            <p role="status" className="mb-8 text-sm font-light italic text-candera-sage">
               Gathering the latest studio batch...
             </p>
           )}
@@ -108,7 +108,7 @@ export default function Home({ openQuiz }) {
       </Section>
 
       {/* ── Testimonials ── */}
-      <Section className="border-y border-stone-100 bg-stone-50">
+      <Section className="border-y border-candera-stone/30 bg-candera-ash">
         <Container className="space-y-12 text-center md:space-y-16">
           <span className="text-[10px] font-bold uppercase tracking-[0.28em] text-candera-ember">
             {home.testimonialsTag}
@@ -121,11 +121,11 @@ export default function Home({ openQuiz }) {
                     <Star key={j} size={14} fill="currentColor" />
                   ))}
                 </Cluster>
-                <p className="font-editorial text-lg italic leading-8 text-stone-600">
+                <p className="font-editorial text-lg italic leading-8 text-candera-sage">
                   "{t.quote}"
                 </p>
                 <Stack className="gap-1">
-                  <p className="text-[10px] uppercase tracking-widest font-bold text-stone-900">
+                  <p className="text-[10px] uppercase tracking-widest font-bold text-candera-obsidian">
                     — {t.author}, {t.location}
                   </p>
                   <Cluster className="justify-center gap-1 text-[8px] text-candera-ember font-bold uppercase tracking-[0.15em]">
@@ -140,7 +140,7 @@ export default function Home({ openQuiz }) {
       </Section>
 
       {/* ── Inner Circle CTA ── */}
-      <Section className="relative overflow-hidden bg-stone-900 py-24 text-stone-100 md:py-32">
+      <Section className="relative overflow-hidden bg-candera-obsidian py-24 text-candera-vellum md:py-32">
         <div className="absolute inset-y-0 right-0 w-1/3 opacity-10 pointer-events-none">
           <img
             src={getImage("crimson-noir")}
@@ -153,7 +153,7 @@ export default function Home({ openQuiz }) {
           <Mail className="mx-auto text-candera-ember/50" size={40} strokeWidth={1} />
           <Stack className="gap-4">
             <h2 className="font-display text-4xl italic md:text-6xl">{home.innerCircleHeadline}</h2>
-            <p className="mx-auto max-w-xl font-light leading-7 text-stone-400">
+            <p className="mx-auto max-w-xl font-light leading-7 text-candera-vellum/60">
               {home.innerCircleDescription}
             </p>
           </Stack>

@@ -54,7 +54,7 @@ export default function Collection() {
       {noActiveListings && (
         <div
           role="status"
-          className="mx-auto mb-10 max-w-7xl rounded-sm border border-candera-stone/60 bg-candera-vellum px-5 py-4"
+          className="mx-auto mb-10 max-w-7xl border border-candera-stone/60 bg-candera-ash px-5 py-4"
         >
           <p className="text-[11px] uppercase tracking-[0.2em] text-candera-sage mb-2">
             Etsy is connected
@@ -74,7 +74,7 @@ export default function Collection() {
 
       {filteredProducts.length === 0 ? (
         <Stack className="gap-4 py-24 text-center">
-          <p className="text-sm text-stone-500">No candles match this filter.</p>
+          <p className="text-sm text-candera-sage">No candles match this filter.</p>
           <button
             onClick={() => setActiveTag("all")}
             className="text-[10px] uppercase tracking-widest text-candera-ember border-b border-candera-ember pb-0.5 hover:text-candera-ember transition-colors"
@@ -120,7 +120,7 @@ export default function Collection() {
                   <h2 className="font-display text-xl leading-tight text-candera-obsidian transition-all group-hover:italic">
                     {candle.name}
                   </h2>
-                  <p className="flex-1 text-xs leading-6 text-stone-500">
+                  <p className="flex-1 text-xs leading-6 text-candera-sage">
                     {candle.notes.slice(0, 3).join(" · ")}
                   </p>
                   <Cluster className="items-end justify-between gap-4">
@@ -150,7 +150,7 @@ export default function Collection() {
             Explore the Collection
           </p>
           <h2 className="font-display text-3xl text-candera-obsidian">Sensory Map</h2>
-          <p className="mx-auto mt-3 max-w-sm text-sm text-stone-500">
+          <p className="mx-auto mt-3 max-w-sm text-sm text-candera-sage">
             Each vessel plotted by mood. Find where your senses lead.
           </p>
         </Stack>
