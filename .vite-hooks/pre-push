@@ -1,0 +1,13 @@
+#!/bin/sh
+# Local secret scan before push.
+#
+# WHY THIS FILE: this repo sets core.hooksPath so vite-plus/husky can install,
+# which takes precedence over the machine-global ~/.config/git/hooks and so
+# bypasses the global ggshield pre-push scan. Without this file nothing scanned
+# a push from here.
+#
+# Exits 0 when ggshield is absent so a contributor who has not installed it is
+# not blocked; --no-fail-on-server-error means a GitGuardian outage warns rather
+# than blocking every push. A real detection still exits non-zero.
+command -v ggshield >/dev/null 2>&1 || exit 0
+exec ggshield secret scan pre-push --no-fail-on-server-error "$@"
